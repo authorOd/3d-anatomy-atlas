@@ -6,6 +6,9 @@ page of the full atlas and separate packages for embedding the atlas in notes (M
 Laravel/Livewire). The library itself does not depend on Laravel, accounts, APIs or Svitylo
 servers; Svitylo is one of its consumers.
 
+**Demo:** [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas), the full atlas on
+Svitylo.
+
 > **Status: `1.0.1`.** The atlas and the note embeds are implemented and covered by tests. The
 > data is on the `preview` channel: the licence audit of the included models is pending, and no
 > anatomical review has been done (see [Open items](#open-items)).

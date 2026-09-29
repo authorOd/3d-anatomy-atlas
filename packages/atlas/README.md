@@ -3,6 +3,8 @@
 An interactive 3D atlas of human anatomy for the browser: the `<svitylo-anatomy>` web component and
 a headless Three.js (WebGL2) core. No dependencies on Svitylo servers, no telemetry.
 
+Demo: [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas).
+
 > The code is licensed under CPAL-1.0. The data release is on the `preview` channel: its licence
 > audit is not finished yet.
 
