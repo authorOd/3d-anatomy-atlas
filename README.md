@@ -63,6 +63,13 @@ servers; Svitylo is one of its consumers.
 
 ```sh
 pnpm add @authorod/svitylo-3d-anatomy-atlas     # the data package is installed automatically
+pnpm exec svitylo-anatomy export-assets public/anatomy-data
+```
+
+With npm:
+
+```sh
+npm install @authorod/svitylo-3d-anatomy-atlas
 npx svitylo-anatomy export-assets public/anatomy-data
 ```
 

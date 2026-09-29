@@ -18,7 +18,8 @@ changes the files of your project: the data is copied only by an explicit comman
 ## 2. Exporting the data to the site's public folder
 
 ```sh
-npx svitylo-anatomy export-assets public/anatomy-data
+pnpm exec svitylo-anatomy export-assets public/anatomy-data
+# with npm: npx svitylo-anatomy export-assets public/anatomy-data
 ```
 
 The command copies the installed release to `public/anatomy-data/<version>/`. It keeps the versioned
