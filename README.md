@@ -1,10 +1,17 @@
 # Svitylo 3D Anatomy Atlas
 
+[![npm](https://img.shields.io/npm/v/@authorod/svitylo-3d-anatomy-atlas?logo=npm)](https://www.npmjs.com/package/@authorod/svitylo-3d-anatomy-atlas)
+[![Packagist](https://img.shields.io/packagist/v/authorod/svitylo-anatomy-laravel?logo=packagist&logoColor=white)](https://packagist.org/packages/authorod/svitylo-anatomy-laravel)
+[![License: CPAL-1.0](https://img.shields.io/badge/license-CPAL--1.0-blue)](LICENSE.md)
+[![Demo](https://img.shields.io/badge/demo-svitylo.com-0051fe)](https://svitylo.com/3d-anatomy-atlas)
+
 An independent browser library for an interactive 3D atlas of human anatomy: the `<svitylo-anatomy>`
 HTML component, a headless Three.js (WebGL2) core, a versioned package of anatomical data, a demo
 page of the full atlas and separate packages for embedding the atlas in notes (Markdown,
 Laravel/Livewire). The library itself does not depend on Laravel, accounts, APIs or Svitylo
 servers; Svitylo is one of its consumers.
+
+[![The heart selected inside a translucent ribcage, with the structure tree on the left and the structure card on the right](docs/images/atlas-hero.png)](https://svitylo.com/3d-anatomy-atlas)
 
 **Demo:** [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas), the full atlas on
 Svitylo.
