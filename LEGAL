@@ -1,0 +1,5 @@
+Third-party licensing information
+
+Models, terminology and dictionaries retain their per-asset licences. See
+packages/data/LICENSES.md and packages/data/sources/licenses.json. Included
+assets still have pending audits; adopting CPAL for the code does not approve them.

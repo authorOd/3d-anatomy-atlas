@@ -1,0 +1,15 @@
+{
+  "$comment": "Mapping of Z-Anatomy system collections to atlas systems. loadPriority: lower loads first in 'load all' (the outer layer first). order: display order in the tree.",
+  "systems": [
+    { "collection": "9: Regions of human body", "id": "regions", "order": 0, "loadPriority": 0, "color": "#e2b095" },
+    { "collection": "4: Muscular system", "id": "muscular", "order": 1, "loadPriority": 1, "color": "#b54a40" },
+    { "collection": "1: Skeletal system", "id": "skeletal", "order": 2, "loadPriority": 2, "color": "#e6dcc2" },
+    { "collection": "3: Joints", "id": "joints", "order": 3, "loadPriority": 3, "color": "#d9c9a3" },
+    { "collection": "5: Cardiovascular system", "id": "cardiovascular", "order": 4, "loadPriority": 4, "color": "#c8322f" },
+    { "collection": "8: Visceral systems", "id": "visceral", "order": 5, "loadPriority": 5, "color": "#c47a68" },
+    { "collection": "7: Nervous system & Sense organs", "id": "nervous", "order": 6, "loadPriority": 6, "color": "#f0cf5a" },
+    { "collection": "6: Lymphoid organs", "id": "lymphoid", "order": 7, "loadPriority": 7, "color": "#97bf5a" },
+    { "collection": "2: Muscular insertions", "id": "insertions", "order": 8, "loadPriority": 8, "color": "#d65a5a", "hiddenByDefault": true,
+      "name": { "en": "Muscle attachments", "uk": "Місця прикріплення м'язів" } }
+  ]
+}

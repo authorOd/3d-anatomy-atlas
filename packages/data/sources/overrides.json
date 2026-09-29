@@ -1,0 +1,6 @@
+{
+  "$comment": "Structure flags that cannot be derived from the source hierarchy. 'optional': alternative decompositions that overlap other geometry; they are shown only when requested explicitly.",
+  "optional": [
+    { "system": "8: Visceral systems", "childrenOf": "Liver", "reason": "Liver segments I–VIII are an alternative decomposition overlapping the liver surface." }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$comment": "Pinned source snapshot. The pipeline never downloads a 'latest' version; every data release is rebuilt from exactly these inputs.",
+  "source": "Z-Anatomy",
+  "repository": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+  "revision": "e38ea5e6c7e22d229a975f3fde563a5aca52099e",
+  "revisionDate": "2026-09-24T22:33:43Z",
+  "files": {
+    "Z-Anatomy.zip": "e029688545627bd0214b269e1063143abb580aad72b2c2445d6d8a9a0d9da736",
+    "License.txt": "196b66b56551a862e59872f7cdb70e6d9a6ad84e9105962fca8ec28c14e97520",
+    "TA2.csv": "0f9092a328b27dcd15d696d9f9a4087deb229a1aad21b75876657622de835974"
+  },
+  "extracted": {
+    "Z-Anatomy/Startup.blend": "9f08a17ea0115fed80b2a73ecdf0a1bc2ab2f6956f37c593ce23d513ea35afcd"
+  },
+  "tools": {
+    "blender": "4.0.2",
+    "subsurfMax": 1,
+    "threads": 1
+  }
+}

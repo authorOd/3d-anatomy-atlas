@@ -1,0 +1,20 @@
+{
+  "$comment": "Technical checks of the import pipeline: scale (metres) and the anatomical orientation convention (+Y up, face towards +Z, patient's left at +X, origin between the heels on the floor). 'openings' and 'junctions' guard the declared geometry corrections (geometry-fixes.json) at both quality levels: openings that must stay closed, and seams (from the coverage report) that must stay within maxGap metres of both structures.",
+  "heightRange": [1.5, 2.1],
+  "orientation": [
+    { "front": "skeletal.body_of_sternum", "behind": "skeletal.vertebra_t6" },
+    { "front": "skeletal.frontal_bone", "behind": "skeletal.occipital_bone" },
+    { "left": "skeletal.calcaneus_l", "right": "skeletal.calcaneus_r" },
+    { "left": "skeletal.femur_l", "right": "skeletal.femur_r" },
+    { "above": "skeletal.frontal_bone", "below": "skeletal.calcaneus_l" }
+  ],
+  "openings": [
+    { "id": "visceral.stomach", "count": 2, "minRadius": 0.003 },
+    { "id": "visceral.mucosa_of_stomach", "count": 2, "minRadius": 0.003 }
+  ],
+  "junctions": [
+    { "fix": "oesophagus-cardia", "structures": ["visceral.oesophagus", "visceral.stomach"], "maxGap": 0.001 },
+    { "fix": "pharynx-oesophagus", "structures": ["visceral.laryngopharynx", "visceral.oesophagus"], "maxGap": 0.001 },
+    { "fix": "small-intestine-colon", "structures": ["visceral.jejunum", "visceral.ascending_colon"], "maxGap": 0.001 }
+  ]
+}

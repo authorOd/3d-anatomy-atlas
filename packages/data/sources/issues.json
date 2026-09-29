@@ -1,0 +1,41 @@
+{
+  "$comment": "Known issues of individual structures, shown in the info panel. Unreviewed data is not an issue by itself.",
+  "issues": [
+    {
+      "id": "liver-segments-overlap",
+      "kind": "geometry",
+      "targets": [["8: Visceral systems", "Liver"]],
+      "text": {
+        "uk": "Сегменти печінки в джерелі є окремою розбивкою, що перекриває загальну модель печінки; тому вони показуються лише за окремим вибором.",
+        "en": "The liver segments are a separate decomposition overlapping the liver surface; they are shown only when selected explicitly."
+      }
+    },
+    {
+      "id": "unnamed-coronary-vein",
+      "kind": "naming",
+      "targets": [["5: Cardiovascular system", "????????"]],
+      "text": {
+        "uk": "Назва цієї гілки коронарного синуса у джерелі пошкоджена («????????»); структура потребує ідентифікації.",
+        "en": "The source name of this coronary sinus tributary is corrupted (“????????”); the structure needs identification."
+      }
+    },
+    {
+      "id": "garbled-cardiac-vein-name",
+      "kind": "naming",
+      "targets": [["5: Cardiovascular system", "Inferior vein of left ventricle (//Posterior '')"]],
+      "text": {
+        "uk": "Назва у джерелі містить службові символи; ймовірно, це задня вена лівого шлуночка.",
+        "en": "The source name contains editing marks; it is probably the posterior vein of the left ventricle."
+      }
+    },
+    {
+      "id": "subdivision-level",
+      "kind": "geometry",
+      "targets": [["4: Muscular system", "Muscular system.g"]],
+      "text": {
+        "uk": "Частина м'язів у джерелі згладжується підрозбиттям; у цьому релізі рівень підрозбиття обмежено одиницею.",
+        "en": "Some source muscles rely on subdivision smoothing; this release caps subdivision at level 1."
+      }
+    }
+  ]
+}

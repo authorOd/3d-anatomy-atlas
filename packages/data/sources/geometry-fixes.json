@@ -1,0 +1,60 @@
+{
+  "$comment": "Declared corrections of the source geometry. The Blender export applies them (packages/tools/blender/geometry_fixes.py) and reports each one in export.json; the build lists them in the coverage report and shows each note in the details of its target structures' cards ('Corrected in this atlas', a resolved geometry issue); checks.json guards the results. 'near' points are Blender world coordinates of the source (metres, Z up, -Y front) and only select the opening to work on; lengths are in metres. 'targets' are [collection, object] references like in issues.json.",
+  "fixes": [
+    {
+      "id": "stomach-window",
+      "kind": "close-hole",
+      "object": "Stomach",
+      "near": [0.0602, -0.081, 1.1526],
+      "rings": 5,
+      "reason": "Z-Anatomy cuts a round teaching window (about 5 cm) into the anterior wall of the stomach; the mucosa is generated from the wall and has the same window. In the atlas it reads as a defect, and the mucosa can be seen with transparency or the surroundings level instead.",
+      "targets": [["8: Visceral systems", "Stomach"], ["8: Visceral systems", "Mucosa of stomach"]],
+      "note": {
+        "uk": "У вихідній моделі Z-Anatomy в передній стінці шлунка та в його слизовій вирізано кругле навчальне вікно близько 5 см. Тут його закрито латкою, що продовжує кривизну стінки.",
+        "en": "The Z-Anatomy model has a round teaching window of about 5 cm cut into the anterior wall of the stomach and its mucosa. It is closed here with a patch that continues the curvature of the wall."
+      }
+    },
+    {
+      "id": "oesophagus-cardia",
+      "kind": "join-tube-end",
+      "object": "Oesophagus",
+      "end": "last",
+      "target": { "object": "Stomach", "kind": "opening", "near": [0.011, -0.0172, 1.1991] },
+      "blendLength": 0.02,
+      "reason": "The oesophagus is a curve with a flat oval profile; its lower end is 3 mm off the round cardiac opening of the stomach and turned by 25°, leaving a gap of up to 5 mm.",
+      "targets": [["8: Visceral systems", "Oesophagus"]],
+      "note": {
+        "uk": "У вихідній моделі нижній кінець стравоходу не прилягав до кардіального отвору шлунка (щілина до 5 мм). Останні 2 см стравоходу плавно підведено до отвору.",
+        "en": "In the source model the lower end of the oesophagus did not meet the cardiac opening of the stomach (a gap of up to 5 mm). The last 2 cm of the oesophagus are blended into the opening."
+      }
+    },
+    {
+      "id": "pharynx-oesophagus",
+      "kind": "seal-opening",
+      "object": "Laryngopharynx",
+      "near": [0.0, -0.0081, 1.4639],
+      "onto": "Oesophagus",
+      "falloff": 0.045,
+      "reason": "The lower opening of the laryngopharynx is oblique: its posterior edge is at the upper end of the oesophagus, while its anterior part reaches down to the lower border of the cricoid cartilage 13 mm in front of the oesophagus, leaving the opening uncovered.",
+      "targets": [["8: Visceral systems", "Laryngopharynx"]],
+      "note": {
+        "uk": "У вихідній моделі нижній край гортанної частини глотки не прилягав до стравоходу (щілина до 13 мм). Край плавно підведено до поверхні стравоходу.",
+        "en": "In the source model the lower edge of the laryngopharynx did not meet the oesophagus (a gap of up to 13 mm). The edge is laid onto the surface of the oesophagus."
+      }
+    },
+    {
+      "id": "small-intestine-colon",
+      "kind": "join-tube-end",
+      "object": "Jejunum",
+      "end": "first",
+      "target": { "object": "Ascending colon", "kind": "surface", "maxDistance": 0.03 },
+      "blendLength": 0.025,
+      "reason": "The small intestine is one curve in the source; its lower end stops short of the wall of the ascending colon, leaving a gap of up to 10 mm.",
+      "targets": [["8: Visceral systems", "Jejunum"]],
+      "note": {
+        "uk": "У вихідній моделі нижній кінець тонкої кишки не доходив до стінки висхідної ободової кишки (щілина до 10 мм). Його плавно підведено до стінки.",
+        "en": "In the source model the lower end of the small intestine stopped short of the wall of the ascending colon (a gap of up to 10 mm). It is blended onto the wall."
+      }
+    }
+  ]
+}

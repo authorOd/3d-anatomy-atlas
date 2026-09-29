@@ -1,0 +1,58 @@
+{
+  "name": "@authorod/svitylo-anatomy-markdown",
+  "version": "1.0.0",
+  "description": "Svitylo 3D Anatomy Atlas embeds in Markdown notes: the ```anatomy block, atlas share links, a markdown-it plugin and HTML/DOM helpers.",
+  "keywords": [
+    "anatomy",
+    "markdown",
+    "markdown-it",
+    "embed",
+    "svitylo"
+  ],
+  "type": "module",
+  "license": "CPAL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/authorOd/3d-anatomy-atlas.git",
+    "directory": "packages/markdown"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./markdown-it": {
+      "source": "./src/markdown-it.ts",
+      "types": "./dist/types/markdown-it.d.ts",
+      "import": "./dist/markdown-it.js"
+    },
+    "./fixtures/blocks.json": "./fixtures/blocks.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "fixtures",
+    "README.md",
+    "LICENSE.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "markdown-it": "^14.0.0 || ^15.0.0"
+  },
+  "peerDependenciesMeta": {
+    "markdown-it": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "markdown-it": "^14.1.0"
+  }
+}

@@ -1,0 +1,25 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+# IDE project files
+.idea/
+/test-results/
+/playwright-report/
+/blob-report/
+.vite/
+# Pipeline working directories (large source snapshot, Blender output)
+/.work/
+packages/tools/.work/
+# Assets exported into the demo site by the export command
+apps/demo/public/anatomy-data/
+
+# Composer dependencies of the Laravel package
+packages/laravel/vendor/
+packages/laravel/composer.lock
+packages/laravel/.phpunit.cache/
+packages/laravel/workbench/dist/
+
+# Python bytecode of the Blender scripts
+__pycache__/

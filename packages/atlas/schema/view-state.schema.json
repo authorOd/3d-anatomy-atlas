@@ -1,0 +1,178 @@
+{
+  "title": "Svitylo 3D Anatomy Atlas — shareable view state (v 2)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "v": {
+      "type": "number",
+      "const": 2
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{12,64}$"
+        }
+      },
+      "required": [
+        "model",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "scene": {
+      "maxItems": 4000,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 161,
+        "pattern": "^=?[a-z][a-z0-9_]*(?:\\.[a-z0-9][a-z0-9_]*)*$"
+      }
+    },
+    "hidden": {
+      "maxItems": 4000,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 161,
+        "pattern": "^=?[a-z][a-z0-9_]*(?:\\.[a-z0-9][a-z0-9_]*)*$"
+      }
+    },
+    "isolate": {
+      "maxItems": 4000,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 161,
+        "pattern": "^=?[a-z][a-z0-9_]*(?:\\.[a-z0-9][a-z0-9_]*)*$"
+      }
+    },
+    "selected": {
+      "maxItems": 4000,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160,
+        "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z0-9][a-z0-9_]*)*$"
+      }
+    },
+    "camera": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "target": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            },
+            {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "fov": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "position",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "lang": {
+      "type": "string",
+      "enum": [
+        "uk",
+        "la",
+        "en"
+      ]
+    },
+    "latin": {
+      "type": "boolean"
+    },
+    "surroundings": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "extra": {
+          "maxItems": 4000,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 161,
+            "pattern": "^=?[a-z][a-z0-9_]*(?:\\.[a-z0-9][a-z0-9_]*)*$"
+          }
+        },
+        "transparency": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 0.95
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "v",
+    "data",
+    "scene"
+  ],
+  "additionalProperties": false
+}

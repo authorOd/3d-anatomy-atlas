@@ -1,0 +1,51 @@
+{
+    "name": "authorod/svitylo-anatomy-laravel",
+    "description": "Laravel and Livewire integration of the Svitylo 3D Anatomy Atlas: Blade components, ```anatomy embeds for league/commonmark and stored HTML, Symfony HtmlSanitizer rules and Livewire commands/events.",
+    "keywords": ["anatomy", "3d", "atlas", "laravel", "livewire", "commonmark", "markdown", "svitylo"],
+    "type": "library",
+    "license": "CPAL-1.0",
+    "homepage": "https://github.com/authorOd/3d-anatomy-atlas",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0 || ^12.0 || ^13.0",
+        "illuminate/view": "^11.0 || ^12.0 || ^13.0",
+        "league/commonmark": "^2.6"
+    },
+    "require-dev": {
+        "livewire/livewire": "^4.0",
+        "orchestra/testbench": "^9.0 || ^10.0 || ^11.0",
+        "phpunit/phpunit": "^11.5 || ^12.0",
+        "symfony/html-sanitizer": "^7.1 || ^8.0"
+    },
+    "suggest": {
+        "livewire/livewire": "Commands to the atlas and its events in Livewire components (^4.0)",
+        "symfony/html-sanitizer": "Sanitize notes before turning ```anatomy blocks into embeds"
+    },
+    "autoload": {
+        "psr-4": {
+            "Authorod\\SvityloAnatomy\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Authorod\\SvityloAnatomy\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Authorod\\SvityloAnatomy\\SvityloAnatomyServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "serve": "@php vendor/bin/testbench serve"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

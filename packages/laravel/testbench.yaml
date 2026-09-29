@@ -1,0 +1,16 @@
+laravel: '@testbench'
+
+providers:
+  - Livewire\LivewireServiceProvider
+  - Authorod\SvityloAnatomy\SvityloAnatomyServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
+
+env:
+  - APP_KEY=base64:gmVfkESu/ph8UPNo8qM9q1lY7YBtG1q/n0pSLagDaWo=
+  - APP_DEBUG=true
+  - SESSION_DRIVER=file
+  - CACHE_STORE=file
+
+workbench:
+  start: '/note'
+  install: false

@@ -1,0 +1,261 @@
+{
+  "$comment": "Licence and provenance registry. Every structure with geometry points to exactly one asset record. Rules are applied in order; the last matching rule wins. Assets with commercialUse other than 'allowed' are never included: matching structures stay in the hierarchy as declared gaps without geometry. Audit statuses are changed only by a person, with reviewer and date. Rule selectors: names (exact objects), subtreeOf (objects and everything parented below them), underGroup (objects below a group label).",
+  "defaultAsset": "z-anatomy",
+  "assets": [
+    {
+      "id": "z-anatomy",
+      "title": "Z-Anatomy — The libre 3D atlas of anatomy (models derived from BodyParts3D)",
+      "authors": [
+        "Gauthier Kervyn (Z-Anatomy: design, 3D, anatomy)",
+        "Marcin Zielinski (Z-Anatomy Blender add-on)",
+        "Kousaku Okubo (original BodyParts3D model)",
+        "The Database Center for Life Science (BodyParts3D)"
+      ],
+      "source": {
+        "name": "Z-Anatomy/Models-of-human-anatomy (Z-Anatomy.zip → Startup.blend)",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e; Startup.blend dated 2023-05-02",
+        "date": "2026-09-24"
+      },
+      "license": {
+        "id": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "changes": "Modifiers evaluated in Blender (subdivision capped at level 1) and curves converted to their bevelled surfaces; declared geometry corrections (sources/geometry-fixes.json, listed in the coverage report and noted in the structure cards): the teaching window in the anterior wall of the stomach and its mucosa closed with a patch that continues the wall, the lower end of the oesophagus blended into the cardiac opening, the lower edge of the laryngopharynx laid onto the oesophagus, and the lower end of the small intestine blended onto the ascending colon; converted to +Y up, metres, origin on the floor between the heels; each structure simplified into two quality levels with meshoptimizer; merged into region chunks with quantisation and EXT_meshopt_compression; hierarchy and names moved into the manifest and dictionaries; display colours assigned by material name.",
+      "attribution": "“Z-Anatomy — The libre 3D atlas of anatomy”, CC BY-SA 4.0, based on “BodyParts3D, © The Database Center for Life Science”, CC BY-SA 2.1 Japan. Adapted for Svitylo 3D Anatomy Atlas.",
+      "permissionBasis": "License.txt of the pinned snapshot (sha256 196b66b5…) states that all Z-Anatomy code and content is licensed under CC BY-SA 4.0 and requires the BodyParts3D attribution (CC BY-SA 2.1 JP, which allows adaptations under later versions such as 4.0). Both licences allow commercial use with attribution and share-alike. Third-party models named in the snapshot are handled by separate records below.",
+      "commercialUse": "allowed",
+      "audit": {
+        "status": "pending",
+        "notes": "Release checkpoint: confirm the snapshot licence statement and the per-asset provenance of included meshes."
+      }
+    },
+    {
+      "id": "z-anatomy-dundee-cranial-nerves",
+      "title": "Cranial nerves — Z-Anatomy, adapted in part from “Cranial Nerves and Foramina” (University of Dundee, CAHID)",
+      "authors": [
+        "Gauthier Kervyn (Z-Anatomy)",
+        "Centre for Anatomy and Human Identification, University of Dundee"
+      ],
+      "source": {
+        "name": "Z-Anatomy/Models-of-human-anatomy (Startup.blend, group “Cranial nerves”)",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e",
+        "date": "2026-09-24"
+      },
+      "license": {
+        "id": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International (adapted material: CC BY 4.0)",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "changes": "As for the main Z-Anatomy record.",
+      "attribution": "“Z-Anatomy — The libre 3D atlas of anatomy”, CC BY-SA 4.0; may include material adapted from “Cranial Nerves and Foramina” by the University of Dundee, CAHID, CC BY 4.0. Adapted for Svitylo 3D Anatomy Atlas.",
+      "permissionBasis": "The snapshot Readme lists “Cranial Nerves and Foramina - by University of Dundee, CAHID - CC-BY 4.0” among models used as reference or adapted. CC BY 4.0 allows commercial use with attribution; the attribution is kept for the whole cranial nerve group because per-mesh provenance is not recorded in the snapshot.",
+      "commercialUse": "allowed",
+      "audit": {
+        "status": "pending"
+      }
+    },
+    {
+      "id": "dundee-inner-ear",
+      "title": "Anatomy of the Inner Ear — University of Dundee School of Medicine",
+      "authors": [
+        "University of Dundee School of Medicine"
+      ],
+      "source": {
+        "name": "Named in the Z-Anatomy snapshot Readme",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e"
+      },
+      "license": {
+        "id": "CC-BY-NC-SA-4.0",
+        "name": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+      },
+      "changes": "Not included.",
+      "attribution": "Not included in this release.",
+      "permissionBasis": "The snapshot Readme names this NC model as used or adapted. The snapshot does not record which inner ear meshes derive from it, so the inner ear group (cochlea, vestibule) is blocked until its provenance is verified or the geometry is replaced.",
+      "commercialUse": "not-allowed",
+      "audit": {
+        "status": "pending",
+        "notes": "Verify whether the Z-Anatomy cochlea/vestibule meshes derive from this model."
+      }
+    },
+    {
+      "id": "cowley-kidney",
+      "title": "Kidney — Lissie Cowley",
+      "authors": [
+        "Lissie Cowley"
+      ],
+      "source": {
+        "name": "Named in the Z-Anatomy snapshot Readme",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e"
+      },
+      "license": {
+        "id": "CC-BY-NC-4.0",
+        "name": "Creative Commons Attribution-NonCommercial 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+      },
+      "changes": "Not included.",
+      "attribution": "Not included in this release.",
+      "permissionBasis": "The snapshot Readme names this NC model. The left and right kidney and renal pelvis meshes are not mirror copies and their provenance is not recorded, so exactly these four meshes are blocked; other urinary organs are not affected.",
+      "commercialUse": "not-allowed",
+      "audit": {
+        "status": "pending",
+        "notes": "Verify the provenance of Kidney.l/.r and Renal pelvis.l/.r in the snapshot."
+      }
+    },
+    {
+      "id": "brainder-cortex",
+      "title": "Cerebral cortex surfaces — “Brainder” (FreeSurfer surfaces with Destrieux parcellation)",
+      "authors": [
+        "Brainder.org",
+        "FreeSurfer / Destrieux atlas authors"
+      ],
+      "source": {
+        "name": "Named in the Z-Anatomy snapshot Readme",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e"
+      },
+      "license": {
+        "id": "LicenseRef-unverified",
+        "name": "Not verified",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy/blob/master/License.txt"
+      },
+      "changes": "Not included.",
+      "attribution": "Not included in this release.",
+      "permissionBasis": "The snapshot Readme names “Brainder” as used or adapted without stating its licence. Cortex meshes of the telencephalon lobes carry Destrieux atlas labels (e.g. “Lat_Fis-ant-Horizont”), which indicates this origin. Blocked until the licence of the original material is confirmed.",
+      "commercialUse": "unknown",
+      "audit": {
+        "status": "pending",
+        "notes": "Confirm the licence of the Brainder material and of the underlying FreeSurfer surfaces."
+      }
+    },
+    {
+      "id": "uw-white-matter",
+      "title": "White matter models — University of Washington",
+      "authors": [
+        "University of Washington"
+      ],
+      "source": {
+        "name": "Named in the Z-Anatomy snapshot Readme",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e"
+      },
+      "license": {
+        "id": "LicenseRef-unverified",
+        "name": "Not verified",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy/blob/master/License.txt"
+      },
+      "changes": "Not included.",
+      "attribution": "Not included in this release.",
+      "permissionBasis": "The snapshot Readme names “White matter” from the University of Washington as used or adapted without a licence. The white matter group and the white matter of the telencephalon are blocked until the licence is confirmed.",
+      "commercialUse": "unknown",
+      "audit": {
+        "status": "pending"
+      }
+    },
+    {
+      "id": "z-anatomy-terms",
+      "title": "Latin and English structure names — Z-Anatomy object names and TA2.csv",
+      "authors": [
+        "Z-Anatomy contributors",
+        "Federative International Programme for Anatomical Terminology (FIPAT), Terminologia Anatomica 2"
+      ],
+      "source": {
+        "name": "Z-Anatomy object names and TA2.csv of the pinned snapshot",
+        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e; TA2.csv sha256 0f9092a3…",
+        "date": "2026-09-24"
+      },
+      "license": {
+        "id": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International (as stated by the snapshot)",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "changes": "English names taken from object names (side suffixes moved to a separate field); Latin names matched to English names through TA2.csv; no names were generated.",
+      "attribution": "Structure names from “Z-Anatomy — The libre 3D atlas of anatomy” (CC BY-SA 4.0), including its TA2.csv term list based on Terminologia Anatomica 2 (FIPAT).",
+      "permissionBasis": "Distributed in the snapshot under its CC BY-SA 4.0 statement. The provenance of the TA2.csv list with respect to FIPAT publication terms is part of the release audit.",
+      "commercialUse": "allowed",
+      "audit": {
+        "status": "pending",
+        "notes": "Confirm FIPAT TA2 terms of use for the Latin/English term list."
+      }
+    },
+    {
+      "id": "atlas-uk-drafts",
+      "title": "Ukrainian name drafts (unreviewed; partly machine-assisted)",
+      "authors": [
+        "Svitylo 3D Anatomy Atlas contributors"
+      ],
+      "source": {
+        "name": "packages/data/sources/terms/uk.draft.json and uk.machine.json",
+        "url": "https://github.com/authorOd/3d-anatomy-atlas",
+        "version": "see data release version"
+      },
+      "license": {
+        "id": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "changes": "Written for this atlas: editors' drafts (uk.draft.json) and machine-assisted drafts (uk.machine.json, prepared with an AI language model from the English and Latin names and checked automatically for format only); names of muscle attachment patches are composed from the muscle name and the kind of attachment. Every entry is an unreviewed draft and is marked as a draft in the atlas.",
+      "attribution": "Ukrainian name drafts: Svitylo 3D Anatomy Atlas contributors, CC BY-SA 4.0.",
+      "permissionBasis": "Own work of the project, published with the data under the same licence as the geometry it describes.",
+      "commercialUse": "allowed",
+      "audit": {
+        "status": "pending",
+        "notes": "Machine-assisted entries need a review by a person before the release channel."
+      }
+    }
+  ],
+  "rules": [
+    {
+      "asset": "z-anatomy-dundee-cranial-nerves",
+      "system": "7: Nervous system & Sense organs",
+      "underGroup": "Cranial nerves.g"
+    },
+    {
+      "asset": "dundee-inner-ear",
+      "system": "7: Nervous system & Sense organs",
+      "underGroup": "Internal ear.g"
+    },
+    {
+      "asset": "cowley-kidney",
+      "system": "8: Visceral systems",
+      "names": [
+        "Kidney.l",
+        "Kidney.r",
+        "Renal pelvis.l",
+        "Renal pelvis.r"
+      ]
+    },
+    {
+      "asset": "brainder-cortex",
+      "system": "7: Nervous system & Sense organs",
+      "underGroup": [
+        "Frontal lobe.g",
+        "Parietal lobe.g",
+        "Temporal lobe.g",
+        "Occipital lobe.g",
+        "Limbic lobe.g",
+        "Insula.g",
+        "Interlobar sulci.g"
+      ]
+    },
+    {
+      "asset": "uw-white-matter",
+      "system": "7: Nervous system & Sense organs",
+      "underGroup": "White matter.g"
+    },
+    {
+      "asset": "uw-white-matter",
+      "system": "7: Nervous system & Sense organs",
+      "subtreeOf": [
+        "White matter of telencephalon.l",
+        "White matter of telencephalon.r"
+      ]
+    }
+  ]
+}

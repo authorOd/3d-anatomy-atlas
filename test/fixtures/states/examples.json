@@ -1,0 +1,153 @@
+[
+  {
+    "name": "v1: left ventricle in translucent surroundings, level 2 (fixture 1.0.0)",
+    "state": {
+      "v": 1,
+      "data": {
+        "model": "fixture",
+        "version": "1.0.0"
+      },
+      "scene": [
+        "cardiovascular.heart.left_ventricle"
+      ],
+      "selected": [
+        "cardiovascular.heart.left_ventricle"
+      ],
+      "surroundings": {
+        "anchor": "cardiovascular.heart.left_ventricle",
+        "level": 2,
+        "extra": [
+          "skeletal.sternum"
+        ]
+      },
+      "camera": {
+        "position": [
+          0.01,
+          1.28,
+          0.69
+        ],
+        "target": [
+          0.01,
+          1.28,
+          0.04
+        ],
+        "fov": 35
+      },
+      "lang": "uk"
+    }
+  },
+  {
+    "name": "v1: whole body, skin hidden, left lung partly hidden",
+    "state": {
+      "v": 1,
+      "data": {
+        "model": "fixture",
+        "version": "1.0.0",
+        "hash": "0123456789abcdef"
+      },
+      "scene": [
+        "integument",
+        "skeletal",
+        "cardiovascular",
+        "respiratory",
+        "nervous"
+      ],
+      "hidden": [
+        "integument",
+        "=respiratory.lung_l"
+      ],
+      "camera": {
+        "position": [
+          0,
+          1,
+          3
+        ],
+        "target": [
+          0,
+          1,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "name": "v1: isolation of the lungs with a renamed (aliased) ID",
+    "state": {
+      "v": 1,
+      "data": {
+        "model": "fixture",
+        "version": "1.0.0"
+      },
+      "scene": [
+        "respiratory",
+        "cardiovascular.cor"
+      ],
+      "isolate": [
+        "respiratory"
+      ],
+      "selected": [
+        "respiratory.lung_r"
+      ]
+    }
+  },
+  {
+    "name": "v2: left ventricle with its surroundings level 1 (the heart), transparency 60 % (fixture 1.0.0)",
+    "state": {
+      "v": 2,
+      "data": {
+        "model": "fixture",
+        "version": "1.0.0"
+      },
+      "scene": [
+        "cardiovascular.heart.left_ventricle"
+      ],
+      "selected": [
+        "cardiovascular.heart.left_ventricle"
+      ],
+      "surroundings": {
+        "level": 1,
+        "transparency": 0.6
+      },
+      "camera": {
+        "position": [
+          0.01,
+          1.28,
+          0.69
+        ],
+        "target": [
+          0.01,
+          1.28,
+          0.04
+        ],
+        "fov": 35
+      },
+      "lang": "uk"
+    }
+  },
+  {
+    "name": "v2: whole body placed, the heart alone (level 0) with the sternum shown by the eye",
+    "state": {
+      "v": 2,
+      "data": {
+        "model": "fixture",
+        "version": "1.0.0"
+      },
+      "scene": [
+        "integument",
+        "skeletal",
+        "cardiovascular",
+        "respiratory",
+        "nervous"
+      ],
+      "selected": [
+        "cardiovascular.heart"
+      ],
+      "surroundings": {
+        "level": 0,
+        "extra": [
+          "skeletal.sternum"
+        ]
+      }
+    }
+  }
+]

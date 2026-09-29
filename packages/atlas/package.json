@@ -1,0 +1,77 @@
+{
+  "name": "@authorod/svitylo-3d-anatomy-atlas",
+  "version": "1.0.0",
+  "description": "Interactive 3D human anatomy atlas for the browser: <svitylo-anatomy> web component and a headless Three.js core.",
+  "keywords": [
+    "anatomy",
+    "3d",
+    "atlas",
+    "web-component",
+    "three",
+    "lit",
+    "webgl2"
+  ],
+  "type": "module",
+  "license": "CPAL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/authorOd/3d-anatomy-atlas.git",
+    "directory": "packages/atlas"
+  },
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/strict-csp.js",
+    "./src/index.ts",
+    "./src/strict-csp.ts"
+  ],
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./core": {
+      "source": "./src/core/index.ts",
+      "types": "./dist/types/core/index.d.ts",
+      "import": "./dist/core.js"
+    },
+    "./schema": {
+      "source": "./src/schema/index.ts",
+      "types": "./dist/types/schema/index.d.ts",
+      "import": "./dist/schema.js"
+    },
+    "./strict-csp": {
+      "source": "./src/strict-csp.ts",
+      "types": "./dist/types/strict-csp.d.ts",
+      "import": "./dist/strict-csp.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "svitylo-anatomy": "./bin/svitylo-anatomy.mjs"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "src",
+    "assets",
+    "schema",
+    "README.md",
+    "LICENSE.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@authorod/svitylo-3d-anatomy-data": "workspace:*",
+    "lit": "^3.3.3",
+    "three": "^0.186.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0",
+    "vite": "^8.3.1"
+  }
+}

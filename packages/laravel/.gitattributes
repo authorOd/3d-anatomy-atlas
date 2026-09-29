@@ -1,0 +1,7 @@
+# Not part of the Composer package (dist archives).
+/tests export-ignore
+/workbench export-ignore
+/phpunit.xml.dist export-ignore
+/testbench.yaml export-ignore
+/.gitattributes export-ignore
+/tsconfig.json export-ignore

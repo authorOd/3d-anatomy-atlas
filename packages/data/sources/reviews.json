@@ -1,0 +1,9 @@
+{
+  "$comment": "Human review records, keyed by stable structure ID. Only a person edits this file. 'reviewed' requires reviewer, date (YYYY-MM-DD) and scope; 'needs-correction' requires notes. names.<lang>.<id> confirms or corrects a name (a confirmed Ukrainian draft becomes a reviewed editorial name and is then shown in the atlas). See docs/data-pipeline.md.",
+  "structures": {},
+  "names": {
+    "uk": {},
+    "la": {},
+    "en": {}
+  }
+}

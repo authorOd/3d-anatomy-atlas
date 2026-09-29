@@ -1,0 +1,115 @@
+{
+  "model": "fixture",
+  "version": "1.1.0",
+  "channel": "fixture",
+  "systems": [
+    {
+      "id": "integument",
+      "structures": 4,
+      "withGeometry": 2,
+      "gaps": 0,
+      "trianglesStandard": 3504,
+      "trianglesEconomy": 420
+    },
+    {
+      "id": "skeletal",
+      "structures": 10,
+      "withGeometry": 9,
+      "gaps": 0,
+      "trianglesStandard": 1984,
+      "trianglesEconomy": 452
+    },
+    {
+      "id": "cardiovascular",
+      "structures": 7,
+      "withGeometry": 4,
+      "gaps": 1,
+      "trianglesStandard": 1552,
+      "trianglesEconomy": 328
+    },
+    {
+      "id": "respiratory",
+      "structures": 4,
+      "withGeometry": 3,
+      "gaps": 0,
+      "trianglesStandard": 2648,
+      "trianglesEconomy": 360
+    },
+    {
+      "id": "nervous",
+      "structures": 3,
+      "withGeometry": 1,
+      "gaps": 1,
+      "trianglesStandard": 884,
+      "trianglesEconomy": 140
+    }
+  ],
+  "totals": {
+    "structures": 28,
+    "withGeometry": 19,
+    "gaps": 2,
+    "groupsWithoutGeometry": 1,
+    "chunks": 11,
+    "triangles": {
+      "standard": 10572,
+      "economy": 1700
+    },
+    "bytes": {
+      "standard": 235516,
+      "economy": 72340,
+      "metadata": 10725
+    }
+  },
+  "names": {
+    "uk": {
+      "present": 21,
+      "reviewed": 16,
+      "drafts": 5,
+      "machine": 0,
+      "missing": 7
+    },
+    "la": {
+      "present": 27,
+      "reviewed": 0,
+      "drafts": 0,
+      "machine": 0,
+      "missing": 1
+    },
+    "en": {
+      "present": 28,
+      "reviewed": 0,
+      "drafts": 0,
+      "machine": 0,
+      "missing": 0
+    }
+  },
+  "review": {
+    "anatomyReviewed": 1,
+    "anatomyUnreviewed": 27,
+    "needsCorrection": 0
+  },
+  "gaps": [
+    {
+      "id": "cardiovascular.heart.valves",
+      "reason": "licence",
+      "asset": "fixture-blocked"
+    },
+    {
+      "id": "nervous.cortex",
+      "reason": "licence",
+      "asset": "fixture-blocked"
+    }
+  ],
+  "excludedAssets": [
+    {
+      "id": "fixture-blocked",
+      "title": "Blocked example asset (non-commercial)",
+      "license": "CC-BY-NC-4.0",
+      "reason": "Non-commercial terms: blocked from the standard set (tests the declared-gap path)."
+    }
+  ],
+  "excludedSource": [],
+  "notes": [
+    "Synthetic fixture for automated tests."
+  ]
+}

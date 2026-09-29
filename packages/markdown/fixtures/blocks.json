@@ -1,0 +1,97 @@
+{
+  "$comment": "Shared by the JS (markdown-it, DOM) and PHP (CommonMark, HTML transform) implementations. Each case: text of an ```anatomy block -> parsed spec (or errors) -> exact embed HTML with the options below.",
+  "options": {
+    "dataUrl": "/anatomy-data/1.0.0/",
+    "shareUrls": ["https://svitylo.com/atlas"]
+  },
+  "cases": [
+    {
+      "name": "structure with surroundings, view, label and caption",
+      "block": "structure: cardiovascular.heart\nsurroundings: 2\nview: anterior\nlabel: Серце\ncaption: Серце в оточенні",
+      "spec": { "structure": "cardiovascular.heart", "surroundings": 2, "view": "anterior", "label": "Серце", "caption": "Серце в оточенні" },
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" structure=\"cardiovascular.heart\" surroundings=\"2\" view=\"anterior\" label=\"Серце\"></svitylo-anatomy><figcaption>Серце в оточенні</figcaption></figure>"
+    },
+    {
+      "name": "system, height, language and Latin alongside",
+      "block": "system: skeletal\nheight: 360\nlang: uk\nlatin: yes",
+      "spec": { "system": "skeletal", "height": 360, "lang": "uk", "latin": true },
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" system=\"skeletal\" height=\"360\" lang=\"uk\" latin></svitylo-anatomy></figure>"
+    },
+    {
+      "name": "exact view from a share link",
+      "block": "link: https://svitylo.com/atlas#s=z1.eJx-abc_09\nlabel: Вигляд",
+      "spec": { "state": "z1.eJx-abc_09", "label": "Вигляд" },
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" state=\"z1.eJx-abc_09\" label=\"Вигляд\"></svitylo-anatomy></figure>"
+    },
+    {
+      "name": "a share link alone on a line, any atlas site inside a block",
+      "block": "https://example.org/anatomy/?data=x#s=j1.eyJ2IjoxfQ",
+      "spec": { "state": "j1.eyJ2IjoxfQ" },
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" state=\"j1.eyJ2IjoxfQ\"></svitylo-anatomy></figure>"
+    },
+    {
+      "name": "state with a structure keeps both (the state decides the view)",
+      "block": "# a comment\nstate: z1.AAAA\n\nstructure: cardiovascular.heart\nlabel: \"Серце: вигляд\"",
+      "spec": { "state": "z1.AAAA", "structure": "cardiovascular.heart", "label": "Серце: вигляд" },
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" structure=\"cardiovascular.heart\" state=\"z1.AAAA\" label=\"Серце: вигляд\"></svitylo-anatomy></figure>"
+    },
+    {
+      "name": "markup in texts is escaped",
+      "block": "structure: cardiovascular.heart\nlabel: <img src=x onerror=alert(1)>\ncaption: \"a\" & 'b' </figcaption><script>",
+      "spec": { "structure": "cardiovascular.heart", "label": "<img src=x onerror=alert(1)>", "caption": "\"a\" & 'b' </figcaption><script>" },
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" structure=\"cardiovascular.heart\" label=\"&lt;img src=x onerror=alert(1)&gt;\"></svitylo-anatomy><figcaption>&quot;a&quot; &amp; &#39;b&#39; &lt;/figcaption&gt;&lt;script&gt;</figcaption></figure>"
+    },
+    {
+      "name": "unknown and repeated keys are ignored with a warning",
+      "block": "structure: cardiovascular.heart\ncolour: red\nstructure: skeletal",
+      "spec": { "structure": "cardiovascular.heart" },
+      "warnings": ["colour", "structure"],
+      "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" structure=\"cardiovascular.heart\"></svitylo-anatomy></figure>"
+    },
+    { "name": "path tricks in an ID", "block": "structure: ../../etc/passwd", "errors": ["structure"] },
+    { "name": "markup in an ID", "block": "structure: heart\"><script>", "errors": ["structure"] },
+    { "name": "not a share link", "block": "link: javascript:alert(1)", "errors": ["link"] },
+    { "name": "share link without a state", "block": "link: https://svitylo.com/atlas", "errors": ["link"] },
+    { "name": "malformed state", "block": "state: z9.abc", "errors": ["state"] },
+    { "name": "state with markup", "block": "state: z1.a\"b", "errors": ["state"] },
+    { "name": "level out of range", "block": "structure: cardiovascular.heart\nsurroundings: 0", "errors": ["surroundings"] },
+    { "name": "unknown view", "block": "structure: cardiovascular.heart\nview: inside", "errors": ["view"] },
+    { "name": "height out of range", "block": "structure: cardiovascular.heart\nheight: 20000", "errors": ["height"] },
+    { "name": "unknown language", "block": "structure: cardiovascular.heart\nlang: de", "errors": ["lang"] },
+    { "name": "a line that is not key: value", "block": "structure: cardiovascular.heart\njust some text", "errors": ["syntax"] },
+    { "name": "nothing to show", "block": "# only a comment\nlabel: Серце", "errors": ["empty"] },
+    { "name": "a line separator inside a value", "block": "structure: cardiovascular.heart\nlabel: Heart\u2028state: z1.AAAA", "errors": ["syntax"] }
+  ],
+  "markdown": [
+    {
+      "name": "a paragraph with only a share link of the configured atlas",
+      "markdown": "Текст до.\n\nhttps://svitylo.com/atlas#s=z1.AAAA\n\nТекст після.",
+      "state": "z1.AAAA"
+    },
+    {
+      "name": "an autolink of the configured atlas",
+      "markdown": "<https://svitylo.com/atlas/#s=j1.eyJ2IjoxfQ>",
+      "state": "j1.eyJ2IjoxfQ"
+    },
+    {
+      "name": "links of other sites stay links",
+      "markdown": "https://example.org/atlas#s=z1.AAAA",
+      "state": null
+    },
+    {
+      "name": "a link written out with its own address",
+      "markdown": "[https://svitylo.com/atlas#s=z1.AAAA](https://svitylo.com/atlas#s=z1.AAAA)",
+      "state": "z1.AAAA"
+    },
+    {
+      "name": "a link with other text stays a link",
+      "markdown": "[the heart](https://svitylo.com/atlas#s=z1.AAAA)",
+      "state": null
+    },
+    {
+      "name": "a share link inside a sentence stays a link",
+      "markdown": "Дивіться https://svitylo.com/atlas#s=z1.AAAA тут.",
+      "state": null
+    }
+  ]
+}

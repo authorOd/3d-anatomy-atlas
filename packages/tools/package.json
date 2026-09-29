@@ -1,0 +1,28 @@
+{
+  "name": "@svitylo-atlas/tools",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Reproducible data pipeline: source snapshot, Blender export, splitting, optimisation, manifest, validation, reports.",
+  "scripts": {
+    "fixture": "tsx --conditions=source src/fixture.ts",
+    "source": "tsx --conditions=source src/source.ts",
+    "export": "tsx --conditions=source src/export.ts",
+    "build": "tsx --conditions=source src/build.ts",
+    "validate": "tsx --conditions=source src/validate-cli.ts",
+    "schema:json": "tsx --conditions=source src/schema-json.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@authorod/svitylo-3d-anatomy-atlas": "workspace:*",
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
+    "meshoptimizer": "^1.2.0",
+    "tsx": "^4.23.15"
+  },
+  "exports": {
+    "./src/*": "./src/*"
+  },
+  "license": "CPAL-1.0"
+}

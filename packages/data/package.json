@@ -1,0 +1,28 @@
+{
+  "name": "@authorod/svitylo-3d-anatomy-data",
+  "version": "1.0.0",
+  "description": "Versioned anatomy data release for Svitylo 3D Anatomy Atlas: GLB geometry (two quality levels), manifest, dictionaries, coverage report, attribution and licences.",
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSES.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/authorOd/3d-anatomy-atlas.git",
+    "directory": "packages/data"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./releases/*": "./releases/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "releases",
+    "README.md",
+    "LICENSES.md",
+    "CODE-LICENSE.md"
+  ]
+}

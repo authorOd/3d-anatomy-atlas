@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+SPDX-License-Identifier: CPAL-1.0
+
+The contents of this file are subject to the Common Public Attribution License
+Version 1.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+https://opensource.org/license/CPAL-1.0 and in the accompanying LICENSE.md.
+The License is based on the Mozilla Public License Version 1.1 but Sections 14
+and 15 have been added to cover use of software over a computer network and
+provide for limited attribution for the Original Developer. In addition,
+Exhibit A has been modified to be consistent with Exhibit B.
+
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+the specific language governing rights and limitations under the License.
+
+The Original Code is Svitylo 3D Anatomy Atlas.
+The Original Developer is the Initial Developer.
+The Initial Developer of the Original Code is authorOd.
+All portions of the code written by authorOd are Copyright (c) 2026 authorOd.
+All Rights Reserved.
+Contributor(s): see the source history and accompanying copyright notices.
+-->
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Svitylo 3D Anatomy Atlas — конспект із вставками</title>
+    <meta name="description" content="A note with anatomy embeds rendered from Markdown (demo of layout=embed, the ```anatomy block and share links)." />
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        background: #f5f2ec;
+        color: #1d2429;
+        font: 17px/1.65 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+      main {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 28px 16px 96px;
+      }
+      h1 {
+        line-height: 1.2;
+      }
+      figure.svitylo-anatomy-embed {
+        margin: 26px 0;
+      }
+      figure.svitylo-anatomy-embed figcaption {
+        margin-top: 6px;
+        font-size: 14px;
+        color: #52606b;
+      }
+      pre {
+        padding: 12px;
+        border-radius: 8px;
+        background: #e9e3d8;
+        overflow-x: auto;
+      }
+      .source {
+        font-size: 14px;
+        color: #52606b;
+      }
+      /* Example of a page-owned window for "Open" on wide screens (not part of the library). */
+      .atlas-window {
+        position: fixed;
+        z-index: 1000;
+        top: 60px;
+        left: 60px;
+        width: min(1100px, calc(100vw - 120px));
+        height: min(720px, calc(100vh - 120px));
+        min-width: 480px;
+        min-height: 360px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.35);
+        overflow: hidden;
+        resize: both;
+      }
+      .atlas-window-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 6px 8px 6px 16px;
+        border-bottom: 1px solid #e5e7eb;
+        background: #f9fafb;
+        color: #111827;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: move;
+        user-select: none;
+        touch-action: none;
+      }
+      .atlas-window-bar button {
+        min-height: 36px;
+        border: 0;
+        border-radius: 8px;
+        background: #f3f4f6;
+        color: #374151;
+        font: inherit;
+        font-weight: 500;
+        padding: 0 12px;
+        cursor: pointer;
+      }
+      .atlas-window-bar button:hover {
+        background: #e5e7eb;
+      }
+      .atlas-window svitylo-anatomy {
+        flex: 1;
+        min-height: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="note" lang="uk"></main>
+    <script type="module" src="/src/notes.ts"></script>
+  </body>
+</html>

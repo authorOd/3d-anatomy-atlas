@@ -1,0 +1,48 @@
+{
+  "name": "svitylo-3d-anatomy-atlas-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build": "pnpm --filter @authorod/svitylo-3d-anatomy-atlas --filter @authorod/svitylo-anatomy-markdown run build",
+    "typecheck": "pnpm -r --if-present run typecheck && tsc -p tsconfig.json --noEmit && tsc -p packages/laravel/tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "schema:json": "pnpm --filter @svitylo-atlas/tools run schema:json",
+    "data:fixture": "pnpm --filter @svitylo-atlas/tools run fixture",
+    "data:source": "pnpm --filter @svitylo-atlas/tools run source",
+    "data:export": "pnpm --filter @svitylo-atlas/tools run export",
+    "data:build": "pnpm --filter @svitylo-atlas/tools run build",
+    "data:validate": "pnpm --filter @svitylo-atlas/tools run validate",
+    "demo:dev": "pnpm --filter @svitylo-atlas/demo run dev",
+    "demo:build": "pnpm --filter @svitylo-atlas/demo run build",
+    "release:check": "node scripts/release-check.mjs",
+    "check:clean-install": "node scripts/clean-install-check.mjs",
+    "laravel:assets": "vite build --config packages/laravel/workbench/vite.config.ts",
+    "test:laravel": "composer --working-dir=packages/laravel test",
+    "test:laravel:e2e": "pnpm laravel:assets && playwright test --config playwright.laravel.config.ts"
+  },
+  "devDependencies": {
+    "@authorod/svitylo-3d-anatomy-atlas": "workspace:*",
+    "@authorod/svitylo-anatomy-markdown": "workspace:*",
+    "@playwright/test": "1.56.1",
+    "@svitylo-atlas/tools": "workspace:*",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.19.0",
+    "markdown-it": "^14.1.0",
+    "typescript": "5.9.3",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "license": "CPAL-1.0"
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["test", "e2e", "e2e-laravel", "playwright.config.ts", "vitest.config.ts", "playwright.laravel.config.ts"]
+}
