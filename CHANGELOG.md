@@ -2,6 +2,19 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data have separate versions.
 
+## 1.0.1 — 2026-09-29
+
+### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.0.1
+
+- Fixed: the tree, search and structure card (`<svitylo-anatomy-tree>`, `<svitylo-anatomy-search>`,
+  `<svitylo-anatomy-info>`) were missing from the built package, so the atlas showed none of them.
+  The build dropped their modules, which were imported only to register the elements;
+  `defineSvityloAnatomy()` now registers them explicitly.
+- `pnpm check:boundaries` fails when the built bundles do not register these elements, and
+  `pnpm check:clean-install` checks them in the browser.
+
+The data, Markdown and Laravel packages are unchanged.
+
 ## 1.0.0 — 2026-09-29
 
 First release.

@@ -1,5 +1,14 @@
 # Changelog — @authorod/svitylo-3d-anatomy-atlas
 
+## 1.0.1 — 2026-09-29
+
+Compatible data: `@authorod/svitylo-3d-anatomy-data@1.0.0`.
+
+- Fixed: the tree, search and structure card were missing from the built package, because the build
+  dropped their modules, which were imported only to register the elements.
+  `defineSvityloAnatomy()` now registers `<svitylo-anatomy-tree>`, `<svitylo-anatomy-search>` and
+  `<svitylo-anatomy-info>` explicitly.
+
 ## 1.0.0 — 2026-09-29
 
 First release. Compatible data: `@authorod/svitylo-3d-anatomy-data@1.0.0`, manifest schema 1, state

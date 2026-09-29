@@ -1,6 +1,6 @@
 # Known limitations
 
-State as of `1.0.0` (data `1.0.0`, channel `preview`; integration packages `1.0.0`).
+State as of `1.0.1` (data `1.0.0`, channel `preview`; integration packages `1.0.0`).
 
 ## Data
 

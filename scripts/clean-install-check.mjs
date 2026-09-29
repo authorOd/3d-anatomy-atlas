@@ -108,6 +108,9 @@ try {
     }
   }
   await page.waitForFunction(() => Boolean(document.querySelector('svitylo-anatomy')?.viewer), null, { timeout: 60_000 });
+  const undefinedElements = await page.evaluate(() =>
+    ['svitylo-anatomy-tree', 'svitylo-anatomy-search', 'svitylo-anatomy-info'].filter((tag) => !customElements.get(tag)),
+  );
   const glbBefore = requests.filter((u) => u.endsWith('.glb')).length;
   const result = await page.evaluate(async () => {
     const el = document.querySelector('svitylo-anatomy');
@@ -118,6 +121,7 @@ try {
 
   const foreign = requests.filter((u) => !u.startsWith(`http://localhost:${PORT}/`));
   const problems = [];
+  if (undefinedElements.length) problems.push(`custom elements not defined: ${undefinedElements.join(', ')}`);
   if (glbBefore !== 0) problems.push(`${glbBefore} GLB requests before any action`);
   if (result.status !== 'complete') problems.push(`showStructure status ${result.status}`);
   if (result.stats.readyChunks < 1 || result.stats.failedChunks) problems.push(`chunks: ${JSON.stringify(result.stats)}`);

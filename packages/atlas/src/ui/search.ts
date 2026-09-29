@@ -349,4 +349,7 @@ export class AtlasSearch extends LitElement {
   }
 }
 
-if (!customElements.get('svitylo-anatomy-search')) customElements.define('svitylo-anatomy-search', AtlasSearch);
+/** Registers `<svitylo-anatomy-search>`; `defineSvityloAnatomy()` calls it. */
+export function defineAtlasSearch(): void {
+  if (!customElements.get('svitylo-anatomy-search')) customElements.define('svitylo-anatomy-search', AtlasSearch);
+}

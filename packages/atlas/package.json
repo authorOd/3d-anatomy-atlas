@@ -1,6 +1,6 @@
 {
   "name": "@authorod/svitylo-3d-anatomy-atlas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interactive 3D human anatomy atlas for the browser: <svitylo-anatomy> web component and a headless Three.js core.",
   "keywords": [
     "anatomy",

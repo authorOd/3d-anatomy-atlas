@@ -27,7 +27,7 @@
  *  - the headless core never imports Lit or UI modules;
  *  - the schema module depends only on Zod;
  *  - no module depends on Svitylo/Laravel services, analytics or third-party CDNs;
- *  - the built bundles import nothing but Three.js, Lit and Zod;
+ *  - the built bundles import nothing but Three.js, Lit and Zod, and register every inner element;
  *  - the integration packages (Markdown, the Laravel JS bridge) import only their declared
  *    dependencies.
  */
@@ -105,6 +105,15 @@ const built = files(DIST, ['.js']);
 for (const file of built) {
   for (const spec of imports(readFileSync(file, 'utf8'))) {
     if (!spec.startsWith('.') && !ALLOWED_BARE.test(spec)) problems.push(`${rel(file)}: bundle imports ${spec}`);
+  }
+}
+
+// The build drops a registration that runs only when its module is imported without names, so the
+// bundles must still contain every define call of the inner elements.
+if (built.length) {
+  const bundles = built.map((file) => readFileSync(file, 'utf8')).join('\n');
+  for (const tag of ['svitylo-anatomy-tree', 'svitylo-anatomy-search', 'svitylo-anatomy-info']) {
+    if (!new RegExp(`customElements\\.define\\(\\s*['"\`]${tag}['"\`]`).test(bundles)) problems.push(`${rel(DIST)}: <${tag}> is never registered`);
   }
 }
 

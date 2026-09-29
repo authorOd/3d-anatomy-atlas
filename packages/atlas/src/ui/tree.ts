@@ -575,4 +575,7 @@ export class AtlasTree extends LitElement {
   }
 }
 
-if (!customElements.get('svitylo-anatomy-tree')) customElements.define('svitylo-anatomy-tree', AtlasTree);
+/** Registers `<svitylo-anatomy-tree>`; `defineSvityloAnatomy()` calls it. */
+export function defineAtlasTree(): void {
+  if (!customElements.get('svitylo-anatomy-tree')) customElements.define('svitylo-anatomy-tree', AtlasTree);
+}

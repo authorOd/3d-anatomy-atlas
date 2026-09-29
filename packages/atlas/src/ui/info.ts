@@ -435,4 +435,7 @@ export class AtlasInfo extends LitElement {
   }
 }
 
-if (!customElements.get('svitylo-anatomy-info')) customElements.define('svitylo-anatomy-info', AtlasInfo);
+/** Registers `<svitylo-anatomy-info>`; `defineSvityloAnatomy()` calls it. */
+export function defineAtlasInfo(): void {
+  if (!customElements.get('svitylo-anatomy-info')) customElements.define('svitylo-anatomy-info', AtlasInfo);
+}

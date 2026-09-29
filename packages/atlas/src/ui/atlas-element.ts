@@ -42,13 +42,11 @@ import { SVITYLO_NAME, SVITYLO_URL, logo, logoMark } from './branding.js';
 import { resolveStrings, type UiLang, type UiStrings } from './i18n.js';
 import { icons } from './icons.js';
 import { latinAlongside } from './name-flags.js';
-import './info.js';
-import type { InfoAction } from './info.js';
-import './search.js';
+import { defineAtlasInfo, type InfoAction } from './info.js';
+import { defineAtlasSearch } from './search.js';
 import { embedLimits, registerEmbed, sharedCatalog, touchEmbed, unregisterEmbed, type ActiveEmbed } from './shared.js';
 import { elementStyles } from './styles.js';
-import './tree.js';
-import type { AtlasTree, DisplayState, LoadState, TreeStateProvider } from './tree.js';
+import { defineAtlasTree, type AtlasTree, type DisplayState, type LoadState, type TreeStateProvider } from './tree.js';
 
 export const DEFAULT_DATA_VERSION: string = dataPackage.version;
 export const DEFAULT_DATA_URL = `/anatomy-data/${DEFAULT_DATA_VERSION}/`;
@@ -1852,5 +1850,10 @@ export class SvityloAnatomyElement extends LitElement implements ActiveEmbed {
 }
 
 export function defineSvityloAnatomy(tag = 'svitylo-anatomy'): void {
+  // The inner elements are registered here, not by importing their modules: a bundler drops an
+  // import without names from a module that `sideEffects` in package.json does not list.
+  defineAtlasInfo();
+  defineAtlasSearch();
+  defineAtlasTree();
   if (!customElements.get(tag)) customElements.define(tag, tag === 'svitylo-anatomy' ? SvityloAnatomyElement : class extends SvityloAnatomyElement {});
 }

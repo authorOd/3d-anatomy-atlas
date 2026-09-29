@@ -1,6 +1,6 @@
 # API
 
-API version: `1.0.0`. The behaviour described here is covered by tests.
+API version: `1.0.1`. The behaviour described here is covered by tests.
 
 Entry points of the package `@authorod/svitylo-3d-anatomy-atlas`:
 
