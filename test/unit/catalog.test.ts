@@ -129,7 +129,7 @@ describe('visibility rules', () => {
     const vm = new ViewModel(catalog.index);
     const unit = (id: string) => catalog.get(id)!.index;
     const lv = 'cardiovascular.heart.left_ventricle';
-    vm.place(lv, [unit(lv)]);
+    vm.placeExplicitly([unit(lv)], false);
     vm.select([lv], 'add');
     // Automatic: what is placed is shown, here only the selection (level 0).
     let d = vm.display();
@@ -255,55 +255,45 @@ describe('visibility rules', () => {
     expect(vm.display().modes[unit('skeletal.femur_l')]).toBe(MODE_OPAQUE);
   });
 
-  it('what is shown only for a selection leaves with it; drilling down or up keeps it as the context', async () => {
+  it('deselecting never takes anything off the scene; a chosen level decides what of it is shown', async () => {
     const catalog = await loadFixtureCatalog();
     const index = catalog.index;
     const vm = new ViewModel(index);
-    const unit = (id: string) => catalog.get(id)!.index;
     const shown = () => [...vm.display().visibleUnits].map((u) => index.structures[u]!.id).sort();
     // What the viewer does for a tree row or a search result.
     const pick = (id: string) => {
-      const placed = vm.placedUnits();
-      vm.place(id, index.subtreeUnits(index.get(id)!, 'default').filter((u) => !placed.has(u)));
+      vm.placeExplicitly(index.subtreeUnits(index.get(id)!, 'default'), false);
       vm.select([id], 'add');
     };
     const lv = 'cardiovascular.heart.left_ventricle';
     const rv = 'cardiovascular.heart.right_ventricle';
-    // The heart, then a lung, then "Clear selection": nothing stays.
+    // The heart, then a lung, then "Clear selection": both stay.
     pick('cardiovascular.heart');
     pick('respiratory.lung_r');
     expect(shown()).toEqual([lv, rv, 'respiratory.lung_r']);
     vm.select([], 'replace');
-    expect(shown()).toEqual([]);
-    expect(vm.placed.size).toBe(0);
-    // A ventricle then: it and the surroundings of the chosen level, never the lung.
-    vm.level = 1;
-    pick(lv);
-    expect(shown()).toEqual([lv, rv]);
-    vm.automaticLevel();
-    expect(shown()).toEqual([lv]);
-    vm.select([], 'replace');
-    // Drilling down from a system keeps the system as the context, and its level is shown.
-    pick('cardiovascular');
+    expect(shown()).toEqual([lv, rv, 'respiratory.lung_r']);
+    // An organ, then one of its parts, then deselecting the part: the organ stays.
+    vm.clear();
+    pick('cardiovascular.heart');
     vm.select([lv], 'toggle');
     expect(vm.selected).toEqual([lv]);
-    expect(shown()).toEqual(['cardiovascular.aorta', lv, rv]);
-    expect(vm.display().level).toBe(2);
-    // Going back up keeps it as well; deselecting ends it.
-    vm.select(['cardiovascular.heart'], 'add');
-    expect(shown()).toEqual(['cardiovascular.aorta', lv, rv]);
-    vm.select(['cardiovascular.heart'], 'toggle');
-    expect(shown()).toEqual([]);
-    // What is placed explicitly (the eye, "load all", a link) stays, also after being picked.
-    vm.placeExplicitly(index.subtreeUnits(index.get('skeletal.skull')!, 'default'), true);
-    pick('skeletal.skull');
-    pick('skeletal.sternum');
-    vm.placeExplicitly([unit('skeletal.sternum')], true);
+    vm.select([lv], 'toggle');
+    expect(vm.selected).toEqual([]);
+    expect(shown()).toEqual([lv, rv]);
+    // A chosen level shows the selection with its surroundings; the rest of the scene comes back
+    // with the automatic level.
+    pick('cardiovascular');
+    pick('respiratory.lung_r');
+    vm.select([lv], 'replace');
+    vm.level = 1;
+    expect(shown()).toEqual([lv, rv]);
     vm.select([], 'replace');
-    expect(shown()).toEqual(['skeletal.skull', 'skeletal.sternum']);
-    // A link writes what is shown for a selection as placed on the scene.
-    pick('cardiovascular.aorta');
-    expect(vm.toState({ model: 'fixture', version: '1.0.0' }, {}).scene).toEqual(['skeletal.skull', 'skeletal.sternum', 'cardiovascular.aorta']);
+    expect(shown()).toEqual(['cardiovascular.aorta', lv, rv, 'respiratory.lung_r']);
+    vm.automaticLevel();
+    expect(shown()).toEqual(['cardiovascular.aorta', lv, rv, 'respiratory.lung_r']);
+    // A link keeps the scene.
+    expect(vm.toState({ model: 'fixture', version: '1.0.0' }, {}).scene).toEqual(['cardiovascular', 'respiratory.lung_r']);
   });
 
   it('never selects a structure together with its ancestors or descendants', async () => {

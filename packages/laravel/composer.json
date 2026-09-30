@@ -5,6 +5,10 @@
     "type": "library",
     "license": "CPAL-1.0",
     "homepage": "https://github.com/authorOd/3d-anatomy-atlas",
+    "support": {
+        "issues": "https://github.com/authorOd/3d-anatomy-atlas/issues",
+        "source": "https://github.com/authorOd/3d-anatomy-atlas/tree/main/packages/laravel"
+    },
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0 || ^12.0 || ^13.0",

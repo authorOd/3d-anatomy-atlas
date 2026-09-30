@@ -138,7 +138,6 @@ export class AtlasViewer {
   private cancelledView: {
     scene: number[];
     extra: number[];
-    placed: [string, number[]][];
     level: number | null;
     after: number | null;
   } | null = null;
@@ -449,7 +448,6 @@ export class AtlasViewer {
       // Everything is on the scene now and shown (the automatic level); the selection and the
       // transparency are kept.
       this.model.scene = units;
-      this.model.placed.clear();
       this.model.extra.clear();
       this.model.level = null;
       this.model.hidden.clear();
@@ -573,7 +571,7 @@ export class AtlasViewer {
 
   /**
    * Click semantics: selects a structure, or removes it from the selection when it is selected.
-   * A structure that is not displayed is shown for its selection (it leaves the scene with it).
+   * A structure that is not displayed is placed on the scene; deselecting it later keeps it there.
    * The camera does not move.
    */
   async toggleSelection(id: string, options: { source?: ChangeSource } = {}): Promise<OperationResult> {
@@ -586,7 +584,7 @@ export class AtlasViewer {
       return EMPTY_RESULT();
     }
     const result = await this.runOperation('select', source, () => {
-      this.placeOnScene(node, 'selection');
+      this.placeOnScene(node, 'scene');
       this.model.select([node.id], 'add');
     }, { focus: null });
     result.missing = this.missingOf([node]);
@@ -595,8 +593,8 @@ export class AtlasViewer {
 
   /**
    * Selects a structure the way the tree and search do: it becomes the most recent selection
-   * (nothing else is deselected) and, when it is not shown, it is shown for its selection —
-   * loaded, un-hidden and added to an active isolation — and leaves the scene with it. `focus`
+   * (nothing else is deselected) and, when it is not shown, it is placed on the scene — loaded,
+   * un-hidden and added to an active isolation; deselecting it later keeps it there. `focus`
    * (default true) zooms the camera to it; deselecting it right afterwards, with nothing else
    * changed, brings the camera back. With `ensureVisible`, when other structures cover it after
    * the zoom, the transparency turns on (`TRANSPARENCY_RANGE.default`).
@@ -610,11 +608,13 @@ export class AtlasViewer {
     const source = options.source ?? 'api';
     const before = this.model.selected.filter((s) => s !== node.id);
     const result = await this.runOperation('select', source, () => {
-      this.placeOnScene(node, 'selection');
+      this.placeOnScene(node, 'scene');
       this.model.select([node.id], 'add');
     }, { focus: null });
     result.missing = this.missingOf([node]);
     if (result.status === 'superseded' || this.disposed) return result;
+    // Deselected while it was loading: it stays on the scene, but the camera does not move to it.
+    if (!this.model.selected.includes(node.id)) return result;
     if (options.focus !== false) this.zoomTo(node.id, before, source);
     if (options.ensureVisible && this.model.transparency === 0 && this.isCovered(node)) {
       this.setTransparency(TRANSPARENCY_RANGE.default, { source });
@@ -688,20 +688,16 @@ export class AtlasViewer {
   }
 
   /**
-   * Makes a structure displayed: un-hides it and extends an active isolation to it. What is not
-   * on the scene yet is added: for `selection` only while it stays selected; for `explicit` and
-   * `scene` for good (`explicit` also among the extra structures while an explicit level limits
-   * the view, so that the level does not hide it).
+   * Makes a structure displayed: un-hides it, extends an active isolation to it and adds to the
+   * scene what is not on it yet. `explicit` also adds it to the extra structures while an explicit
+   * level limits the view, so that the level does not hide it.
    */
-  private placeOnScene(node: IndexedStructure, how: 'selection' | 'explicit' | 'scene') {
+  private placeOnScene(node: IndexedStructure, how: 'explicit' | 'scene') {
     const index = this.catalog.index;
     for (const u of index.subtreeUnits(node, 'all')) this.model.hidden.delete(u);
     const units = index.subtreeUnits(node, 'default');
     for (const u of units) this.model.isolate?.add(u);
-    if (how === 'selection') {
-      const placed = this.model.placedUnits();
-      this.model.place(node.id, units.filter((u) => !placed.has(u)));
-    } else this.model.placeExplicitly(units, how === 'explicit');
+    this.model.placeExplicitly(units, how === 'explicit');
   }
 
   /** Adds structures to the scene without removing others (multi-structure views). */
@@ -907,12 +903,11 @@ export class AtlasViewer {
     const view = {
       scene: prune(this.model.scene),
       extra: prune(this.model.extra),
-      placed: [...this.model.placed].map(([id, units]) => [id, prune(units)] as [string, number[]]),
       level,
       after: level,
     };
-    // A chosen level shows the selection and its surroundings whatever is placed: it steps down
-    // to the highest level that needs nothing stopped, else back to automatic.
+    // A chosen level shows the selection and its surroundings whatever is on the scene: it steps
+    // down to the highest level that needs nothing stopped, else back to automatic.
     let shown = this.model.explicitLevel;
     if (shown !== null) {
       const levels = this.model.levels();
@@ -948,7 +943,6 @@ export class AtlasViewer {
     return this.runOperation('resumeLoading', 'api', () => {
       for (const u of view.scene) this.model.scene.add(u);
       for (const u of view.extra) this.model.extra.add(u);
-      for (const [id, units] of view.placed) if (this.model.selected.includes(id)) this.model.place(id, units);
       if (this.model.level === view.after) this.model.level = view.level;
     }, { focus: null });
   }

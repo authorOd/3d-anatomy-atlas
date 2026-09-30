@@ -1,0 +1,53 @@
+name: Device compatibility report
+description: How the atlas works in your browser and on your device, good or bad.
+labels: [compatibility]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reports from Windows, Android, Safari and Firefox are especially useful (see #3). English or Ukrainian are both fine.
+        Open the [demo](https://svitylo.com/3d-anatomy-atlas), press "Load everything", rotate and zoom for a minute, then fill in the form.
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: The model, and the graphics card if you know it.
+      placeholder: MacBook Air M2 / Pixel 7 / desktop with GeForce GTX 1060
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and version
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options:
+        - Works well
+        - Works, but slow or stuttering
+        - Visual glitches
+        - Does not work
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Economy mode
+      options:
+        - "Off"
+        - "On"
+        - Not sure
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Loading time, smoothness while rotating, errors in the console, screenshots.

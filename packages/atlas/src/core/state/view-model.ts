@@ -52,10 +52,9 @@ export type SelectMode = 'replace' | 'add' | 'toggle' | 'remove';
  * `hidden` narrows it further, and selection alone never makes hidden structures visible.
  *
  * What is shown:
- * - `scene`: structures placed explicitly (load all, the eye in the tree, a link, `showStructure`);
- * - `placed`: structures shown only for a selection (a tree row or a search result that was not
- *   on the scene). They leave the scene when that selection ends, unless one of its parts or
- *   groups replaces it (drilling down or up), which keeps them as its context;
+ * - `scene`: structures placed on the scene (load all, the eye in the tree, a link, `showStructure`,
+ *   and a tree row or a search result that was not shown). Deselecting never takes anything off
+ *   the scene;
  * - `level`: `null` (automatic) shows all of the above; a number shows only the selection with
  *   that much of its surroundings (0 = the selection alone, 1 = the nearest groups … last = the
  *   whole body) plus `extra`, the structures shown with the eye meanwhile;
@@ -67,8 +66,6 @@ export class ViewModel {
   isolate: Set<number> | null = null;
   /** Selection order: the last one is the most recent (primary). */
   selected: string[] = [];
-  /** Structures shown only for a selection, by selected ID. */
-  readonly placed = new Map<string, Set<number>>();
   /** Surroundings level chosen by the user; null = automatic. */
   level: number | null = null;
   /** Structures shown with the eye while an explicit level limits the view. */
@@ -86,7 +83,6 @@ export class ViewModel {
     this.hidden.clear();
     this.isolate = null;
     this.selected = [];
-    this.placed.clear();
     this.level = null;
     this.extra.clear();
     this.transparency = 0;
@@ -121,18 +117,11 @@ export class ViewModel {
     return Math.max(0, Math.min(this.level, this.levels().length));
   }
 
-  /** Everything placed on the scene: explicitly and for selections. */
-  placedUnits(): Set<number> {
-    const out = new Set(this.scene);
-    for (const units of this.placed.values()) for (const u of units) out.add(u);
-    return out;
-  }
-
   /** Everything shown on the scene, before hiding and isolation (see the class comment). */
   sceneUnits(): Set<number> {
     const level = this.explicitLevel;
     if (level === null) {
-      const out = this.placedUnits();
+      const out = new Set(this.scene);
       for (const u of this.extra) out.add(u);
       return out;
     }
@@ -165,22 +154,9 @@ export class ViewModel {
     return sceneUnits.has(unit) && (this.isolate === null || this.isolate.has(unit)) && !this.hidden.has(unit);
   }
 
-  /** Shows units for a selection (they leave the scene with it); units placed explicitly are skipped. */
-  place(id: string, units: Iterable<number>): void {
-    let set = this.placed.get(id);
-    for (const u of units) {
-      if (this.scene.has(u)) continue;
-      if (!set) {
-        set = new Set();
-        this.placed.set(id, set);
-      }
-      set.add(u);
-    }
-  }
-
   /**
-   * Places units on the scene for good: they no longer leave it with a selection. With `extra`,
-   * while an explicit level limits the view, the ones it does not show are shown anyway.
+   * Places units on the scene. With `extra`, while an explicit level limits the view, the ones it
+   * does not show are shown anyway.
    */
   placeExplicitly(units: readonly number[], extra: boolean): void {
     if (extra && this.explicitLevel !== null) {
@@ -188,15 +164,12 @@ export class ViewModel {
       for (const u of units) if (!shown.has(u)) this.extra.add(u);
     }
     for (const u of units) this.scene.add(u);
-    for (const [id, set] of this.placed) {
-      for (const u of units) set.delete(u);
-      if (set.size === 0) this.placed.delete(id);
-    }
   }
 
   /**
    * Changes the selection. A structure and its ancestors or descendants are never selected
    * together: selecting one deselects the others (when a list contains both, the later wins).
+   * The scene does not change.
    */
   select(ids: string[], mode: SelectMode): boolean {
     const before = [...this.selected];
@@ -212,31 +185,7 @@ export class ViewModel {
         else this.addSelected(id);
       }
     }
-    this.releasePlaced(before);
     return before.join('|') !== this.selected.join('|');
-  }
-
-  /**
-   * What was shown for a selection that ended leaves the scene — unless one of its parts or
-   * groups replaced it in the selection (drilling down or up), which keeps it as its context.
-   */
-  private releasePlaced(before: readonly string[]) {
-    const now = new Set(this.selected);
-    const added = this.selected.filter((id) => !before.includes(id));
-    for (const id of before) {
-      if (now.has(id)) continue;
-      const units = this.placed.get(id);
-      if (!units) continue;
-      this.placed.delete(id);
-      const node = this.index.get(id);
-      const heir = node
-        ? added.find((a) => {
-            const other = this.index.get(a);
-            return other !== undefined && (this.index.contains(node, other) || this.index.contains(other, node));
-          })
-        : undefined;
-      if (heir) this.place(heir, units);
-    }
   }
 
   /** Appends `id` as the most recent selection, dropping it and its ancestors and descendants. */
@@ -279,16 +228,11 @@ export class ViewModel {
     return { modes, selectedUnits, visibleCount: visibleUnits.size, ghostCount, visibleUnits, sceneUnits, level };
   }
 
-  /**
-   * Serialises the logical state; lists are compressed to logical parents where possible. What
-   * is shown for selections is written as placed on the scene (a link keeps the view, not how it
-   * was reached).
-   */
+  /** Serialises the logical state; lists are compressed to logical parents where possible. */
   toState(data: ViewState['data'], extra: { camera?: ViewState['camera']; lang?: Lang; latin?: boolean }): ViewState {
-    const placed = this.placedUnits();
-    const state: ViewState = { v: 2, data, scene: this.index.compress(placed, 'default') };
+    const state: ViewState = { v: 2, data, scene: this.index.compress(this.scene, 'default') };
     // What an explicit level does not show counts too: it comes back with another level.
-    const known = new Set([...placed, ...this.sceneUnits()]);
+    const known = new Set([...this.scene, ...this.sceneUnits()]);
     const hidden = new Set([...this.hidden].filter((u) => known.has(u)));
     if (hidden.size) state.hidden = this.index.compress(hidden, 'all');
     if (this.isolate) state.isolate = this.index.compress(new Set([...this.isolate].filter((u) => known.has(u))), 'all');
@@ -321,7 +265,6 @@ export class ViewModel {
     // Older links may select a parent together with its parts: the later reference wins.
     this.selected = [];
     for (const id of selected.ids) this.addSelected(id);
-    this.placed.clear();
     this.level = state.surroundings?.level ?? null;
     this.extra = take(state.surroundings?.extra, 'default');
     this.transparency = Math.round((state.surroundings?.transparency ?? 0) * 1000) / 1000;
