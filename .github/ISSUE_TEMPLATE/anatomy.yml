@@ -1,0 +1,54 @@
+name: Name or anatomy correction
+description: A wrong or missing name, a wrong place in the tree, or a problem with the shape or position of a model.
+labels: [anatomy]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English or Ukrainian are both fine. The data has had no anatomical review yet, so corrections are welcome.
+        Names for a whole language are easier to propose in a pull request: see [CONTRIBUTING.md](https://github.com/authorOd/3d-anatomy-atlas/blob/main/CONTRIBUTING.md).
+  - type: input
+    id: structure
+    attributes:
+      label: Structure
+      description: Its name as the atlas shows it, or its ID if you know it (for example `cardiovascular.heart`).
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong
+      multiple: true
+      options:
+        - Ukrainian name
+        - English name
+        - Latin name
+        - Place in the tree
+        - Shape of the model
+        - Position or size of the model
+        - Missing structure
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correction
+      description: What it should be.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Terminologia Anatomica, a textbook or a paper, with the page or URL. Please do not paste protected text.
+  - type: input
+    id: link
+    attributes:
+      label: Share link
+      description: A link from the atlas "Share" button that shows the problem.
+  - type: input
+    id: background
+    attributes:
+      label: Your background
+      description: For example anatomist, lecturer, student. Optional.

@@ -1,0 +1,57 @@
+name: Bug report
+description: Something in the atlas, the embeds or an integration does not work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. English or Ukrainian are both fine.
+        A security issue does not belong here: [report it privately](https://github.com/authorOd/3d-anatomy-atlas/security/advisories/new).
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - "@authorod/svitylo-3d-anatomy-atlas"
+        - "@authorod/svitylo-3d-anatomy-data"
+        - "@authorod/svitylo-anatomy-markdown"
+        - "authorod/svitylo-anatomy-laravel"
+        - "The demo (svitylo.com/3d-anatomy-atlas)"
+        - "Not sure"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The package version (for example 1.0.2); for the demo, the date.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: A link from the atlas "Share" button keeps the whole view and helps a lot.
+      placeholder: |
+        1. Open …
+        2. Select …
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What you expected and what happened
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, operating system and device
+      placeholder: Chrome 141, Windows 11, laptop with integrated graphics
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Console errors, screenshots, anything else

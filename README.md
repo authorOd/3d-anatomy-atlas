@@ -1,5 +1,6 @@
 # Svitylo 3D Anatomy Atlas
 
+[![CI](https://github.com/authorOd/3d-anatomy-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/authorOd/3d-anatomy-atlas/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@authorod/svitylo-3d-anatomy-atlas?logo=npm)](https://www.npmjs.com/package/@authorod/svitylo-3d-anatomy-atlas)
 [![Packagist](https://img.shields.io/packagist/v/authorod/svitylo-anatomy-laravel?logo=packagist&logoColor=white)](https://packagist.org/packages/authorod/svitylo-anatomy-laravel)
 [![License: CPAL-1.0](https://img.shields.io/badge/license-CPAL--1.0-blue)](LICENSE.md)
@@ -16,7 +17,7 @@ servers; Svitylo is one of its consumers.
 **Demo:** [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas), the full atlas on
 Svitylo.
 
-> **Status: `1.0.1`.** The atlas and the note embeds are implemented and covered by tests. The
+> **Status: `1.0.2`.** The atlas and the note embeds are implemented and covered by tests. The
 > data is on the `preview` channel: the licence audit of the included models is pending, and no
 > anatomical review has been done (see [Open items](#open-items)).
 
@@ -27,9 +28,9 @@ Svitylo.
 - Selection works the same on the model, in the tree and in search: the structure is added to the
   selection (only its files are loaded); from the tree and search the camera zooms to it at once,
   on the model with a double click; deselecting a structure that was just zoomed to brings the
-  camera back. A structure that the tree or search places on the scene for its selection leaves the
-  scene when it is deselected (also with "Clear selection"); selecting one of its parts or its group
-  instead keeps it as the context.
+  camera back. Deselecting (a click, the card's ×, "Clear selection", Escape) never changes the
+  scene: it changes only through explicit actions such as the eye, "Hide", "Reset" and "Load
+  everything".
 - **Surroundings level** of the selection: 0 = only the selection, 1 = the nearest group of every
   selected structure, … the last = the whole body. The stepper shows the level of what is visible; a
   level chosen with − / + decides what is shown around the selection and stays for the next
@@ -139,6 +140,12 @@ unreviewed drafts are welcome, following the Ukrainian draft format. New languag
 runtime integration before they appear in the atlas. See [CONTRIBUTING.md](CONTRIBUTING.md) for
 JSON examples, source/licence requirements, review statuses and the integration checklist.
 
+Bugs, name corrections and device compatibility reports go to
+[issues](https://github.com/authorOd/3d-anatomy-atlas/issues/new/choose), each with its own form;
+questions and ideas go to [Discussions](https://github.com/authorOd/3d-anatomy-atlas/discussions).
+Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities
+privately, as [SECURITY.md](SECURITY.md) describes.
+
 ## Documentation
 
 | Document | Contents |
@@ -174,7 +181,7 @@ their own dependencies.
 
 ## Development
 
-Requires Node.js ≥ 20.19 and pnpm 10.
+Requires Node.js ≥ 20.19 (≥ 22.12 for the unit tests) and pnpm 10.
 
 ```sh
 pnpm install
@@ -195,6 +202,11 @@ pnpm test:laravel:e2e    # Playwright: Livewire 4 on the workbench application
 ```
 
 The demo with small synthetic data (no GLB of the real model): `http://localhost:5173/?data=fixture`.
+
+GitHub Actions runs the checks on every push and pull request to `main`: the typecheck, the unit
+tests, the build, `check:boundaries`, `data:validate` and `release:check` on Node 20, 22 and 24
+(without the unit tests on Node 20), the end-to-end tests in Chromium and PHPUnit on PHP 8.2 and
+8.4. The Livewire end-to-end tests and the clean-install check run weekly and on demand.
 
 Rebuilding the data from the pinned Z-Anatomy snapshot is described in
 [docs/data-pipeline.md](docs/data-pipeline.md) (`pnpm data:source`, `pnpm data:export`,

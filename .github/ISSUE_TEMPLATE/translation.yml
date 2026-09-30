@@ -1,0 +1,41 @@
+name: Translation
+description: Anatomical names or interface strings in a language, including partial drafts.
+labels: [translation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Partial, unreviewed drafts are welcome. A pull request is the quickest way; this form is for proposals, lists of fixes and questions. See [CONTRIBUTING.md](https://github.com/authorOd/3d-anatomy-atlas/blob/main/CONTRIBUTING.md). English or Ukrainian are both fine.
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: The language code and its native name.
+      placeholder: pl — polski
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: What it covers
+      multiple: true
+      options:
+        - Anatomical names
+        - Interface strings
+        - Fixes to existing translations
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: The names or strings, or a link to them. Say where they come from and whether AI or machine translation was used.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I can offer these names under CC BY-SA 4.0 and interface strings under CPAL-1.0, and I did not copy them from a protected source.
+          required: true

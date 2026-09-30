@@ -1,5 +1,9 @@
 # Changelog — @authorod/svitylo-anatomy-markdown
 
+## 1.0.1 — 2026-10-01
+
+- npm metadata: `homepage` and `bugs`. The code is unchanged.
+
 ## 1.0.0 — 2026-09-29
 
 First release. Compatible atlas: `@authorod/svitylo-3d-anatomy-atlas@1.0.0`.

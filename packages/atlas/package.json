@@ -1,16 +1,24 @@
 {
   "name": "@authorod/svitylo-3d-anatomy-atlas",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Interactive 3D human anatomy atlas for the browser: <svitylo-anatomy> web component and a headless Three.js core.",
   "keywords": [
     "anatomy",
     "3d",
     "atlas",
     "web-component",
+    "web-components",
+    "custom-elements",
+    "human-anatomy",
+    "medical-education",
     "three",
     "lit",
     "webgl2"
   ],
+  "homepage": "https://svitylo.com/3d-anatomy-atlas",
+  "bugs": {
+    "url": "https://github.com/authorOd/3d-anatomy-atlas/issues"
+  },
   "type": "module",
   "license": "CPAL-1.0",
   "repository": {

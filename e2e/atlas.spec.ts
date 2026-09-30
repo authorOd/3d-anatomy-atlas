@@ -397,16 +397,32 @@ test.describe('selection, context and isolation', () => {
     expect(await atlas(page, `return v.displayOf('${LV}');`)).toBe('opaque');
   });
 
-  test('clearing the selection removes what was shown only for it; the chosen level shows the next one', async ({ page }) => {
+  test('deselecting keeps the scene; the chosen level shows the next selection', async ({ page }) => {
     await openAtlas(page);
     const tree = page.locator('svitylo-anatomy aside.panel');
+    const empty = page.locator('svitylo-anatomy').getByText('Модель ще не завантажена');
+    await expect(empty).toBeVisible();
     await tree.getByRole('treeitem', { name: 'Серцево-судинна система', exact: true }).getByRole('button', { name: 'Розгорнути' }).click();
     await tree.getByRole('treeitem', { name: 'Дихальна система', exact: true }).getByRole('button', { name: 'Розгорнути' }).click();
     // Structures with geometry that are drawn (a lung with a hidden alternative part is 'mixed').
     const visible = () =>
       atlas<string[]>(page, "return v.catalog.index.units.map((u) => v.catalog.index.structures[u].id).filter((id) => ['opaque', 'ghost', 'mixed'].includes(v.displayOf(id)));");
+    const selection = () => atlas<string[]>(page, 'return v.selection;');
+    // The heart, then one of its parts: deselecting the part keeps the heart on the scene.
+    const heartRow = tree.getByRole('treeitem', { name: 'Серце', exact: true });
+    await heartRow.click();
+    await waitIdle(page);
+    await heartRow.getByRole('button', { name: 'Розгорнути' }).click();
+    const lvRow = tree.getByRole('treeitem', { name: /^Лівий шлуночок/ });
+    await lvRow.click();
+    await waitIdle(page);
+    await expect.poll(selection).toEqual([LV]);
+    await lvRow.click();
+    await expect.poll(selection).toEqual([]);
+    expect(await visible()).toEqual([LV, RV]);
+    await expect(empty).toBeHidden();
     // The heart with its level 1 (the cardiovascular system), then a lung.
-    await tree.getByRole('treeitem', { name: 'Серце', exact: true }).click();
+    await heartRow.click();
     await waitIdle(page);
     const stepper = page.getByRole('group', { name: 'Рівень оточення' });
     await stepper.getByRole('button', { name: 'Більше оточення' }).click();
@@ -415,22 +431,25 @@ test.describe('selection, context and isolation', () => {
     await waitIdle(page);
     // Level 1 of the selection joins the systems of both.
     expect(await visible()).toEqual([LV, RV, 'cardiovascular.aorta', 'respiratory.lung_l', 'respiratory.lung_r']);
-    // "Clear selection" removes everything that was shown only for the selection.
+    // "Clear selection" keeps what the selection placed on the scene; the surroundings of the level go.
     await page.getByRole('button', { name: 'Скасувати вибір' }).click();
-    await expect.poll(visible).toEqual([]);
-    // A ventricle then: it and its level 1 (the heart), never the lung.
-    await tree.getByRole('treeitem', { name: 'Серце', exact: true }).getByRole('button', { name: 'Розгорнути' }).click();
-    await tree.getByRole('treeitem', { name: /^Лівий шлуночок/ }).click();
+    await expect.poll(visible).toEqual([LV, RV, 'respiratory.lung_r']);
+    // A ventricle then: it and its level 1 (the heart); the lung stays on the scene, but the level
+    // does not show it.
+    await lvRow.click();
     await waitIdle(page);
     expect(await visible()).toEqual([LV, RV]);
     await expect(stepper).toContainText('Рівень оточення 1 із 3');
     await expect(stepper).toContainText('Серце');
-    // What the eye shows stays after the selection ends.
+    // What the eye shows is shown too; Escape clears the selection, and the whole scene is back.
     await tree.getByRole('treeitem', { name: 'Скелетна система', exact: true }).getByRole('button', { name: 'Показати' }).click();
     await waitIdle(page);
-    await page.getByRole('button', { name: 'Скасувати вибір' }).click();
-    await expect.poll(async () => (await visible()).filter((id) => !id.startsWith('skeletal.'))).toEqual([]);
-    expect((await visible()).length).toBeGreaterThan(0);
+    await page.locator('svitylo-anatomy .viewport').focus();
+    await page.keyboard.press('Escape');
+    await expect.poll(selection).toEqual([]);
+    await expect.poll(async () => (await visible()).filter((id) => !id.startsWith('skeletal.'))).toEqual([LV, RV, 'respiratory.lung_r']);
+    expect((await visible()).some((id) => id.startsWith('skeletal.'))).toBe(true);
+    await expect(empty).toBeHidden();
   });
 
   test('the whole-selection tools keep their layout when the level or the transparency changes', async ({ page }) => {

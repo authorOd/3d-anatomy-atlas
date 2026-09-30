@@ -1,6 +1,7 @@
 # Known limitations
 
-State as of `1.0.1` (data `1.0.0`, channel `preview`; integration packages `1.0.0`).
+State as of `1.0.2` (data `1.0.0`, channel `preview`; Markdown package `1.0.1`, Laravel package
+`1.0.0`).
 
 ## Data
 
@@ -100,9 +101,9 @@ State as of `1.0.1` (data `1.0.0`, channel `preview`; integration packages `1.0.
   whole body is loaded, and stays for the next selections (the stepper shows it in the accent
   colour). "Load everything", "Reset", `showStructure` and links bring back the automatic level (or
   the level the link carries).
-- A structure that the tree or search places on the scene for its selection leaves the scene when it
-  is deselected, including with "Clear selection"; selecting one of its parts or its group instead
-  keeps it as the context. To keep it on the scene, show it with the "eye" in the tree.
+- Structures that the tree or search placed on the scene stay on it after they are deselected. While
+  a chosen level limits the view, the level decides whether they are shown; they are shown again
+  with the automatic level or without a selection.
 - A double click is two clicks on the same structure within 0.4 s: a quick second click meant to
   deselect what was just selected acts as a double click (the selection stays and the camera zooms
   in).

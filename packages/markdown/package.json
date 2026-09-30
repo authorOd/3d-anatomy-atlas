@@ -1,6 +1,6 @@
 {
   "name": "@authorod/svitylo-anatomy-markdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Svitylo 3D Anatomy Atlas embeds in Markdown notes: the ```anatomy block, atlas share links, a markdown-it plugin and HTML/DOM helpers.",
   "keywords": [
     "anatomy",
@@ -9,6 +9,10 @@
     "embed",
     "svitylo"
   ],
+  "homepage": "https://github.com/authorOd/3d-anatomy-atlas#readme",
+  "bugs": {
+    "url": "https://github.com/authorOd/3d-anatomy-atlas/issues"
+  },
   "type": "module",
   "license": "CPAL-1.0",
   "repository": {

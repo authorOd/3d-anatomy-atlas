@@ -1,5 +1,15 @@
 # Changelog — @authorod/svitylo-3d-anatomy-atlas
 
+## 1.0.2 — 2026-10-01
+
+Compatible data: `@authorod/svitylo-3d-anatomy-data@1.0.0`.
+
+- Changed: deselecting (a click, the card's ×, "Clear selection", Escape) never changes the scene.
+  A structure that the tree or search placed on the scene stays there after it is deselected;
+  before, deselecting the only selected structure emptied the scene. While a chosen surroundings
+  level limits the view, the level still decides what is shown.
+- npm metadata: `homepage`, `bugs` and more keywords.
+
 ## 1.0.1 — 2026-09-29
 
 Compatible data: `@authorod/svitylo-3d-anatomy-data@1.0.0`.

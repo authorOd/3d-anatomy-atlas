@@ -3,6 +3,12 @@
 Language contributions are welcome, including **partial, unreviewed drafts**.
 You do not need to translate the entire atlas or claim expert review to open a PR.
 
+Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md). Bugs, name
+corrections and device reports have their own
+[issue forms](https://github.com/authorOd/3d-anatomy-atlas/issues/new/choose); report
+vulnerabilities privately, as [SECURITY.md](SECURITY.md) describes. CI runs the checks on
+every pull request.
+
 ## Add or improve anatomical names
 
 1. Fork the [repository](https://github.com/authorOd/3d-anatomy-atlas) and create

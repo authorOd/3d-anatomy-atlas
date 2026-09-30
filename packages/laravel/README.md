@@ -15,7 +15,7 @@ Integration of the [Svitylo 3D atlas](../../README.md) with Laravel and Livewire
 
 Requirements: PHP 8.2+, Laravel 11–13, Livewire 4 (optional), league/commonmark 2.6+.
 
-> Works with `@authorod/svitylo-3d-anatomy-atlas@1.0.0`. The package is developed in the atlas
+> Works with `@authorod/svitylo-3d-anatomy-atlas` 1.0.x. The package is developed in the atlas
 > monorepo (`packages/laravel`) and published from
 > [authorOd/svitylo-anatomy-laravel](https://github.com/authorOd/svitylo-anatomy-laravel). Terms:
 > [LICENSE.md](LICENSE.md).

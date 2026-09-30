@@ -2,6 +2,33 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data have separate versions.
 
+## 1.0.2 — 2026-10-01
+
+### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.0.2
+
+- Changed: deselecting (a click, the card's ×, "Clear selection", Escape) never changes the scene.
+  A structure that the tree or search placed on the scene stays there after it is deselected.
+  Before, it left the scene with its selection, so deselecting the only selected structure emptied
+  the scene and showed "No model loaded yet". While a chosen surroundings level limits the view,
+  the level still decides what is shown.
+- npm metadata: `homepage` (the demo), `bugs`, and the keywords `web-components`,
+  `custom-elements`, `human-anatomy` and `medical-education`.
+
+### Markdown — `@authorod/svitylo-anatomy-markdown` 1.0.1
+
+- npm metadata: `homepage` and `bugs`. The code is unchanged.
+
+### Repository
+
+- GitHub Actions: the checks, the end-to-end tests and PHPUnit on every push and pull request; the
+  Livewire end-to-end tests and the clean-install check weekly.
+- Community files: a Code of Conduct (Contributor Covenant 2.1), a security policy with private
+  vulnerability reporting, issue forms and a pull request template.
+- The Composer package's `composer.json` has `support` links (issues, source); it has no new
+  version.
+
+The data package is unchanged.
+
 ## 1.0.1 — 2026-09-29
 
 ### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.0.1

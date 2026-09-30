@@ -1,6 +1,6 @@
 # API
 
-API version: `1.0.1`. The behaviour described here is covered by tests.
+API version: `1.0.2`. The behaviour described here is covered by tests.
 
 Entry points of the package `@authorod/svitylo-3d-anatomy-atlas`:
 
@@ -212,8 +212,8 @@ The element's scene methods (`loadAll` … `reset`; `focusOn` is `focus` here), 
 | Method / property | Description |
 | --- | --- |
 | `on(type, handler): Unsubscribe` | Typed core events: the DOM events without the `anatomy:` prefix (except `expand`), plus `quality` and `lang` (`{ lang, latin }`). |
-| `toggleSelection(id)` | Click semantics: adds the structure to the selection or removes it. A structure that is not shown is placed on the scene for this selection only (it leaves the scene with it). The camera does not move. |
-| `selectStructure(id, { focus?, ensureVisible? })` | Like a tree row or a search result: the structure becomes the most recent selection (the others stay selected, except its ancestors and descendants). When it is not shown, it is shown for this selection only: loaded, removed from `hidden`, added to an active isolation. `focus` (default) zooms the camera to it; if it is deselected right afterwards with nothing else changed (neither the selection nor the camera), the camera goes back. `ensureVisible`: when other structures cover it after the zoom, the transparency turns on (0.78) if it was 0. |
+| `toggleSelection(id)` | Click semantics: adds the structure to the selection or removes it. A structure that is not shown is placed on the scene and stays there after it is deselected. The camera does not move. |
+| `selectStructure(id, { focus?, ensureVisible? })` | Like a tree row or a search result: the structure becomes the most recent selection (the others stay selected, except its ancestors and descendants). When it is not shown, it is placed on the scene (and stays there after it is deselected): loaded, removed from `hidden`, added to an active isolation. `focus` (default) zooms the camera to it; if it is deselected right afterwards with nothing else changed (neither the selection nor the camera), the camera goes back. `ensureVisible`: when other structures cover it after the zoom, the transparency turns on (0.78) if it was 0. |
 | `surroundings` | `{ level, explicit, levels, transparency }`: `level` is the level of the view, 0 … `levels.length` (`null` without a selection); `explicit`, whether the level was chosen; `levels`, the group IDs of levels 1 … N (`null` = the whole body); `transparency`, 0 = opaque. |
 | `surroundingsLevels(id)` | Surroundings levels of one structure: group IDs from the nearest; `null` = the whole body. |
 | `showSurroundings(id?, { level?, transparency?, source?, focus?, keepIsolation? })` | As on the element; `focus: false` leaves the camera where it is, and `keepIsolation` keeps an isolation (by default it ends, so that the surroundings are visible). |
@@ -274,15 +274,10 @@ Two independent settings decide what is seen around the selection: the **surroun
 much of the hierarchy around the selection is shown) and the **transparency** (how translucent
 everything that is not selected is). Neither is a mode.
 
-**What is on the scene.** A structure is placed on the scene in one of two ways:
-
-- **For good**: "Load everything" (`loadAll`), the tree "eye" (`show`), `showStructure`,
-  `addStructures`, `reveal`, `showSurroundings(id)` and links (`setState`).
-- **For a selection only**: selecting a structure that is not shown (a tree row or a search result,
-  `selectStructure`, or `toggleSelection`) places it on the scene for that selection. Deselecting it,
-  including "Clear selection", removes it from the scene again. Selecting one of its parts or its
-  group instead (drilling down or up) keeps it on the scene as the context.
-- A link (`getState()`) writes what is shown for selections as placed on the scene.
+**What is on the scene.** "Load everything" (`loadAll`), the tree "eye" (`show`), `showStructure`,
+`addStructures`, `reveal`, `showSurroundings(id)`, links (`setState`) and selecting a structure that
+is not shown (a tree row or a search result, `selectStructure`, `toggleSelection`) place structures
+on the scene. Deselecting, including "Clear selection" and Escape, never changes the scene.
 
 **Levels.** They are built from the data hierarchy around **the whole selection**: level 0 is only
 the selection; level k joins the k-th group of every selected structure (a structure with a shorter
@@ -352,10 +347,9 @@ interface ViewState {
 }
 ```
 
-- `scene` lists everything placed, including what is shown only for a selection; `setState` places
-  it for good. With `surroundings.level` and a selection, the scene shows the selection, that level
-  of its surroundings and `extra` instead of `scene`; `scene` is shown again with the automatic
-  level. The field `surroundings` is absent when all three keys are.
+- `scene` lists everything placed on the scene. With `surroundings.level` and a selection, the scene
+  shows the selection, that level of its surroundings and `extra` instead of `scene`; `scene` is
+  shown again with the automatic level. The field `surroundings` is absent when all three keys are.
 - States of schema v1 still open. A v1 state is validated with the v1 schema, then migrated:
   `surroundings: { level, extra, opacity, anchor? }` becomes
   `{ level, extra, transparency: 1 − opacity }` (0.78 without `opacity`), and the anchor is dropped.
@@ -365,8 +359,8 @@ interface ViewState {
 - Precedence: `isolate` restricts, `hidden` narrows, and `selected` never makes a hidden structure
   visible.
 - A state that selects both a group and its part is normalised: the later one in the list stays.
-- `setState(getState())` does not change what is shown (structures shown only for a selection come
-  back placed for good); the state is canonical (ordered, camera rounded to 0.1 mm).
+- `setState(getState())` does not change what is shown; the state is canonical (ordered, camera
+  rounded to 0.1 mm).
 - The economy mode is not part of the state.
 
 ### Codec
