@@ -67,8 +67,9 @@ State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, 
   (part of its rim stands up to 1.4 mm off it); two openings of the lower lobe of the right lung lie
   1.8 mm from the diaphragm; in the right kidney three seams of the collecting system (HRA) deviate
   by up to 2–3 mm at a few points (under 1 mm on average). These show only with transparency or when
-  parts of the body are hidden; they are planned for a later data release. Only the trunk organs
-  and their neighbours were checked; elsewhere the source can still have small gaps or overlaps.
+  parts of the body are hidden; they are planned for a later data release (the full list with
+  priorities is in the [data roadmap](data-roadmap.md)). Only the trunk organs and their neighbours
+  were checked; elsewhere the source can still have small gaps or overlaps.
 - Muscle attachments (`insertions`) are hidden by default and are not part of "Load everything".
 
 ## Rendering
