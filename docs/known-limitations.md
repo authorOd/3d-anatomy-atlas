@@ -20,11 +20,12 @@ State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, 
   tympani), the vestibule, the semicircular canals with the common bony limb, the ossicles and the
   tympanic membrane from OpenEar (one temporal bone; the left ear is its mirror image). The
   Z-Anatomy ossicles and tympanic membrane were replaced because their provenance could not be
-  confirmed. These models come from other bodies and are placed into the Z-Anatomy body by a
-  similarity transform: both kidneys with one shift and scale, keeping their natural orientation and
-  their positions relative to each other; the ear by its ossicles (0.35 mm apart on average). The
-  parts of the labyrinth are cut from one source mesh along declared planes. The suprarenal glands
-  overlap the upper poles of the kidneys by up to 5–6 mm, as in the source.
+  confirmed. These models come from other bodies and are placed into the Z-Anatomy body: the
+  kidneys without rotation, so they keep their natural orientation, with one scale for both (0.83)
+  and a shift for each that keeps their neighbours outside; where a neighbour would still enter a
+  kidney (the suprarenal gland, the colon, the diaphragm, the liver, the transversus abdominis),
+  the kidney takes its impression, up to 6 mm deep. The ear is placed by its ossicles (0.35 mm
+  apart on average). The parts of the labyrinth are cut from one source mesh along declared planes.
 - **No anatomical review has been done.** Every structure has the status "unreviewed" (which does
   not mean "wrong"); the component shows a notice about this.
 - **Ukrainian names are drafts only**; none has been reviewed yet: 4481 of 4484 structures, 3330 of
@@ -50,9 +51,24 @@ State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, 
   cardiac opening; the lower edge of the laryngopharynx is laid onto the oesophagus; the lower end of
   the small intestine is joined to the ascending colon; the intrarenal arteries and veins, modelled in
   Z-Anatomy for another kidney, are moved inside the new kidneys by a smooth field (up to about 2 cm
-  on the right); the upper ends of the ureters lose the funnel they had towards the excluded renal
-  pelvis and are joined to the new pelves. Only the digestive and urinary tracts were checked for
-  such gaps; junctions between other organs of the source can still show small gaps.
+  on the right); the ureters are moved out of the psoas major and the duodenum (up to 8 mm); their
+  upper ends lose the funnel they had towards the excluded renal pelvis and are joined to the new
+  pelves, and their lower ends, which stopped 2–3 mm short of the urinary bladder, are joined to it.
+- **Overlaps and seams of the trunk organs** (`pnpm data:overlaps`, the depth of the deepest point).
+  The kidneys, renal pelves and ureters of `1.1.0` stay out of their neighbours (at most 1.1 mm of
+  contact). The organs of the source itself overlap in places: the descending and ascending colon
+  enter the psoas major by up to 14 and 13 mm and the iliacus by about 9.5 mm; the liver enters the
+  diaphragm (11 mm) and the stomach (9 mm); the left suprarenal gland enters the spleen (11 mm); the
+  vermiform appendix the psoas major (10 mm); the pancreas the inferior vena cava (7.5 mm); the
+  descending colon the jejunum (7 mm); the lower lobes of the lungs the transversus abdominis
+  (5.5–7 mm); the duodenum and the jejunum the transverse colon (5.5 mm); the duodenum the inferior
+  vena cava (5 mm); the descending and sigmoid colon the urinary bladder (5 mm), and 17 more pairs by
+  2–4 mm. Open ends: the upper end of the jejunum is partly sunk into the closed end of the duodenum
+  (part of its rim stands up to 1.4 mm off it); two openings of the lower lobe of the right lung lie
+  1.8 mm from the diaphragm; in the right kidney three seams of the collecting system (HRA) deviate
+  by up to 2–3 mm at a few points (under 1 mm on average). These show only with transparency or when
+  parts of the body are hidden; they are planned for a later data release. Only the trunk organs
+  and their neighbours were checked; elsewhere the source can still have small gaps or overlaps.
 - Muscle attachments (`insertions`) are hidden by default and are not part of "Load everything".
 
 ## Rendering
@@ -69,7 +85,7 @@ State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, 
 - Materials are a colour palette without textures.
 - Economy mode: simplified geometry, `devicePixelRatio ≤ 1`, no specular highlights or rim light;
   systems are not hidden. The whole body: ~56 MB (standard) or ~21 MB (economy) of network transfer;
-  ~3.05 million or ~0.85 million triangles.
+  ~3.04 million or ~0.85 million triangles.
 - The loaded geometry of the visible scene stays in GPU memory; outside the current view, decoded
   geometry is kept within a 384 MB budget (LRU).
 - Several full atlases on a page are independent and do not share GPU resources. Embeds share the

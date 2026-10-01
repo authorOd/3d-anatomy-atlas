@@ -144,6 +144,14 @@ def read_glb(path, nodes):
     return weld(pos, tri)
 
 
+def glb_node_names(path):
+    """Names of the nodes of a GLB file."""
+    with open(path, "rb") as fh:
+        data = fh.read()
+    json_len, _ = struct.unpack_from("<I4s", data, 12)
+    return {n.get("name") for n in json.loads(data[20:20 + json_len])["nodes"]}
+
+
 def read_ply(path, scale):
     with open(path, encoding="ascii") as fh:
         nv = nf = 0
@@ -219,6 +227,20 @@ def labyrinth_part(pos, tri, parts, code):
     return out_pos, out_tri
 
 
+def warp_points(points, field):
+    """Moves points by a smooth field: Gaussian radial basis functions in rounds, each applied to
+    the result of the previous one (a round may set its own sigma)."""
+    out = np.array(points, dtype=np.float64)
+    for rnd in field.get("rounds", []):
+        centres = np.array(rnd["centres"], dtype=np.float64)
+        weights = np.array(rnd["weights"], dtype=np.float64)
+        sigma = float(rnd.get("sigma", field["sigma"]))
+        for i in range(0, len(out), 4096):
+            d2 = ((out[i:i + 4096, None, :] - centres[None, :, :]) ** 2).sum(-1)
+            out[i:i + 4096] += np.exp(-d2 / (2 * sigma * sigma)) @ weights
+    return out
+
+
 # ---------------------------------------------------------------- scene changes
 
 def apply(spec, fit, source_dir):
@@ -269,8 +291,11 @@ def apply(spec, fit, source_dir):
         if "labyrinthPart" in spec_obj:
             parts = fit["labyrinth"]
             pos, tri = labyrinth_part(pos, tri, parts, parts["names"].index(spec_obj["labyrinthPart"]))
-        m = np.array(fit["transforms"][spec_obj["transform"]]["matrix"], dtype=np.float64)
+        placement = fit["transforms"][spec_obj["transform"]]
+        m = np.array(placement["matrix"], dtype=np.float64)
         world = pos @ m[:3, :3].T + m[:3, 3]
+        if "warp" in placement:
+            world = warp_points(world, placement["warp"])
         if np.linalg.det(m[:3, :3]) < 0:
             tri = tri[:, ::-1]
         if bpy.data.objects.get(spec_obj["name"]) is not None:

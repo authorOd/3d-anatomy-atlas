@@ -11,8 +11,8 @@ Presence of an organ does not imply that all of its internal components are mode
 | muscular | 779 | 683 | 0 | 1,339,851 | 366,746 |
 | skeletal | 309 | 277 | 0 | 247,772 | 75,895 |
 | joints | 476 | 413 | 0 | 159,752 | 64,663 |
-| cardiovascular | 704 | 676 | 0 | 444,134 | 108,136 |
-| visceral | 167 | 133 | 0 | 207,116 | 62,145 |
+| cardiovascular | 704 | 676 | 0 | 444,134 | 108,144 |
+| visceral | 167 | 133 | 0 | 198,736 | 60,169 |
 | nervous | 677 | 455 | 137 | 278,417 | 69,579 |
 | lymphoid | 208 | 163 | 0 | 62,088 | 14,982 |
 | insertions | 873 | 705 | 0 | 207,334 | 39,280 |
@@ -21,8 +21,8 @@ Presence of an organ does not imply that all of its internal components are mode
 
 - Structures: 4484 (with geometry: 3761, declared gaps: 137)
 - Chunks: 61
-- Triangles: standard 3,051,162, economy 854,382
-- Size: standard 56.4 MB, economy 21.4 MB, metadata 2.26 MB
+- Triangles: standard 3,042,782, economy 852,414
+- Size: standard 56.3 MB, economy 21.4 MB, metadata 2.26 MB
 
 ## Names
 
@@ -71,12 +71,16 @@ structure shows a note, and the validation checks the seams.
 - **oesophagus-cardia** (join-tube-end; visceral.oesophagus): The oesophagus is a curve with a flat oval profile; its lower end is 3 mm off the round cardiac opening of the stomach and turned by 25°, leaving a gap of up to 5 mm. Largest gap: 5.0 mm before, 0.1 mm after.
 - **pharynx-oesophagus** (seal-opening; visceral.laryngopharynx): The lower opening of the laryngopharynx is oblique: its posterior edge is at the upper end of the oesophagus, while its anterior part reaches down to the lower border of the cricoid cartilage 13 mm in front of the oesophagus, leaving the opening uncovered. Largest gap: 13.3 mm before, 0.0 mm after.
 - **small-intestine-colon** (join-tube-end; visceral.jejunum): The small intestine is one curve in the source; its lower end stops short of the wall of the ascending colon, leaving a gap of up to 10 mm. Largest gap: 9.6 mm before, 0.0 mm after.
-- **kidney-arteries-l** (warp-curves; cardiovascular.intrarenal_arteries_of_left_kidney): The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk. Largest displacement: 6.9 mm.
-- **kidney-veins-l** (warp-curves; cardiovascular.intrarenal_veins_of_left_kidney): The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk. Largest displacement: 22.3 mm.
-- **kidney-arteries-r** (warp-curves; cardiovascular.intrarenal_arteries_of_right_kidney): The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk. Largest displacement: 14.0 mm.
-- **kidney-veins-r** (warp-curves; cardiovascular.intrarenal_veins_of_right_kidney): The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk. Largest displacement: 18.5 mm.
-- **ureter-pelvis-l** (join-tube-end; visceral.ureter_l): The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 11 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm. Largest gap: 10.2 mm before, 0.2 mm after.
-- **ureter-pelvis-r** (join-tube-end; visceral.ureter_r): The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 23 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm. Largest gap: 23.5 mm before, 0.1 mm after.
+- **kidney-arteries-l** (warp-curves; cardiovascular.intrarenal_arteries_of_left_kidney): The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours. Largest displacement: 11.0 mm.
+- **kidney-veins-l** (warp-curves; cardiovascular.intrarenal_veins_of_left_kidney): The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours. Largest displacement: 18.2 mm.
+- **kidney-arteries-r** (warp-curves; cardiovascular.intrarenal_arteries_of_right_kidney): The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours. Largest displacement: 22.3 mm.
+- **kidney-veins-r** (warp-curves; cardiovascular.intrarenal_veins_of_right_kidney): The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours. Largest displacement: 20.2 mm.
+- **ureter-pelvis-l** (join-tube-end; visceral.ureter_l): The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 14 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm. Largest gap: 12.9 mm before, 0.2 mm after.
+- **ureter-pelvis-r** (join-tube-end; visceral.ureter_r): The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 16 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm. Largest gap: 16.7 mm before, 0.1 mm after.
+- **ureter-course-l** (warp-curves; visceral.ureter_l): The Z-Anatomy left ureter, running from the new renal pelvis, partly lies inside the psoas major (up to 5 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately. Largest displacement: 5.6 mm.
+- **ureter-course-r** (warp-curves; visceral.ureter_r): The Z-Anatomy right ureter, running from the new renal pelvis, partly lies inside the psoas major and the duodenum (up to 8 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately. Largest displacement: 7.7 mm.
+- **ureter-bladder-l** (join-tube-end; visceral.ureter_l): The lower end of the Z-Anatomy left ureter stops up to 2.9 mm short of the wall of the urinary bladder. Largest gap: 2.9 mm before, 0.0 mm after.
+- **ureter-bladder-r** (join-tube-end; visceral.ureter_r): The lower end of the Z-Anatomy right ureter stops up to 2.4 mm short of the wall of the urinary bladder. Largest gap: 2.4 mm before, 0.0 mm after.
 
 ## Notes
 

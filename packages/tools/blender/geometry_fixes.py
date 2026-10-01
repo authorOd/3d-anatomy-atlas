@@ -41,8 +41,9 @@ applied here and reported in export.json, so every change is explicit and reprod
                  e.g. with a step that a tube cannot follow.
   warp-curves    Moves the control points of a curve (and their handles) by a smooth field of
                  Gaussian radial basis functions computed by fit_external.py (external-fit.json,
-                 identified by its SHA-256). Adapts the Z-Anatomy intrarenal vessels, modelled
-                 for another kidney, to the kidneys placed from HRA.
+                 identified by its SHA-256); a round may set its own sigma. Adapts the
+                 Z-Anatomy intrarenal vessels, modelled for another kidney, to the kidneys placed
+                 from HRA, and moves the ureters out of their neighbours.
 
 Tubes and sealed objects are moved before their trailing Solidify modifiers, which are then
 applied again, so walls keep their thickness. Coordinates in the fixes file are Blender world
@@ -745,8 +746,8 @@ def warp_curves(fix, fields):
             refs.extend((p, "point") for p in spline.points)
     world = np.array([(mw @ (Vector(getattr(o, a)[:]) if a != "point" else o.co.xyz))[:] for o, a in refs])
     moved = world.copy()
-    sigma = float(field["sigma"])
     for rnd in field["rounds"]:
+        sigma = float(rnd.get("sigma", field["sigma"]))
         centres = np.array(rnd["centres"])
         weights = np.array(rnd["weights"])
         d2 = ((moved[:, None, :] - centres[None, :, :]) ** 2).sum(-1)

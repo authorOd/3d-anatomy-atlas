@@ -61,12 +61,12 @@
       "kind": "warp-curves",
       "object": "Intrarenal arteries of left kidney",
       "field": "kidney-arteries-l",
-      "fieldSha256": "8e698f21f78d4f49a64269f699ee29bdf965a45c051cb1ee89aea200913776a1",
-      "reason": "The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
+      "fieldSha256": "cb8d753eb15812c9548b40c820694b3da72b90204181e44f84f54ddb3339d72f",
+      "reason": "The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
       "targets": [["5: Cardiovascular system", "Intrarenal arteries of left kidney"]],
       "note": {
-        "uk": "Внутрішньониркові артерії Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової лівої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено.",
-        "en": "The Z-Anatomy intrarenal arteries were modelled for another kidney. The branches that lay outside the new left kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged."
+        "uk": "Внутрішньониркові артерії Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової лівої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено. Судини також повторюють вдавлення, які нирка має від сусідніх структур.",
+        "en": "The Z-Anatomy intrarenal arteries were modelled for another kidney. The branches that lay outside the new left kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged. The vessels also follow the impressions the kidney takes from its neighbours."
       }
     },
     {
@@ -74,12 +74,12 @@
       "kind": "warp-curves",
       "object": "Intrarenal veins of left kidney",
       "field": "kidney-veins-l",
-      "fieldSha256": "b7704814fca7e98803f24e6fb2dadc56684f387f506d4bb78ad575edb5469ba7",
-      "reason": "The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
+      "fieldSha256": "2a795a269be56a3d43871741767dd5608063273a7e2a7d86617b1e0a8c377c15",
+      "reason": "The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
       "targets": [["5: Cardiovascular system", "Intrarenal veins of left kidney"]],
       "note": {
-        "uk": "Внутрішньониркові вени Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової лівої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено.",
-        "en": "The Z-Anatomy intrarenal veins were modelled for another kidney. The branches that lay outside the new left kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged."
+        "uk": "Внутрішньониркові вени Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової лівої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено. Судини також повторюють вдавлення, які нирка має від сусідніх структур.",
+        "en": "The Z-Anatomy intrarenal veins were modelled for another kidney. The branches that lay outside the new left kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged. The vessels also follow the impressions the kidney takes from its neighbours."
       }
     },
     {
@@ -87,12 +87,12 @@
       "kind": "warp-curves",
       "object": "Intrarenal arteries of right kidney",
       "field": "kidney-arteries-r",
-      "fieldSha256": "5b43219e79152084b612fb8345da45a6d9c8f56a4ae362901777aa06c7f290b2",
-      "reason": "The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
+      "fieldSha256": "0cc7d351e54ef06d69589cae48dc852871e38f2ea8892684eccdca50d0bf5da7",
+      "reason": "The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
       "targets": [["5: Cardiovascular system", "Intrarenal arteries of right kidney"]],
       "note": {
-        "uk": "Внутрішньониркові артерії Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової правої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено.",
-        "en": "The Z-Anatomy intrarenal arteries were modelled for another kidney. The branches that lay outside the new right kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged."
+        "uk": "Внутрішньониркові артерії Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової правої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено. Судини також повторюють вдавлення, які нирка має від сусідніх структур.",
+        "en": "The Z-Anatomy intrarenal arteries were modelled for another kidney. The branches that lay outside the new right kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged. The vessels also follow the impressions the kidney takes from its neighbours."
       }
     },
     {
@@ -100,12 +100,12 @@
       "kind": "warp-curves",
       "object": "Intrarenal veins of right kidney",
       "field": "kidney-veins-r",
-      "fieldSha256": "1343d6f6a9050b086d6daf5e654d8cbc2c2a3621f876eb30d43f2783762e0581",
-      "reason": "The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
+      "fieldSha256": "16954fabfa9b17a31925264c3e91785283df01d8377884bd5dc7141df51ba09f",
+      "reason": "The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
       "targets": [["5: Cardiovascular system", "Intrarenal veins of right kidney"]],
       "note": {
-        "uk": "Внутрішньониркові вени Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової правої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено.",
-        "en": "The Z-Anatomy intrarenal veins were modelled for another kidney. The branches that lay outside the new right kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged."
+        "uk": "Внутрішньониркові вени Z-Anatomy змодельовано під іншу нирку. Гілки, що виходили за межі нової правої нирки (HRA), плавно переміщено всередину неї; з'єднання зі стовбуром не змінено. Судини також повторюють вдавлення, які нирка має від сусідніх структур.",
+        "en": "The Z-Anatomy intrarenal veins were modelled for another kidney. The branches that lay outside the new right kidney (HRA) are moved inside it by a smooth field; the junction with the trunk is unchanged. The vessels also follow the impressions the kidney takes from its neighbours."
       }
     },
     {
@@ -113,15 +113,15 @@
       "kind": "join-tube-end",
       "object": "Ureter.l",
       "end": "last",
-      "target": { "object": "Renal pelvis.l", "kind": "opening", "near": [0.0488, 0.0077, 1.1076] },
+      "target": { "object": "Renal pelvis.l", "kind": "opening", "near": [0.0514, 0.0068, 1.1092] },
       "blendLength": 0.06,
       "endRadius": 4.5,
       "maxGap": 0.0003,
-      "reason": "The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 11 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
+      "reason": "The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 14 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
       "targets": [["8: Visceral systems", "Ureter.l"]],
       "note": {
-        "uk": "У вихідній моделі верхній кінець лівого сечоводу розширювався лійкою до ниркової миски, якої в атласі немає, і не доходив до нової миски (розрив 11 мм). Лійку прибрано, а кінець плавно підведено до виходу миски.",
-        "en": "In the source model the upper end of the left ureter widened into a funnel towards a renal pelvis the atlas does not include and did not reach the new pelvis (a gap of 11 mm). The funnel is removed and the end is led smoothly to the outlet of the pelvis."
+        "uk": "У вихідній моделі верхній кінець лівого сечоводу розширювався лійкою до ниркової миски, якої в атласі немає, і не доходив до нової миски (розрив 14 мм). Лійку прибрано, а кінець плавно підведено до виходу миски.",
+        "en": "In the source model the upper end of the left ureter widened into a funnel towards a renal pelvis the atlas does not include and did not reach the new pelvis (a gap of 14 mm). The funnel is removed and the end is led smoothly to the outlet of the pelvis."
       }
     },
     {
@@ -129,15 +129,69 @@
       "kind": "join-tube-end",
       "object": "Ureter.r",
       "end": "last",
-      "target": { "object": "Renal pelvis.r", "kind": "opening", "near": [-0.0535, -0.0086, 1.0818] },
+      "target": { "object": "Renal pelvis.r", "kind": "opening", "near": [-0.0508, 0.0054, 1.0834] },
       "blendLength": 0.1,
       "endRadius": 4.5,
       "maxGap": 0.0003,
-      "reason": "The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 23 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
+      "reason": "The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 16 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
       "targets": [["8: Visceral systems", "Ureter.r"]],
       "note": {
-        "uk": "У вихідній моделі верхній кінець правого сечоводу розширювався лійкою до ниркової миски, якої в атласі немає, і не доходив до нової миски (розрив 23 мм). Лійку прибрано, а кінець плавно підведено до виходу миски.",
-        "en": "In the source model the upper end of the right ureter widened into a funnel towards a renal pelvis the atlas does not include and did not reach the new pelvis (a gap of 23 mm). The funnel is removed and the end is led smoothly to the outlet of the pelvis."
+        "uk": "У вихідній моделі верхній кінець правого сечоводу розширювався лійкою до ниркової миски, якої в атласі немає, і не доходив до нової миски (розрив 16 мм). Лійку прибрано, а кінець плавно підведено до виходу миски.",
+        "en": "In the source model the upper end of the right ureter widened into a funnel towards a renal pelvis the atlas does not include and did not reach the new pelvis (a gap of 16 mm). The funnel is removed and the end is led smoothly to the outlet of the pelvis."
+      }
+    },
+    {
+      "id": "ureter-course-l",
+      "kind": "warp-curves",
+      "object": "Ureter.l",
+      "field": "ureter-l",
+      "fieldSha256": "7c63d503f1d94d73b5850d7d14db40c5cd7306d5761fe8d08a189dbf34ef476a",
+      "reason": "The Z-Anatomy left ureter, running from the new renal pelvis, partly lies inside the psoas major (up to 5 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately.",
+      "targets": [["8: Visceral systems", "Ureter.l"]],
+      "note": {
+        "uk": "У вихідній моделі лівий сечовід (від нової ниркової миски) місцями заходив у великий поперековий м'яз (до 5 мм). Його плавно виведено назовні; кінці не зміщено.",
+        "en": "In the source model the left ureter (from the new renal pelvis) partly lay inside the psoas major (up to 5 mm). It is moved out smoothly; its ends stay in place."
+      }
+    },
+    {
+      "id": "ureter-course-r",
+      "kind": "warp-curves",
+      "object": "Ureter.r",
+      "field": "ureter-r",
+      "fieldSha256": "e1c7da46e36383a3326b7b2960644b7eb41bfcc962d2b290c1c6ba676f38f021",
+      "reason": "The Z-Anatomy right ureter, running from the new renal pelvis, partly lies inside the psoas major and the duodenum (up to 8 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately.",
+      "targets": [["8: Visceral systems", "Ureter.r"]],
+      "note": {
+        "uk": "У вихідній моделі правий сечовід (від нової ниркової миски) місцями заходив у великий поперековий м'яз і дванадцятипалу кишку (до 8 мм). Його плавно виведено назовні; кінці не зміщено.",
+        "en": "In the source model the right ureter (from the new renal pelvis) partly lay inside the psoas major and the duodenum (up to 8 mm). It is moved out smoothly; its ends stay in place."
+      }
+    },
+    {
+      "id": "ureter-bladder-l",
+      "kind": "join-tube-end",
+      "object": "Ureter.l",
+      "end": "first",
+      "target": { "object": "Urinary bladder", "kind": "surface", "maxDistance": 0.01 },
+      "blendLength": 0.03,
+      "reason": "The lower end of the Z-Anatomy left ureter stops up to 2.9 mm short of the wall of the urinary bladder.",
+      "targets": [["8: Visceral systems", "Ureter.l"]],
+      "note": {
+        "uk": "У вихідній моделі нижній кінець лівого сечоводу не доходив до стінки сечового міхура (щілина до 2,9 мм). Його плавно підведено до стінки.",
+        "en": "In the source model the lower end of the left ureter stopped short of the wall of the urinary bladder (a gap of up to 2.9 mm). It is led onto the wall."
+      }
+    },
+    {
+      "id": "ureter-bladder-r",
+      "kind": "join-tube-end",
+      "object": "Ureter.r",
+      "end": "first",
+      "target": { "object": "Urinary bladder", "kind": "surface", "maxDistance": 0.01 },
+      "blendLength": 0.03,
+      "reason": "The lower end of the Z-Anatomy right ureter stops up to 2.4 mm short of the wall of the urinary bladder.",
+      "targets": [["8: Visceral systems", "Ureter.r"]],
+      "note": {
+        "uk": "У вихідній моделі нижній кінець правого сечоводу не доходив до стінки сечового міхура (щілина до 2,4 мм). Його плавно підведено до стінки.",
+        "en": "In the source model the lower end of the right ureter stopped short of the wall of the urinary bladder (a gap of up to 2.4 mm). It is led onto the wall."
       }
     }
   ]

@@ -18,6 +18,7 @@
     "data:source": "pnpm --filter @svitylo-atlas/tools run source",
     "data:fit": "pnpm --filter @svitylo-atlas/tools run fit",
     "data:export": "pnpm --filter @svitylo-atlas/tools run export",
+    "data:overlaps": "pnpm --filter @svitylo-atlas/tools run overlaps",
     "data:build": "pnpm --filter @svitylo-atlas/tools run build",
     "data:validate": "pnpm --filter @svitylo-atlas/tools run validate",
     "demo:dev": "pnpm --filter @svitylo-atlas/demo run dev",

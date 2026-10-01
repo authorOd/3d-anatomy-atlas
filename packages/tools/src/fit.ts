@@ -27,7 +27,10 @@
  * writes packages/data/sources/external-fit.json, which is reviewed and committed. The export
  * only applies what that file declares.
  *
- *   pnpm data:fit [--work .work/zanatomy]   (BLENDER=/path/to/blender to override)
+ *   pnpm data:fit [--work .work/zanatomy] [--keep-kidney-placement]   (BLENDER=/path/to/blender to override)
+ *
+ * --keep-kidney-placement reuses the kidney shifts and scale of the committed file and computes
+ * only the fields again (the placement takes about ten minutes).
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -35,7 +38,10 @@ import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { DATA_SOURCES, REPO_ROOT, WORK_DIR, log, readJson } from './lib/io.js';
 
-const { values } = parseArgs({ options: { work: { type: 'string', default: join(WORK_DIR, 'zanatomy') } } });
+const { values } = parseArgs({
+  options: { work: { type: 'string', default: join(WORK_DIR, 'zanatomy') }, 'keep-kidney-placement': { type: 'boolean', default: false } },
+});
+const out = join(DATA_SOURCES, 'external-fit.json');
 const lock = readJson<{ tools: { blender: string; subsurfMax: number; threads: number } }>(join(DATA_SOURCES, 'zanatomy.lock.json'));
 const blender = process.env.BLENDER ?? 'blender';
 const blend = join(values.work!, 'source', 'Z-Anatomy', 'Startup.blend');
@@ -58,9 +64,10 @@ execFileSync(
     '--dir',
     join(WORK_DIR, 'external'),
     '--out',
-    join(DATA_SOURCES, 'external-fit.json'),
+    out,
     '--subsurf-max',
     String(lock.tools.subsurfMax),
+    ...(values['keep-kidney-placement'] ? ['--kidney-placement', out] : []),
   ],
   { stdio: 'inherit' },
 );

@@ -27,15 +27,16 @@ GLB: one node and one primitive per file, `EXT_meshopt_compression`, `KHR_mesh_q
 patient's left at +X, origin on the floor between the heels.
 
 Current release: 4484 structures (3761 with geometry, 137 declared gaps), 9 systems, 61 files per
-quality level; standard ~3.05 million triangles / 56.4 MB, economy ~0.85 million / 21.4 MB, metadata
+quality level; standard ~3.04 million triangles / 56.3 MB, economy ~0.85 million / 21.4 MB, metadata
 3.4 MB (≈0.23 MB with gzip). Ukrainian names: 4481 of 4484 (all drafts; 3330 machine-assisted).
 The kidneys come from the Human Reference Atlas and the ear (labyrinth, ossicles, tympanic
 membrane) from OpenEar, both CC BY 4.0. Details: [coverage report](releases/1.1.0/reports/COVERAGE.md).
 
 The source geometry is changed only in declared places (`sources/geometry-fixes.json`): the
 teaching window in the stomach and its mucosa is closed; the oesophagus, the laryngopharynx and
-the small intestine are joined to their neighbours without gaps; the intrarenal vessels are
-adapted to the new kidneys, and the ureters are joined to the new renal pelves. The coverage
+the small intestine are joined to their neighbours without gaps; the intrarenal
+vessels are adapted to the new kidneys; the ureters are moved out of their neighbours and joined to
+the new renal pelves and to the bladder. The coverage
 report lists the corrections, and the card of each corrected structure has them in its details
 ("Corrected in this atlas").
 

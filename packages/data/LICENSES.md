@@ -26,13 +26,14 @@ The audit of every included asset has the status `pending`, so the release is on
 channel; the `release` channel needs an approved audit of every included asset (checked by the atlas
 and by `pnpm data:validate -- --release`).
 
-**ShareAlike.** The models and names are distributed under CC BY-SA: derived data (modified geometry,
-dictionaries) must be distributed under the same terms, with the attribution kept. The kidney and ear models (CC BY
-4.0) are adapted (placed into the Z-Anatomy body, parts merged or cut, simplified) and keep their
-attribution. The changes made to the models, including the declared geometry corrections
+**ShareAlike.** The models and names are distributed under CC BY-SA: derived data (modified
+geometry, dictionaries) must be distributed under the same terms, with the attribution kept. The
+kidney and ear models (CC BY 4.0) are adapted (placed into the Z-Anatomy body, the kidneys with the
+impressions of their neighbours, parts merged or cut, simplified) and keep their attribution. The
+changes made to the models, including the declared geometry corrections
 (`sources/geometry-fixes.json`: the stomach window closed; the oesophagus, the laryngopharynx and
-the small intestine joined to their neighbours; the intrarenal vessels adapted to the new kidneys;
-the ureters joined to the new renal pelves), are described in `ATTRIBUTION.md` and in the coverage
-report of the release. The component
+the small intestine joined to their neighbours; the intrarenal vessels adapted to the
+new kidneys; the ureters moved out of their neighbours and joined to the new renal pelves and to the
+bladder), are described in `ATTRIBUTION.md` and in the coverage report of the release. The component
 shows the sources and licences in the "Sources and licences" dialog, independently of the link to
 Svitylo.

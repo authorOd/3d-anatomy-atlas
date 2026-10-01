@@ -44,7 +44,7 @@ Browne K., Schlehlein H., “3D Reference Organ for Kidney, Male, Left v1.3” (
 
 - Licence: [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
 - Source: [HRA 3D Reference Object Library: kidney-male-left and kidney-male-right v1.3, ureter-male-left and ureter-male-right v1.2](https://humanatlas.io/3d-reference-library), kidney v1.3, ureter v1.2
-- Changes: Placed into the Z-Anatomy body by a similarity transform (rotation, uniform scale, translation) fitted to the Z-Anatomy renal vessels, ureter and suprarenal gland; the pyramids, papillae and calices of each kidney merged into one structure each; duplicate vertices welded; normals recomputed; the HRA ureter not used; simplified to the atlas quality levels.
+- Changes: Placed into the Z-Anatomy body without rotation: one uniform scale for both kidneys and a shift for each, fitted to the Z-Anatomy renal vessels and ureters with the neighbouring organs, muscles and bones kept outside; where a neighbour would still enter a kidney, the kidney is given its impression (a smooth inward deformation of up to 6 mm); the pyramids, papillae and calices of each kidney merged into one structure each; duplicate vertices welded; normals recomputed; the HRA ureter not used; simplified to the atlas quality levels.
 - Licence audit: pending
 
 ## OpenEar: temporal bone “Delta” (Visible Ear Simulator anatomy)

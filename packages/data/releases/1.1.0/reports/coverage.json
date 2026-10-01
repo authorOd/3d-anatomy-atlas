@@ -41,15 +41,15 @@
       "withGeometry": 676,
       "gaps": 0,
       "trianglesStandard": 444134,
-      "trianglesEconomy": 108136
+      "trianglesEconomy": 108144
     },
     {
       "id": "visceral",
       "structures": 167,
       "withGeometry": 133,
       "gaps": 0,
-      "trianglesStandard": 207116,
-      "trianglesEconomy": 62145
+      "trianglesStandard": 198736,
+      "trianglesEconomy": 60169
     },
     {
       "id": "nervous",
@@ -83,12 +83,12 @@
     "groupsWithoutGeometry": 9,
     "chunks": 61,
     "triangles": {
-      "standard": 3051162,
-      "economy": 854382
+      "standard": 3042782,
+      "economy": 852414
     },
     "bytes": {
-      "standard": 56421160,
-      "economy": 21416728,
+      "standard": 56286416,
+      "economy": 21383676,
       "metadata": 2260607
     }
   },
@@ -1546,8 +1546,8 @@
       "structures": [
         "cardiovascular.intrarenal_arteries_of_left_kidney"
       ],
-      "reason": "The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
-      "maxDisplacement": 0.006898997529386906,
+      "reason": "The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.010986749221399002,
       "seam": []
     },
     {
@@ -1556,8 +1556,8 @@
       "structures": [
         "cardiovascular.intrarenal_veins_of_left_kidney"
       ],
-      "reason": "The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
-      "maxDisplacement": 0.02230907189802777,
+      "reason": "The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.01815363095690481,
       "seam": []
     },
     {
@@ -1566,8 +1566,8 @@
       "structures": [
         "cardiovascular.intrarenal_arteries_of_right_kidney"
       ],
-      "reason": "The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
-      "maxDisplacement": 0.014023871760231973,
+      "reason": "The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.02228897458632483,
       "seam": []
     },
     {
@@ -1576,8 +1576,8 @@
       "structures": [
         "cardiovascular.intrarenal_veins_of_right_kidney"
       ],
-      "reason": "The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk.",
-      "maxDisplacement": 0.018515914331902656,
+      "reason": "The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.020185070660053775,
       "seam": []
     },
     {
@@ -1586,144 +1586,144 @@
       "structures": [
         "visceral.ureter_l"
       ],
-      "reason": "The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 11 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
-      "gapBefore": 0.010155,
-      "gapAfter": 0.000229,
+      "reason": "The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 14 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
+      "gapBefore": 0.012946,
+      "gapAfter": 0.00019,
       "seam": [
         [
-          0.046708,
-          1.109995,
-          0.046424
+          0.049655,
+          1.11121,
+          0.047241
         ],
         [
-          0.046806,
-          1.109776,
-          0.046027
+          0.049736,
+          1.111027,
+          0.046911
         ],
         [
-          0.047008,
-          1.109473,
-          0.045704
+          0.049904,
+          1.110776,
+          0.046643
         ],
         [
-          0.047257,
-          1.109131,
-          0.04545
+          0.05011,
+          1.110492,
+          0.046432
         ],
         [
-          0.047547,
-          1.108742,
-          0.045236
+          0.050351,
+          1.110169,
+          0.046254
         ],
         [
-          0.047898,
-          1.108286,
-          0.045047
+          0.050643,
+          1.10979,
+          0.046097
         ],
         [
-          0.048308,
-          1.107783,
-          0.044891
+          0.050983,
+          1.109372,
+          0.045966
         ],
         [
-          0.048726,
-          1.107311,
-          0.044786
+          0.05133,
+          1.10898,
+          0.045878
         ],
         [
-          0.049115,
-          1.10691,
-          0.044739
+          0.051652,
+          1.108647,
+          0.045839
         ],
         [
-          0.049487,
-          1.106563,
-          0.044748
+          0.051961,
+          1.108359,
+          0.045845
         ],
         [
-          0.049861,
-          1.106257,
-          0.044821
+          0.052272,
+          1.108105,
+          0.045905
         ],
         [
-          0.050226,
-          1.106006,
-          0.044983
+          0.052574,
+          1.107896,
+          0.046038
         ],
         [
-          0.050539,
-          1.105845,
-          0.045266
+          0.052833,
+          1.107762,
+          0.046272
         ],
         [
-          0.050724,
-          1.105851,
-          0.045659
+          0.052987,
+          1.107767,
+          0.046598
         ],
         [
-          0.050738,
-          1.106041,
-          0.04604
+          0.052998,
+          1.107925,
+          0.046914
         ],
         [
-          0.050625,
-          1.106353,
-          0.046326
+          0.052905,
+          1.108185,
+          0.047153
         ],
         [
-          0.05044,
-          1.106711,
-          0.046528
+          0.052751,
+          1.108482,
+          0.047321
         ],
         [
-          0.050206,
-          1.107088,
-          0.046678
+          0.052557,
+          1.108795,
+          0.047447
         ],
         [
-          0.04991,
-          1.107504,
-          0.046807
+          0.052312,
+          1.10914,
+          0.047555
         ],
         [
-          0.049509,
-          1.108,
-          0.046937
+          0.05198,
+          1.109553,
+          0.047664
         ],
         [
-          0.049007,
-          1.108548,
-          0.047064
+          0.051564,
+          1.110008,
+          0.047771
         ],
         [
-          0.048522,
-          1.109012,
-          0.04716
+          0.051161,
+          1.110393,
+          0.047851
         ],
         [
-          0.048148,
-          1.109323,
-          0.047209
+          0.050851,
+          1.110652,
+          0.047893
         ],
         [
-          0.047802,
-          1.109578,
-          0.047226
+          0.050563,
+          1.110863,
+          0.047907
         ],
         [
-          0.04745,
-          1.109803,
-          0.047202
+          0.050271,
+          1.11105,
+          0.047887
         ],
         [
-          0.047102,
-          1.109983,
-          0.047095
+          0.049982,
+          1.111199,
+          0.047798
         ],
         [
-          0.046808,
-          1.110071,
-          0.046831
+          0.049738,
+          1.111273,
+          0.047579
         ]
       ]
     },
@@ -1733,149 +1733,313 @@
       "structures": [
         "visceral.ureter_r"
       ],
-      "reason": "The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 23 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
-      "gapBefore": 0.023487,
-      "gapAfter": 0.000139,
+      "reason": "The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 16 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
+      "gapBefore": 0.016667,
+      "gapAfter": 0.000117,
       "seam": [
         [
-          -0.055994,
-          1.081682,
-          0.062429
+          -0.052489,
+          1.083154,
+          0.047852
         ],
         [
-          -0.055957,
-          1.081468,
-          0.062101
+          -0.052299,
+          1.083081,
+          0.047664
         ],
         [
-          -0.055802,
-          1.081309,
-          0.061779
+          -0.052049,
+          1.083056,
+          0.04751
         ],
         [
-          -0.055545,
-          1.081217,
-          0.061487
+          -0.051751,
+          1.083073,
+          0.047396
         ],
         [
-          -0.055206,
-          1.081191,
-          0.061241
+          -0.051412,
+          1.083124,
+          0.047322
         ],
         [
-          -0.054801,
-          1.081225,
-          0.061051
+          -0.05104,
+          1.083202,
+          0.047288
         ],
         [
-          -0.054343,
-          1.081306,
-          0.060919
+          -0.050645,
+          1.083297,
+          0.047296
         ],
         [
-          -0.053842,
-          1.081424,
-          0.060849
+          -0.050242,
+          1.083404,
+          0.047347
         ],
         [
-          -0.053313,
-          1.081567,
-          0.060841
+          -0.049852,
+          1.08352,
+          0.047444
         ],
         [
-          -0.052775,
-          1.081728,
-          0.060899
+          -0.049494,
+          1.083641,
+          0.047587
         ],
         [
-          -0.052256,
-          1.081899,
-          0.061025
+          -0.049191,
+          1.083767,
+          0.047777
         ],
         [
-          -0.051781,
-          1.082079,
-          0.061221
+          -0.048961,
+          1.083898,
+          0.04801
         ],
         [
-          -0.051379,
-          1.082264,
-          0.061486
+          -0.048829,
+          1.084031,
+          0.048275
         ],
         [
-          -0.051076,
-          1.082453,
-          0.061816
+          -0.048811,
+          1.08416,
+          0.048554
         ],
         [
-          -0.050903,
-          1.08264,
-          0.062195
+          -0.048916,
+          1.084277,
+          0.048819
         ],
         [
-          -0.050884,
-          1.082817,
-          0.062595
+          -0.049135,
+          1.084372,
+          0.049045
         ],
         [
-          -0.051027,
-          1.082972,
-          0.062981
+          -0.049448,
+          1.08444,
+          0.049214
         ],
         [
-          -0.051322,
-          1.083092,
-          0.063316
+          -0.049827,
+          1.084477,
+          0.049318
         ],
         [
-          -0.051741,
-          1.083171,
-          0.063575
+          -0.050248,
+          1.08448,
+          0.049359
         ],
         [
-          -0.052248,
-          1.083204,
-          0.063745
+          -0.050688,
+          1.084449,
+          0.049343
         ],
         [
-          -0.052809,
-          1.083191,
-          0.063829
+          -0.051125,
+          1.084382,
+          0.04928
         ],
         [
-          -0.053393,
-          1.08313,
-          0.063833
+          -0.051536,
+          1.08428,
+          0.049179
         ],
         [
-          -0.053974,
-          1.083022,
-          0.06377
+          -0.051901,
+          1.084146,
+          0.049047
         ],
         [
-          -0.05452,
-          1.082869,
-          0.063651
+          -0.052202,
+          1.083984,
+          0.048889
         ],
         [
-          -0.055005,
-          1.082673,
-          0.063484
+          -0.052428,
+          1.083803,
+          0.048709
         ],
         [
-          -0.055408,
-          1.082443,
-          0.063275
+          -0.052574,
+          1.083614,
+          0.048507
         ],
         [
-          -0.055713,
-          1.08219,
-          0.063028
+          -0.052634,
+          1.083432,
+          0.048289
         ],
         [
-          -0.055912,
-          1.08193,
-          0.062744
+          -0.052604,
+          1.083274,
+          0.048066
+        ]
+      ]
+    },
+    {
+      "id": "ureter-course-l",
+      "kind": "warp-curves",
+      "structures": [
+        "visceral.ureter_l"
+      ],
+      "reason": "The Z-Anatomy left ureter, running from the new renal pelvis, partly lies inside the psoas major (up to 5 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately.",
+      "maxDisplacement": 0.0055663378493598014,
+      "seam": []
+    },
+    {
+      "id": "ureter-course-r",
+      "kind": "warp-curves",
+      "structures": [
+        "visceral.ureter_r"
+      ],
+      "reason": "The Z-Anatomy right ureter, running from the new renal pelvis, partly lies inside the psoas major and the duodenum (up to 8 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately.",
+      "maxDisplacement": 0.007694911283984554,
+      "seam": []
+    },
+    {
+      "id": "ureter-bladder-l",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.ureter_l"
+      ],
+      "reason": "The lower end of the Z-Anatomy left ureter stops up to 2.9 mm short of the wall of the urinary bladder.",
+      "gapBefore": 0.002876,
+      "gapAfter": 0,
+      "seam": [
+        [
+          0.024919,
+          0.876346,
+          0.029631
+        ],
+        [
+          0.024715,
+          0.87649,
+          0.030509
+        ],
+        [
+          0.024895,
+          0.876492,
+          0.031228
+        ],
+        [
+          0.025395,
+          0.876339,
+          0.031609
+        ],
+        [
+          0.026045,
+          0.876049,
+          0.031589
+        ],
+        [
+          0.026623,
+          0.875667,
+          0.031223
+        ],
+        [
+          0.027101,
+          0.875381,
+          0.030478
+        ],
+        [
+          0.027253,
+          0.875202,
+          0.029653
+        ],
+        [
+          0.027035,
+          0.875175,
+          0.028975
+        ],
+        [
+          0.02657,
+          0.875351,
+          0.028557
+        ],
+        [
+          0.026011,
+          0.875702,
+          0.02848
+        ],
+        [
+          0.025437,
+          0.876087,
+          0.028841
+        ]
+      ]
+    },
+    {
+      "id": "ureter-bladder-r",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.ureter_r"
+      ],
+      "reason": "The lower end of the Z-Anatomy right ureter stops up to 2.4 mm short of the wall of the urinary bladder.",
+      "gapBefore": 0.002353,
+      "gapAfter": 0,
+      "seam": [
+        [
+          -0.008416,
+          0.87051,
+          0.031136
+        ],
+        [
+          -0.007644,
+          0.870561,
+          0.03077
+        ],
+        [
+          -0.007171,
+          0.870484,
+          0.030199
+        ],
+        [
+          -0.007177,
+          0.870339,
+          0.029568
+        ],
+        [
+          -0.007657,
+          0.870161,
+          0.029048
+        ],
+        [
+          -0.008506,
+          0.870015,
+          0.028774
+        ],
+        [
+          -0.009492,
+          0.869937,
+          0.028821
+        ],
+        [
+          -0.010292,
+          0.869906,
+          0.029184
+        ],
+        [
+          -0.010709,
+          0.869943,
+          0.029762
+        ],
+        [
+          -0.01066,
+          0.870058,
+          0.030398
+        ],
+        [
+          -0.010157,
+          0.87022,
+          0.030921
+        ],
+        [
+          -0.009336,
+          0.870385,
+          0.031191
         ]
       ]
     }
