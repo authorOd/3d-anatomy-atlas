@@ -24,7 +24,7 @@
 import { fileURLToPath } from 'node:url';
 
 /** Version of the data release shipped with this package. */
-export const DATA_VERSION = '1.0.0';
+export const DATA_VERSION = '1.1.0';
 /** Dataset identifier stored in shared states. */
 export const MODEL = 'adult-male';
 /** Absolute path of the release folder (Node.js only). */

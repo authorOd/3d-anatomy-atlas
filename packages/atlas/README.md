@@ -67,7 +67,7 @@ Without the UI:
 ```ts
 import { createAtlasViewer } from '@authorod/svitylo-3d-anatomy-atlas/core';
 
-const viewer = await createAtlasViewer({ container, dataUrl: '/anatomy-data/1.0.0/' });
+const viewer = await createAtlasViewer({ container, dataUrl: '/anatomy-data/1.1.0/' });
 await viewer.loadAll();
 const state = viewer.getState();
 viewer.dispose();

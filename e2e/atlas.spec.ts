@@ -862,9 +862,16 @@ test.describe('lifecycle', () => {
       await page.waitForFunction(() => Boolean((document.querySelector('svitylo-anatomy') as { viewer?: unknown }).viewer));
       await waitIdle(page);
     }
-    const gl = await page.evaluate(() => (window as unknown as { __gl: { created: number; lost: number } }).__gl);
     // Detection probes create one short-lived context per mount; live contexts must stay at one.
-    expect(gl.created - gl.lost).toBeLessThanOrEqual(2);
+    // A lost context is reported by an event a little later (slower on software WebGL), so poll.
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const gl = (window as unknown as { __gl: { created: number; lost: number } }).__gl;
+          return gl.created - gl.lost;
+        }),
+      )
+      .toBeLessThanOrEqual(2);
     expect(await page.locator('svitylo-anatomy canvas').count()).toBe(1);
     expect((await atlas<{ scene: string[] }>(page, 'return v.getState();')).scene).toEqual(['skeletal.skull']);
     expect(await atlas<number>(page, 'return v.getResourceStats().listeners;')).toBeLessThanOrEqual(20);

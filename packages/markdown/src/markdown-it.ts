@@ -59,7 +59,7 @@ function loneUrl(inline: Token): string | null {
  * `shareUrls`) become embeds. Invalid blocks are rendered as ordinary code blocks.
  *
  *     const md = new MarkdownIt({ linkify: true }).use(anatomyPlugin, {
- *       dataUrl: '/anatomy-data/1.0.0/',
+ *       dataUrl: '/anatomy-data/1.1.0/',
  *       shareUrls: ['https://svitylo.com/atlas'],
  *     });
  */

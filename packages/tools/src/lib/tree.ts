@@ -67,6 +67,8 @@ export interface SourceNode {
    */
   attachmentOf?: { base: string; kind: 'origin' | 'insertion' | 'group'; index?: number };
   object?: ExportObject;
+  /** Added with models from other sources (external_meshes.py): named by the atlas editors. */
+  external?: boolean;
   parent: SourceNode | null;
   children: SourceNode[];
   /** Licence record of the geometry (after rules). */
@@ -126,7 +128,7 @@ export function buildTree(
     });
 
     for (const group of exp.groups.filter((g) => g.system === collection)) {
-      const node = make('group', group.name, parseSourceName(group.name));
+      const node = make('group', group.name, parseSourceName(group.name), group.external ? { external: true } : {});
       local.set(group.name, node);
       parents.set(node, group.parents);
     }
@@ -137,7 +139,11 @@ export function buildTree(
         continue;
       }
       const parsed = parseSourceName(object.name);
-      const node = make('structure', object.name, parsed, { object });
+      const node = make('structure', object.name, parsed, { object, ...(object.external ? { external: true } : {}) });
+      if (object.external?.en) {
+        node.englishName = object.external.en;
+        node.termKey = object.external.en;
+      }
       if (parsed.attachment) {
         node.englishName = `${parsed.base} (${attachmentLabel(parsed)})`;
         node.termKey = null;
@@ -218,7 +224,8 @@ export function buildTree(
           groups.some((g) => chain.includes(g));
         if (hit) asset = rule.asset;
       }
-      node.asset = asset;
+      // A model from another source names its own licence record.
+      node.asset = node.object.external?.asset ?? asset;
     }
 
     for (const rule of optionalRules.filter((r) => r.system === collection)) {

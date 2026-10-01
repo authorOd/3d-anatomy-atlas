@@ -130,7 +130,7 @@ the panels do not cover page elements above it.
 version (the one with `manifest.json`):
 
 ```html
-<svitylo-anatomy data-url="https://cdn.example.com/anatomy-data/1.0.0/"></svitylo-anatomy>
+<svitylo-anatomy data-url="https://cdn.example.com/anatomy-data/1.1.0/"></svitylo-anatomy>
 ```
 
 - All paths from the manifest are resolved only inside this base (no `../`, absolute paths or URL

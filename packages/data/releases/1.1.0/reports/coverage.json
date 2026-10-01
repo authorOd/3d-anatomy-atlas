@@ -1,0 +1,2047 @@
+{
+  "model": "adult-male",
+  "version": "1.1.0",
+  "channel": "preview",
+  "systems": [
+    {
+      "id": "regions",
+      "structures": 291,
+      "withGeometry": 256,
+      "gaps": 0,
+      "trianglesStandard": 104698,
+      "trianglesEconomy": 52956
+    },
+    {
+      "id": "muscular",
+      "structures": 779,
+      "withGeometry": 683,
+      "gaps": 0,
+      "trianglesStandard": 1339851,
+      "trianglesEconomy": 366746
+    },
+    {
+      "id": "skeletal",
+      "structures": 309,
+      "withGeometry": 277,
+      "gaps": 0,
+      "trianglesStandard": 247772,
+      "trianglesEconomy": 75895
+    },
+    {
+      "id": "joints",
+      "structures": 476,
+      "withGeometry": 413,
+      "gaps": 0,
+      "trianglesStandard": 159752,
+      "trianglesEconomy": 64663
+    },
+    {
+      "id": "cardiovascular",
+      "structures": 704,
+      "withGeometry": 676,
+      "gaps": 0,
+      "trianglesStandard": 444134,
+      "trianglesEconomy": 108144
+    },
+    {
+      "id": "visceral",
+      "structures": 167,
+      "withGeometry": 133,
+      "gaps": 0,
+      "trianglesStandard": 198844,
+      "trianglesEconomy": 60271
+    },
+    {
+      "id": "nervous",
+      "structures": 677,
+      "withGeometry": 455,
+      "gaps": 137,
+      "trianglesStandard": 278417,
+      "trianglesEconomy": 69579
+    },
+    {
+      "id": "lymphoid",
+      "structures": 208,
+      "withGeometry": 163,
+      "gaps": 0,
+      "trianglesStandard": 62088,
+      "trianglesEconomy": 14982
+    },
+    {
+      "id": "insertions",
+      "structures": 873,
+      "withGeometry": 705,
+      "gaps": 0,
+      "trianglesStandard": 207334,
+      "trianglesEconomy": 39280
+    }
+  ],
+  "totals": {
+    "structures": 4484,
+    "withGeometry": 3761,
+    "gaps": 137,
+    "groupsWithoutGeometry": 9,
+    "chunks": 61,
+    "triangles": {
+      "standard": 3042890,
+      "economy": 852516
+    },
+    "bytes": {
+      "standard": 56288328,
+      "economy": 21385564,
+      "metadata": 2260607
+    }
+  },
+  "names": {
+    "uk": {
+      "present": 4481,
+      "reviewed": 0,
+      "drafts": 4481,
+      "machine": 3330,
+      "missing": 3
+    },
+    "la": {
+      "present": 3503,
+      "reviewed": 0,
+      "drafts": 0,
+      "machine": 0,
+      "missing": 981
+    },
+    "en": {
+      "present": 4484,
+      "reviewed": 0,
+      "drafts": 0,
+      "machine": 0,
+      "missing": 0
+    }
+  },
+  "review": {
+    "anatomyReviewed": 0,
+    "anatomyUnreviewed": 4484,
+    "needsCorrection": 0
+  },
+  "gaps": [
+    {
+      "id": "nervous.inferior_frontal_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_frontal_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_part_of_inferior_frontal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lat_fis_ant_horizont_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lat_fis_ant_horizont_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lat_fis_ant_vertical_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lat_fis_ant_vertical_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.middle_frontal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.middle_frontal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.olfactory_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.olfactory_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.opercular_part_of_inferior_frontal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.opercular_part_of_inferior_frontal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_gyri_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_gyri_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_gyri_frontomarginal_gyrus_and_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_gyri_frontomarginal_gyrus_and_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_part_of_inferior_frontal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_sulci_h_shaped_orbital_sulci_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_sulci_h_shaped_orbital_sulci_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_sulci_lateral_orbital_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.orbital_sulci_lateral_orbital_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.paracentral_gyrus_and_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.paracentral_gyrus_and_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.paracentral_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.paracentral_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precentral_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precentral_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precentral_sulcus_inferior_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precentral_sulcus_inferior_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precentral_sulcus_superior_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precentral_sulcus_superior_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.straight_gyrus_gyrus_rectus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.straight_gyrus_gyrus_rectus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_frontal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_frontal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_frontal_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_frontal_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.transverse_frontopolar_gyrus_and_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.transverse_frontopolar_gyrus_and_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.triangular_part_of_inferior_frontal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.triangular_part_of_inferior_frontal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.insula_subcentral_gyrus_and_ant_and_post_sulci_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.insula_subcentral_gyrus_and_ant_and_post_sulci_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.anterior_occipital_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.anterior_occipital_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.central_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.central_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.circular_sulcus_of_insula_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.circular_sulcus_of_insula_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.collateral_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.collateral_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lat_fis_post_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lat_fis_post_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.parieto_occipital_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.parieto_occipital_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.posterior_transverse_collateral_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.posterior_transverse_collateral_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.subparietal_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.subparietal_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.sulcus_interm_prim_jensen_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.sulcus_interm_prim_jensen_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_posteroventral_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_posteroventral_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_and_sulcus_middle_anterior_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_and_sulcus_middle_anterior_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_and_sulcus_middle_posterior_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_and_sulcus_middle_posterior_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_and_sulcus_posterior_dorsal_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_gyrus_and_sulcus_posterior_dorsal_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_sulcus_marginal_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cingulate_sulcus_marginal_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.hippocampus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.hippocampus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.calcarine_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.calcarine_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cuneus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.cuneus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_occipital_gyrus_and_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_occipital_gyrus_and_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lateral_occipital_gyrus_middle_occipital_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lateral_occipital_gyrus_middle_occipital_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lingual_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lingual_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lunate_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lunate_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.occipital_pole_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.occipital_pole_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_occipital_gyri_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_occipital_gyri_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.transverse_occipital_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.transverse_occipital_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.angular_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.angular_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.intraparietal_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.intraparietal_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.postcentral_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.postcentral_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.postcentral_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.postcentral_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precuneus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.precuneus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_parietal_lobule_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_parietal_lobule_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.supramarginal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.supramarginal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_temporal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_temporal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_temporal_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.inferior_temporal_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lateral_occipitotemporal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.lateral_occipitotemporal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.medial_occipitotemporal_gyrus_parahippocampal_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.medial_occipitotemporal_gyrus_parahippocampal_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.middle_temporal_gyrus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.middle_temporal_gyrus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.occipitotemporal_sulcus_lateral_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.occipitotemporal_sulcus_lateral_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_temporal_gyrus_lateral_part_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_temporal_gyrus_lateral_part_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_temporal_sulcus_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.superior_temporal_sulcus_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.temporal_plane_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.temporal_plane_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.temporal_pole_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.temporal_pole_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.transverse_temporal_gyri_l",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.transverse_temporal_gyri_r",
+      "reason": "licence",
+      "asset": "brainder-cortex"
+    },
+    {
+      "id": "nervous.white_matter_of_telencephalon_l",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.anterior_commissure",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.corpus_callosum",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.hippocampal_commissure",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.fornix_l",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.fornix_r",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.stria_terminalis_l",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.stria_terminalis_r",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    },
+    {
+      "id": "nervous.white_matter_of_telencephalon_r",
+      "reason": "licence",
+      "asset": "uw-white-matter"
+    }
+  ],
+  "excludedAssets": [
+    {
+      "id": "dundee-inner-ear",
+      "title": "Anatomy of the Inner Ear — University of Dundee School of Medicine",
+      "license": "CC-BY-NC-SA-4.0",
+      "reason": "The snapshot Readme names this NC model as used or adapted. The snapshot does not record which inner ear meshes derive from it, so the inner ear group (cochlea, vestibule) is blocked until its provenance is verified or the geometry is replaced."
+    },
+    {
+      "id": "cowley-kidney",
+      "title": "Kidney — Lissie Cowley",
+      "license": "CC-BY-NC-4.0",
+      "reason": "The snapshot Readme names this NC model. The left and right kidney and renal pelvis meshes are not mirror copies and their provenance is not recorded, so exactly these four meshes are blocked; other urinary organs are not affected."
+    },
+    {
+      "id": "brainder-cortex",
+      "title": "Cerebral cortex surfaces — “Brainder” (FreeSurfer surfaces with Destrieux parcellation)",
+      "license": "LicenseRef-unverified",
+      "reason": "The snapshot Readme names “Brainder” as used or adapted without stating its licence. Cortex meshes of the telencephalon lobes carry Destrieux atlas labels (e.g. “Lat_Fis-ant-Horizont”), which indicates this origin. Blocked until the licence of the original material is confirmed."
+    },
+    {
+      "id": "uw-white-matter",
+      "title": "White matter models — University of Washington",
+      "license": "LicenseRef-unverified",
+      "reason": "The snapshot Readme names “White matter” from the University of Washington as used or adapted without a licence. The white matter group and the white matter of the telencephalon are blocked until the licence is confirmed."
+    }
+  ],
+  "excludedSource": [
+    {
+      "reason": "Blender objects skipped (no-geometry)",
+      "count": 1575
+    },
+    {
+      "reason": "Blender objects skipped (label)",
+      "count": 8
+    },
+    {
+      "reason": "Label groups without geometry",
+      "count": 66
+    },
+    {
+      "reason": "Label anchor objects (\".j\")",
+      "count": 1
+    }
+  ],
+  "notes": [
+    "Source: https://github.com/Z-Anatomy/Models-of-human-anatomy at e38ea5e6c7e22d229a975f3fde563a5aca52099e; Blender 4.0.2; subdivision capped at level 1.",
+    "Structures follow the source hierarchy; label groups without geometry and text labels of sub-regions are not imported.",
+    "Economy geometry is derived from the standard level; both levels keep every selectable structure.",
+    "Standard simplification: max error 0.2 mm (≤ 0.4% of the structure size); economy: 0.7 mm (≤ 2%)."
+  ],
+  "corrections": [
+    {
+      "id": "stomach-window",
+      "kind": "close-hole",
+      "structures": [
+        "visceral.stomach",
+        "visceral.mucosa_of_stomach"
+      ],
+      "reason": "Z-Anatomy cuts a round teaching window (about 5 cm) into the anterior wall of the stomach; the mucosa is generated from the wall and has the same window. In the atlas it reads as a defect, and the mucosa can be seen with transparency or the surroundings level instead.",
+      "seam": [
+        [
+          0.060892,
+          1.178024,
+          0.136781
+        ],
+        [
+          0.064277,
+          1.177674,
+          0.136973
+        ],
+        [
+          0.066657,
+          1.177269,
+          0.137029
+        ],
+        [
+          0.070382,
+          1.176148,
+          0.136261
+        ],
+        [
+          0.075338,
+          1.173106,
+          0.134238
+        ],
+        [
+          0.077706,
+          1.170984,
+          0.132666
+        ],
+        [
+          0.080442,
+          1.16731,
+          0.130911
+        ],
+        [
+          0.081876,
+          1.164266,
+          0.129886
+        ],
+        [
+          0.082962,
+          1.161259,
+          0.129331
+        ],
+        [
+          0.083705,
+          1.158441,
+          0.128738
+        ],
+        [
+          0.084081,
+          1.153586,
+          0.12823
+        ],
+        [
+          0.082896,
+          1.146265,
+          0.128432
+        ],
+        [
+          0.081857,
+          1.143213,
+          0.128622
+        ],
+        [
+          0.079704,
+          1.139263,
+          0.128853
+        ],
+        [
+          0.076996,
+          1.135768,
+          0.129437
+        ],
+        [
+          0.073324,
+          1.13261,
+          0.130046
+        ],
+        [
+          0.071296,
+          1.131414,
+          0.130593
+        ],
+        [
+          0.067539,
+          1.129636,
+          0.131479
+        ],
+        [
+          0.064848,
+          1.12868,
+          0.132525
+        ],
+        [
+          0.062622,
+          1.128369,
+          0.13344
+        ],
+        [
+          0.060264,
+          1.128092,
+          0.133953
+        ],
+        [
+          0.056997,
+          1.127892,
+          0.135246
+        ],
+        [
+          0.052095,
+          1.129546,
+          0.136714
+        ],
+        [
+          0.046146,
+          1.132943,
+          0.13829
+        ],
+        [
+          0.043618,
+          1.135069,
+          0.138854
+        ],
+        [
+          0.041034,
+          1.13832,
+          0.139391
+        ],
+        [
+          0.039628,
+          1.140837,
+          0.139817
+        ],
+        [
+          0.038166,
+          1.144318,
+          0.14041
+        ],
+        [
+          0.037141,
+          1.147675,
+          0.140325
+        ],
+        [
+          0.036733,
+          1.151219,
+          0.140265
+        ],
+        [
+          0.036858,
+          1.155491,
+          0.140196
+        ],
+        [
+          0.036873,
+          1.15765,
+          0.139319
+        ],
+        [
+          0.037512,
+          1.160732,
+          0.138167
+        ],
+        [
+          0.040127,
+          1.166853,
+          0.13712
+        ],
+        [
+          0.043121,
+          1.170689,
+          0.136597
+        ],
+        [
+          0.045575,
+          1.17276,
+          0.13639
+        ],
+        [
+          0.050711,
+          1.175859,
+          0.136474
+        ],
+        [
+          0.055993,
+          1.17758,
+          0.136629
+        ],
+        [
+          0.058181,
+          1.17776,
+          0.136725
+        ]
+      ]
+    },
+    {
+      "id": "oesophagus-cardia",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.oesophagus"
+      ],
+      "reason": "The oesophagus is a curve with a flat oval profile; its lower end is 3 mm off the round cardiac opening of the stomach and turned by 25°, leaving a gap of up to 5 mm.",
+      "gapBefore": 0.004998,
+      "gapAfter": 0.000114,
+      "seam": [
+        [
+          0.007973,
+          1.19419,
+          0.073366
+        ],
+        [
+          0.007965,
+          1.19482,
+          0.075071
+        ],
+        [
+          0.008167,
+          1.195884,
+          0.076359
+        ],
+        [
+          0.008556,
+          1.197319,
+          0.076882
+        ],
+        [
+          0.009121,
+          1.198875,
+          0.076927
+        ],
+        [
+          0.009827,
+          1.200288,
+          0.076846
+        ],
+        [
+          0.010538,
+          1.201446,
+          0.076604
+        ],
+        [
+          0.011135,
+          1.202322,
+          0.076103
+        ],
+        [
+          0.011664,
+          1.203094,
+          0.075361
+        ],
+        [
+          0.012214,
+          1.20392,
+          0.074415
+        ],
+        [
+          0.012864,
+          1.20468,
+          0.07327
+        ],
+        [
+          0.013605,
+          1.205195,
+          0.07192
+        ],
+        [
+          0.014085,
+          1.205337,
+          0.070347
+        ],
+        [
+          0.01401,
+          1.205037,
+          0.068608
+        ],
+        [
+          0.013673,
+          1.204408,
+          0.067091
+        ],
+        [
+          0.013428,
+          1.203546,
+          0.066126
+        ],
+        [
+          0.013272,
+          1.202292,
+          0.065494
+        ],
+        [
+          0.013081,
+          1.200549,
+          0.064947
+        ],
+        [
+          0.012599,
+          1.198718,
+          0.064671
+        ],
+        [
+          0.011682,
+          1.197221,
+          0.064868
+        ],
+        [
+          0.010769,
+          1.196058,
+          0.065375
+        ],
+        [
+          0.010269,
+          1.195149,
+          0.066021
+        ],
+        [
+          0.009897,
+          1.194513,
+          0.06696
+        ],
+        [
+          0.009316,
+          1.194166,
+          0.068343
+        ],
+        [
+          0.008677,
+          1.194011,
+          0.069981
+        ],
+        [
+          0.008212,
+          1.193973,
+          0.071656
+        ]
+      ]
+    },
+    {
+      "id": "pharynx-oesophagus",
+      "kind": "seal-opening",
+      "structures": [
+        "visceral.laryngopharynx"
+      ],
+      "reason": "The lower opening of the laryngopharynx is oblique: its posterior edge is at the upper end of the oesophagus, while its anterior part reaches down to the lower border of the cricoid cartilage 13 mm in front of the oesophagus, leaving the opening uncovered.",
+      "gapBefore": 0.013333,
+      "gapAfter": 0,
+      "seam": [
+        [
+          -0.007694,
+          1.475521,
+          0.054405
+        ],
+        [
+          -0.006295,
+          1.475745,
+          0.053577
+        ],
+        [
+          -0.004436,
+          1.475811,
+          0.053515
+        ],
+        [
+          -0.002257,
+          1.47581,
+          0.053791
+        ],
+        [
+          -0.000074,
+          1.475805,
+          0.054088
+        ],
+        [
+          0.002094,
+          1.475858,
+          0.054119
+        ],
+        [
+          0.004271,
+          1.475638,
+          0.054093
+        ],
+        [
+          0.00611,
+          1.475713,
+          0.054574
+        ],
+        [
+          0.007635,
+          1.475625,
+          0.055309
+        ],
+        [
+          0.008378,
+          1.475348,
+          0.057188
+        ],
+        [
+          0.008647,
+          1.473975,
+          0.05902
+        ],
+        [
+          0.008163,
+          1.471968,
+          0.059451
+        ],
+        [
+          0.007848,
+          1.46938,
+          0.059276
+        ],
+        [
+          0.007464,
+          1.466736,
+          0.059066
+        ],
+        [
+          0.007024,
+          1.464108,
+          0.058775
+        ],
+        [
+          0.006613,
+          1.461615,
+          0.058451
+        ],
+        [
+          0.006708,
+          1.459831,
+          0.058057
+        ],
+        [
+          0.007655,
+          1.4593,
+          0.057502
+        ],
+        [
+          0.008462,
+          1.459448,
+          0.056897
+        ],
+        [
+          0.008425,
+          1.459535,
+          0.056958
+        ],
+        [
+          0.007922,
+          1.459561,
+          0.057366
+        ],
+        [
+          0.007294,
+          1.459635,
+          0.057756
+        ],
+        [
+          0.006611,
+          1.459693,
+          0.058062
+        ],
+        [
+          0.005831,
+          1.459662,
+          0.058294
+        ],
+        [
+          0.005055,
+          1.459596,
+          0.058444
+        ],
+        [
+          0.004303,
+          1.459556,
+          0.058527
+        ],
+        [
+          0.003395,
+          1.459511,
+          0.058578
+        ],
+        [
+          0.002179,
+          1.459527,
+          0.05859
+        ],
+        [
+          0.001235,
+          1.460058,
+          0.058657
+        ],
+        [
+          0.000985,
+          1.46151,
+          0.058957
+        ],
+        [
+          0.000712,
+          1.460099,
+          0.058626
+        ],
+        [
+          -0.000269,
+          1.459634,
+          0.058416
+        ],
+        [
+          -0.001518,
+          1.459691,
+          0.058229
+        ],
+        [
+          -0.00251,
+          1.459797,
+          0.058046
+        ],
+        [
+          -0.003363,
+          1.459889,
+          0.057851
+        ],
+        [
+          -0.004281,
+          1.459998,
+          0.057589
+        ],
+        [
+          -0.005199,
+          1.460062,
+          0.057245
+        ],
+        [
+          -0.006026,
+          1.460025,
+          0.056824
+        ],
+        [
+          -0.006752,
+          1.459958,
+          0.056338
+        ],
+        [
+          -0.007323,
+          1.459929,
+          0.055843
+        ],
+        [
+          -0.007411,
+          1.45982,
+          0.055738
+        ],
+        [
+          -0.006736,
+          1.459656,
+          0.056277
+        ],
+        [
+          -0.0059,
+          1.460149,
+          0.056915
+        ],
+        [
+          -0.005841,
+          1.461909,
+          0.057353
+        ],
+        [
+          -0.006269,
+          1.464383,
+          0.057706
+        ],
+        [
+          -0.006734,
+          1.466978,
+          0.058018
+        ],
+        [
+          -0.007192,
+          1.469565,
+          0.058333
+        ],
+        [
+          -0.007646,
+          1.472049,
+          0.05854
+        ],
+        [
+          -0.008321,
+          1.473949,
+          0.058259
+        ],
+        [
+          -0.00823,
+          1.475081,
+          0.056313
+        ]
+      ]
+    },
+    {
+      "id": "small-intestine-colon",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.jejunum"
+      ],
+      "reason": "The small intestine is one curve in the source; its lower end stops short of the wall of the ascending colon, leaving a gap of up to 10 mm.",
+      "gapBefore": 0.009578,
+      "gapAfter": 0,
+      "seam": [
+        [
+          -0.071506,
+          0.971485,
+          0.074935
+        ],
+        [
+          -0.072353,
+          0.973652,
+          0.07701
+        ],
+        [
+          -0.073309,
+          0.974366,
+          0.079881
+        ],
+        [
+          -0.07412,
+          0.973434,
+          0.08278
+        ],
+        [
+          -0.074696,
+          0.971063,
+          0.084904
+        ],
+        [
+          -0.074898,
+          0.967882,
+          0.085682
+        ],
+        [
+          -0.074787,
+          0.964705,
+          0.084884
+        ],
+        [
+          -0.07442,
+          0.962374,
+          0.082717
+        ],
+        [
+          -0.073613,
+          0.96161,
+          0.079817
+        ],
+        [
+          -0.072633,
+          0.962599,
+          0.076951
+        ],
+        [
+          -0.071627,
+          0.965117,
+          0.074909
+        ],
+        [
+          -0.071205,
+          0.968372,
+          0.074173
+        ]
+      ]
+    },
+    {
+      "id": "kidney-arteries-l",
+      "kind": "warp-curves",
+      "structures": [
+        "cardiovascular.intrarenal_arteries_of_left_kidney"
+      ],
+      "reason": "The Z-Anatomy intrarenal arteries of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.010986749221399002,
+      "seam": []
+    },
+    {
+      "id": "kidney-veins-l",
+      "kind": "warp-curves",
+      "structures": [
+        "cardiovascular.intrarenal_veins_of_left_kidney"
+      ],
+      "reason": "The Z-Anatomy intrarenal veins of the left kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.01815363095690481,
+      "seam": []
+    },
+    {
+      "id": "kidney-arteries-r",
+      "kind": "warp-curves",
+      "structures": [
+        "cardiovascular.intrarenal_arteries_of_right_kidney"
+      ],
+      "reason": "The Z-Anatomy intrarenal arteries of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.02228897458632483,
+      "seam": []
+    },
+    {
+      "id": "kidney-veins-r",
+      "kind": "warp-curves",
+      "structures": [
+        "cardiovascular.intrarenal_veins_of_right_kidney"
+      ],
+      "reason": "The Z-Anatomy intrarenal veins of the right kidney were modelled for a kidney the atlas does not include (CC BY-NC). With the HRA kidney in its natural orientation part of the branches lay outside it; a smooth field (pnpm data:fit) moves them inside and holds the junction with the trunk; they also follow the impressions that the kidney takes from its neighbours.",
+      "maxDisplacement": 0.020185070660053775,
+      "seam": []
+    },
+    {
+      "id": "ureter-pelvis-l",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.ureter_l"
+      ],
+      "reason": "The upper end of the Z-Anatomy left ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 14 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
+      "gapBefore": 0.012946,
+      "gapAfter": 0.00019,
+      "seam": [
+        [
+          0.049655,
+          1.11121,
+          0.047241
+        ],
+        [
+          0.049736,
+          1.111027,
+          0.046911
+        ],
+        [
+          0.049904,
+          1.110776,
+          0.046643
+        ],
+        [
+          0.05011,
+          1.110492,
+          0.046432
+        ],
+        [
+          0.050351,
+          1.110169,
+          0.046254
+        ],
+        [
+          0.050643,
+          1.10979,
+          0.046097
+        ],
+        [
+          0.050983,
+          1.109372,
+          0.045966
+        ],
+        [
+          0.05133,
+          1.10898,
+          0.045878
+        ],
+        [
+          0.051652,
+          1.108647,
+          0.045839
+        ],
+        [
+          0.051961,
+          1.108359,
+          0.045845
+        ],
+        [
+          0.052272,
+          1.108105,
+          0.045905
+        ],
+        [
+          0.052574,
+          1.107896,
+          0.046038
+        ],
+        [
+          0.052833,
+          1.107762,
+          0.046272
+        ],
+        [
+          0.052987,
+          1.107767,
+          0.046598
+        ],
+        [
+          0.052998,
+          1.107925,
+          0.046914
+        ],
+        [
+          0.052905,
+          1.108185,
+          0.047153
+        ],
+        [
+          0.052751,
+          1.108482,
+          0.047321
+        ],
+        [
+          0.052557,
+          1.108795,
+          0.047447
+        ],
+        [
+          0.052312,
+          1.10914,
+          0.047555
+        ],
+        [
+          0.05198,
+          1.109553,
+          0.047664
+        ],
+        [
+          0.051564,
+          1.110008,
+          0.047771
+        ],
+        [
+          0.051161,
+          1.110393,
+          0.047851
+        ],
+        [
+          0.050851,
+          1.110652,
+          0.047893
+        ],
+        [
+          0.050563,
+          1.110863,
+          0.047907
+        ],
+        [
+          0.050271,
+          1.11105,
+          0.047887
+        ],
+        [
+          0.049982,
+          1.111199,
+          0.047798
+        ],
+        [
+          0.049738,
+          1.111273,
+          0.047579
+        ]
+      ]
+    },
+    {
+      "id": "ureter-pelvis-r",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.ureter_r"
+      ],
+      "reason": "The upper end of the Z-Anatomy right ureter widens into a funnel (to 7.5 mm) that met a kidney the atlas does not include; it stops 16 mm short of the outlet of the HRA renal pelvis, whose pelvi-ureteric junction narrows to about 2 mm.",
+      "gapBefore": 0.016667,
+      "gapAfter": 0.000117,
+      "seam": [
+        [
+          -0.052489,
+          1.083154,
+          0.047852
+        ],
+        [
+          -0.052299,
+          1.083081,
+          0.047664
+        ],
+        [
+          -0.052049,
+          1.083056,
+          0.04751
+        ],
+        [
+          -0.051751,
+          1.083073,
+          0.047396
+        ],
+        [
+          -0.051412,
+          1.083124,
+          0.047322
+        ],
+        [
+          -0.05104,
+          1.083202,
+          0.047288
+        ],
+        [
+          -0.050645,
+          1.083297,
+          0.047296
+        ],
+        [
+          -0.050242,
+          1.083404,
+          0.047347
+        ],
+        [
+          -0.049852,
+          1.08352,
+          0.047444
+        ],
+        [
+          -0.049494,
+          1.083641,
+          0.047587
+        ],
+        [
+          -0.049191,
+          1.083767,
+          0.047777
+        ],
+        [
+          -0.048961,
+          1.083898,
+          0.04801
+        ],
+        [
+          -0.048829,
+          1.084031,
+          0.048275
+        ],
+        [
+          -0.048811,
+          1.08416,
+          0.048554
+        ],
+        [
+          -0.048916,
+          1.084277,
+          0.048819
+        ],
+        [
+          -0.049135,
+          1.084372,
+          0.049045
+        ],
+        [
+          -0.049448,
+          1.08444,
+          0.049214
+        ],
+        [
+          -0.049827,
+          1.084477,
+          0.049318
+        ],
+        [
+          -0.050248,
+          1.08448,
+          0.049359
+        ],
+        [
+          -0.050688,
+          1.084449,
+          0.049343
+        ],
+        [
+          -0.051125,
+          1.084382,
+          0.04928
+        ],
+        [
+          -0.051536,
+          1.08428,
+          0.049179
+        ],
+        [
+          -0.051901,
+          1.084146,
+          0.049047
+        ],
+        [
+          -0.052202,
+          1.083984,
+          0.048889
+        ],
+        [
+          -0.052428,
+          1.083803,
+          0.048709
+        ],
+        [
+          -0.052574,
+          1.083614,
+          0.048507
+        ],
+        [
+          -0.052634,
+          1.083432,
+          0.048289
+        ],
+        [
+          -0.052604,
+          1.083274,
+          0.048066
+        ]
+      ]
+    },
+    {
+      "id": "ureter-course-l",
+      "kind": "warp-curves",
+      "structures": [
+        "visceral.ureter_l"
+      ],
+      "reason": "The Z-Anatomy left ureter, running from the new renal pelvis, partly lies inside the psoas major (up to 5 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately.",
+      "maxDisplacement": 0.0055663378493598014,
+      "seam": []
+    },
+    {
+      "id": "ureter-course-r",
+      "kind": "warp-curves",
+      "structures": [
+        "visceral.ureter_r"
+      ],
+      "reason": "The Z-Anatomy right ureter, running from the new renal pelvis, partly lies inside the psoas major and the duodenum (up to 8 mm); a smooth field (pnpm data:fit) moves it out of its neighbours and holds both ends, which are joined separately.",
+      "maxDisplacement": 0.007694911283984554,
+      "seam": []
+    },
+    {
+      "id": "ureter-bladder-l",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.ureter_l"
+      ],
+      "reason": "The lower end of the Z-Anatomy left ureter stops up to 2.9 mm short of the wall of the urinary bladder.",
+      "gapBefore": 0.002876,
+      "gapAfter": 0,
+      "seam": [
+        [
+          0.024919,
+          0.876346,
+          0.029631
+        ],
+        [
+          0.024715,
+          0.87649,
+          0.030509
+        ],
+        [
+          0.024895,
+          0.876492,
+          0.031228
+        ],
+        [
+          0.025395,
+          0.876339,
+          0.031609
+        ],
+        [
+          0.026045,
+          0.876049,
+          0.031589
+        ],
+        [
+          0.026623,
+          0.875667,
+          0.031223
+        ],
+        [
+          0.027101,
+          0.875381,
+          0.030478
+        ],
+        [
+          0.027253,
+          0.875202,
+          0.029653
+        ],
+        [
+          0.027035,
+          0.875175,
+          0.028975
+        ],
+        [
+          0.02657,
+          0.875351,
+          0.028557
+        ],
+        [
+          0.026011,
+          0.875702,
+          0.02848
+        ],
+        [
+          0.025437,
+          0.876087,
+          0.028841
+        ]
+      ]
+    },
+    {
+      "id": "ureter-bladder-r",
+      "kind": "join-tube-end",
+      "structures": [
+        "visceral.ureter_r"
+      ],
+      "reason": "The lower end of the Z-Anatomy right ureter stops up to 2.4 mm short of the wall of the urinary bladder.",
+      "gapBefore": 0.002353,
+      "gapAfter": 0,
+      "seam": [
+        [
+          -0.008416,
+          0.87051,
+          0.031136
+        ],
+        [
+          -0.007644,
+          0.870561,
+          0.03077
+        ],
+        [
+          -0.007171,
+          0.870484,
+          0.030199
+        ],
+        [
+          -0.007177,
+          0.870339,
+          0.029568
+        ],
+        [
+          -0.007657,
+          0.870161,
+          0.029048
+        ],
+        [
+          -0.008506,
+          0.870015,
+          0.028774
+        ],
+        [
+          -0.009492,
+          0.869937,
+          0.028821
+        ],
+        [
+          -0.010292,
+          0.869906,
+          0.029184
+        ],
+        [
+          -0.010709,
+          0.869943,
+          0.029762
+        ],
+        [
+          -0.01066,
+          0.870058,
+          0.030398
+        ],
+        [
+          -0.010157,
+          0.87022,
+          0.030921
+        ],
+        [
+          -0.009336,
+          0.870385,
+          0.031191
+        ]
+      ]
+    }
+  ]
+}

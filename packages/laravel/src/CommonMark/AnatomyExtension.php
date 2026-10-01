@@ -40,7 +40,7 @@ use Nette\Schema\Expect;
  * (from `share_urls`) become embeds; invalid blocks stay ordinary code blocks. The output is the
  * same as that of the markdown-it plugin.
  *
- *     $environment->addExtension(new AnatomyExtension(['data_url' => '/anatomy-data/1.0.0/']));
+ *     $environment->addExtension(new AnatomyExtension(['data_url' => '/anatomy-data/1.1.0/']));
  *
  * Options (defaults given to the constructor, overridable with the `svitylo_anatomy` key of the
  * environment configuration): `data_url`, `lang`, `share_urls`, `attributes`.

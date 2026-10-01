@@ -4,7 +4,7 @@
   "type": "module",
   "packageManager": "pnpm@10.33.0",
   "engines": {
-    "node": ">=20.19"
+    "node": ">=22.12"
   },
   "scripts": {
     "build": "pnpm --filter @authorod/svitylo-3d-anatomy-atlas --filter @authorod/svitylo-anatomy-markdown run build",
@@ -16,7 +16,9 @@
     "schema:json": "pnpm --filter @svitylo-atlas/tools run schema:json",
     "data:fixture": "pnpm --filter @svitylo-atlas/tools run fixture",
     "data:source": "pnpm --filter @svitylo-atlas/tools run source",
+    "data:fit": "pnpm --filter @svitylo-atlas/tools run fit",
     "data:export": "pnpm --filter @svitylo-atlas/tools run export",
+    "data:overlaps": "pnpm --filter @svitylo-atlas/tools run overlaps",
     "data:build": "pnpm --filter @svitylo-atlas/tools run build",
     "data:validate": "pnpm --filter @svitylo-atlas/tools run validate",
     "demo:dev": "pnpm --filter @svitylo-atlas/demo run dev",

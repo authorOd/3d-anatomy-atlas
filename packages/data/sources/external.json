@@ -1,0 +1,730 @@
+{
+  "$comment": "Models from other open sources placed into the Z-Anatomy body (docs/data-pipeline.md#models-from-other-sources). `pnpm data:source` downloads the files and verifies their SHA-256; `pnpm data:export` removes the listed snapshot objects, adds the groups and objects below and places them with the transforms of external-fit.json (packages/tools/blender/fit_external.py). Objects are created in this order, so a parent comes before its children. 'clearOf' keeps a thin layer at least 'distance' outside the surface it lies on (coincident surfaces flicker when rendered).",
+  "files": {
+    "hra/3d-vh-m-kidney-l.glb": {
+      "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/kidney-male-left/v1.3/assets/3d-vh-m-kidney-l.glb",
+      "sha256": "1e9f54281652d0b05c9ae54a06380a41a8d9c62c1036829180750995b1730fac"
+    },
+    "hra/3d-vh-m-kidney-r.glb": {
+      "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/kidney-male-right/v1.3/assets/3d-vh-m-kidney-r.glb",
+      "sha256": "f23bac3f62fd050b689bdee86bb8a20bff6997e830cb508c847f74c03c6a964b"
+    },
+    "hra/3d-vh-m-ureter-l.glb": {
+      "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/ureter-male-left/v1.2/assets/3d-vh-m-ureter-l.glb",
+      "sha256": "ebdd493c2e8095ccb6e795f49bf26c94e8d205c94097a7e1f9a9d7b168a1173c"
+    },
+    "hra/3d-vh-m-ureter-r.glb": {
+      "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/ureter-male-right/v1.2/assets/3d-vh-m-ureter-r.glb",
+      "sha256": "215978b67cf4d3876249a8dafb8c83a13471b5e1eb601559dca25a61a7c9d091"
+    },
+    "openear/Incus.ply": {
+      "url": "https://zenodo.org/api/records/4362584/files/Incus.ply/content",
+      "sha256": "899e454d194870fd9c8b441766cc63d6573229b3cdf0c74f524b01f632886269"
+    },
+    "openear/Malleus.ply": {
+      "url": "https://zenodo.org/api/records/4362584/files/Malleus.ply/content",
+      "sha256": "3342f8436333da6a94089ff243d997d9dd6c83900513ffe12f154a5255a6601d"
+    },
+    "openear/ScalaTympani.ply": {
+      "url": "https://zenodo.org/api/records/4362584/files/ScalaTympani.ply/content",
+      "sha256": "1c89139de3a139c5e10c4b8c4ab9722d5a6f50b5f0e441e37de986c6951a038c"
+    },
+    "openear/ScalaVestibuli.ply": {
+      "url": "https://zenodo.org/api/records/4362584/files/ScalaVestibuli.ply/content",
+      "sha256": "1b11eaef984b0ed1502bb2e012a449ae5d4f05364d71b532b2f5cbb6275d8479"
+    },
+    "openear/Stapes.ply": {
+      "url": "https://zenodo.org/api/records/4362584/files/Stapes.ply/content",
+      "sha256": "b3dce1b78ab5d4e8f66526acb1ed504623275bd9f0a31c072621419ea2e7036e"
+    },
+    "openear/TympanicMembrane.ply": {
+      "url": "https://zenodo.org/api/records/4362584/files/TympanicMembrane.ply/content",
+      "sha256": "8630b7745cd259462668b6c524be1a7ae9e197d67edebbbaf059c4e7ae767775"
+    }
+  },
+  "remove": [
+    "Kidney.l",
+    "Kidney.r",
+    "Renal pelvis.l",
+    "Renal pelvis.r",
+    "Cochlea.l",
+    "Cochlea.r",
+    "Vestibule.l",
+    "Vestibule.r",
+    "Malleus.l",
+    "Malleus.r",
+    "Incus.l",
+    "Incus.r",
+    "Stapes.l",
+    "Stapes.r",
+    "Tympanic membrane.l",
+    "Tympanic membrane.r"
+  ],
+  "groups": [
+    {
+      "name": "Kidney.l.g",
+      "system": "8: Visceral systems",
+      "parent": "Urinary system.g"
+    },
+    {
+      "name": "Kidney.r.g",
+      "system": "8: Visceral systems",
+      "parent": "Urinary system.g"
+    },
+    {
+      "name": "Cochlea.l.g",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Internal ear.g"
+    },
+    {
+      "name": "Semicircular canals.l.g",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Internal ear.g"
+    },
+    {
+      "name": "Cochlea.r.g",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Internal ear.g"
+    },
+    {
+      "name": "Semicircular canals.r.g",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Internal ear.g"
+    }
+  ],
+  "objects": [
+    {
+      "name": "Fibrous capsule of kidney.l",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.l.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-left v1.3: VH_M_kidney_capsule_L",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-l.glb",
+        "nodes": [
+          "VH_M_kidney_capsule_L"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Organ",
+      "clearOf": {
+        "object": "Renal cortex.l",
+        "distance": 0.0005
+      }
+    },
+    {
+      "name": "Hilum of kidney.l",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.l.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-left v1.3: VH_M_hilum_of_kidney_L",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-l.glb",
+        "nodes": [
+          "VH_M_hilum_of_kidney_L"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Organ"
+    },
+    {
+      "name": "Renal cortex.l",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.l.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-left v1.3: VH_M_outer_cortex_of_kidney_L",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-l.glb",
+        "nodes": [
+          "VH_M_outer_cortex_of_kidney_L"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Renal cortex"
+    },
+    {
+      "name": "Renal columns.l",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.l.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-left v1.3: VH_M_renal_column_L",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-l.glb",
+        "nodes": [
+          "VH_M_renal_column_L"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Renal cortex"
+    },
+    {
+      "name": "Renal pyramids.l",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.l.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-left v1.3: VH_M_renal_pyramid_L_a, VH_M_renal_pyramid_L_b, VH_M_renal_pyramid_L_c, VH_M_renal_pyramid_L_d, VH_M_renal_pyramid_L_e, VH_M_renal_pyramid_L_f, VH_M_renal_pyramid_L_g, VH_M_renal_pyramid_L_h, VH_M_renal_pyramid_L_i",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-l.glb",
+        "nodes": [
+          "VH_M_renal_pyramid_L_a",
+          "VH_M_renal_pyramid_L_b",
+          "VH_M_renal_pyramid_L_c",
+          "VH_M_renal_pyramid_L_d",
+          "VH_M_renal_pyramid_L_e",
+          "VH_M_renal_pyramid_L_f",
+          "VH_M_renal_pyramid_L_g",
+          "VH_M_renal_pyramid_L_h",
+          "VH_M_renal_pyramid_L_i"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Renal medulla",
+      "la": "Pyramides renales"
+    },
+    {
+      "name": "Renal papillae.l",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.l.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-left v1.3: VH_M_renal_papilla_L_a, VH_M_renal_papilla_L_b, VH_M_renal_papilla_L_c, VH_M_renal_papilla_L_d, VH_M_renal_papilla_L_e, VH_M_renal_papilla_L_f, VH_M_renal_papilla_L_g, VH_M_renal_papilla_L_h, VH_M_renal_papilla_L_i",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-l.glb",
+        "nodes": [
+          "VH_M_renal_papilla_L_a",
+          "VH_M_renal_papilla_L_b",
+          "VH_M_renal_papilla_L_c",
+          "VH_M_renal_papilla_L_d",
+          "VH_M_renal_papilla_L_e",
+          "VH_M_renal_papilla_L_f",
+          "VH_M_renal_papilla_L_g",
+          "VH_M_renal_papilla_L_h",
+          "VH_M_renal_papilla_L_i"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Renal papilla",
+      "la": "Papillae renales"
+    },
+    {
+      "name": "Renal pelvis.l",
+      "system": "8: Visceral systems",
+      "parent": "Urinary system.g",
+      "asset": "hra-kidney",
+      "credit": "HRA ureter-male-left v1.2: VH_M_renal_pelvis_L",
+      "source": {
+        "file": "hra/3d-vh-m-ureter-l.glb",
+        "nodes": [
+          "VH_M_renal_pelvis_L"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Ductus"
+    },
+    {
+      "name": "Major calices.l",
+      "system": "8: Visceral systems",
+      "parent": "Renal pelvis.l",
+      "asset": "hra-kidney",
+      "credit": "HRA ureter-male-left v1.2: VH_M_major_calyx_L_a, VH_M_major_calyx_L_b, VH_M_major_calyx_L_c",
+      "source": {
+        "file": "hra/3d-vh-m-ureter-l.glb",
+        "nodes": [
+          "VH_M_major_calyx_L_a",
+          "VH_M_major_calyx_L_b",
+          "VH_M_major_calyx_L_c"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Ductus"
+    },
+    {
+      "name": "Minor calices.l",
+      "system": "8: Visceral systems",
+      "parent": "Renal pelvis.l",
+      "asset": "hra-kidney",
+      "credit": "HRA ureter-male-left v1.2: VH_M_minor_calyx_L_a, VH_M_minor_calyx_L_b, VH_M_minor_calyx_L_c, VH_M_minor_calyx_L_d, VH_M_minor_calyx_L_e, VH_M_minor_calyx_L_f, VH_M_minor_calyx_L_g, VH_M_minor_calyx_L_h, VH_M_minor_calyx_L_i",
+      "source": {
+        "file": "hra/3d-vh-m-ureter-l.glb",
+        "nodes": [
+          "VH_M_minor_calyx_L_a",
+          "VH_M_minor_calyx_L_b",
+          "VH_M_minor_calyx_L_c",
+          "VH_M_minor_calyx_L_d",
+          "VH_M_minor_calyx_L_e",
+          "VH_M_minor_calyx_L_f",
+          "VH_M_minor_calyx_L_g",
+          "VH_M_minor_calyx_L_h",
+          "VH_M_minor_calyx_L_i"
+        ]
+      },
+      "transform": "kidney-l",
+      "material": "Ductus"
+    },
+    {
+      "name": "Fibrous capsule of kidney.r",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.r.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-right v1.3: VH_M_kidney_capsule_R",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-r.glb",
+        "nodes": [
+          "VH_M_kidney_capsule_R"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Organ",
+      "clearOf": {
+        "object": "Renal cortex.r",
+        "distance": 0.0005
+      }
+    },
+    {
+      "name": "Hilum of kidney.r",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.r.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-right v1.3: VH_M_hilum_of_kidney_R",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-r.glb",
+        "nodes": [
+          "VH_M_hilum_of_kidney_R"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Organ"
+    },
+    {
+      "name": "Renal cortex.r",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.r.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-right v1.3: VH_M_outer_cortex_of_kidney_R",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-r.glb",
+        "nodes": [
+          "VH_M_outer_cortex_of_kidney_R"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Renal cortex"
+    },
+    {
+      "name": "Renal columns.r",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.r.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-right v1.3: VH_M_renal_column_R",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-r.glb",
+        "nodes": [
+          "VH_M_renal_column_R"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Renal cortex"
+    },
+    {
+      "name": "Renal pyramids.r",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.r.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-right v1.3: VH_M_renal_pyramid_a, VH_M_renal_pyramid_b, VH_M_renal_pyramid_c, VH_M_renal_pyramid_d, VH_M_renal_pyramid_e, VH_M_renal_pyramid_f, VH_M_renal_pyramid_g, VH_M_renal_pyramid_h, VH_M_renal_pyramid_i, VH_M_renal_pyramid_j",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-r.glb",
+        "nodes": [
+          "VH_M_renal_pyramid_a",
+          "VH_M_renal_pyramid_b",
+          "VH_M_renal_pyramid_c",
+          "VH_M_renal_pyramid_d",
+          "VH_M_renal_pyramid_e",
+          "VH_M_renal_pyramid_f",
+          "VH_M_renal_pyramid_g",
+          "VH_M_renal_pyramid_h",
+          "VH_M_renal_pyramid_i",
+          "VH_M_renal_pyramid_j"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Renal medulla",
+      "la": "Pyramides renales"
+    },
+    {
+      "name": "Renal papillae.r",
+      "system": "8: Visceral systems",
+      "parent": "Kidney.r.g",
+      "asset": "hra-kidney",
+      "credit": "HRA kidney-male-right v1.3: VH_M_renal_papilla_R_a, VH_M_renal_papilla_R_b, VH_M_renal_papilla_R_c, VH_M_renal_papilla_R_d, VH_M_renal_papilla_R_e, VH_M_renal_papilla_R_f, VH_M_renal_papilla_R_g, VH_M_renal_papilla_R_h, VH_M_renal_papilla_R_i, VH_M_renal_papilla_R_j",
+      "source": {
+        "file": "hra/3d-vh-m-kidney-r.glb",
+        "nodes": [
+          "VH_M_renal_papilla_R_a",
+          "VH_M_renal_papilla_R_b",
+          "VH_M_renal_papilla_R_c",
+          "VH_M_renal_papilla_R_d",
+          "VH_M_renal_papilla_R_e",
+          "VH_M_renal_papilla_R_f",
+          "VH_M_renal_papilla_R_g",
+          "VH_M_renal_papilla_R_h",
+          "VH_M_renal_papilla_R_i",
+          "VH_M_renal_papilla_R_j"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Renal papilla",
+      "la": "Papillae renales"
+    },
+    {
+      "name": "Renal pelvis.r",
+      "system": "8: Visceral systems",
+      "parent": "Urinary system.g",
+      "asset": "hra-kidney",
+      "credit": "HRA ureter-male-right v1.2: VH_M_renal_pelvis_R",
+      "source": {
+        "file": "hra/3d-vh-m-ureter-r.glb",
+        "nodes": [
+          "VH_M_renal_pelvis_R"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Ductus"
+    },
+    {
+      "name": "Major calices.r",
+      "system": "8: Visceral systems",
+      "parent": "Renal pelvis.r",
+      "asset": "hra-kidney",
+      "credit": "HRA ureter-male-right v1.2: VH_M_major_calyx_R_a, VH_M_major_calyx_R_b",
+      "source": {
+        "file": "hra/3d-vh-m-ureter-r.glb",
+        "nodes": [
+          "VH_M_major_calyx_R_a",
+          "VH_M_major_calyx_R_b"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Ductus"
+    },
+    {
+      "name": "Minor calices.r",
+      "system": "8: Visceral systems",
+      "parent": "Renal pelvis.r",
+      "asset": "hra-kidney",
+      "credit": "HRA ureter-male-right v1.2: VH_M_minor_calyx_R_a, VH_M_minor_calyx_R_b, VH_M_minor_calyx_R_c, VH_M_minor_calyx_R_d, VH_M_minor_calyx_R_e, VH_M_minor_calyx_R_f, VH_M_minor_calyx_R_g, VH_M_minor_calyx_R_h, VH_M_minor_calyx_R_i",
+      "source": {
+        "file": "hra/3d-vh-m-ureter-r.glb",
+        "nodes": [
+          "VH_M_minor_calyx_R_a",
+          "VH_M_minor_calyx_R_b",
+          "VH_M_minor_calyx_R_c",
+          "VH_M_minor_calyx_R_d",
+          "VH_M_minor_calyx_R_e",
+          "VH_M_minor_calyx_R_f",
+          "VH_M_minor_calyx_R_g",
+          "VH_M_minor_calyx_R_h",
+          "VH_M_minor_calyx_R_i"
+        ]
+      },
+      "transform": "kidney-r",
+      "material": "Ductus"
+    },
+    {
+      "name": "Scala vestibuli.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Cochlea.l.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, cochlea, mirrored",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-2",
+      "labyrinthPart": "cochlea"
+    },
+    {
+      "name": "Scala tympani.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Cochlea.l.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaTympani.ply, mirrored",
+      "source": {
+        "file": "openear/ScalaTympani.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-3"
+    },
+    {
+      "name": "Vestibule.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Internal ear.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, vestibule, mirrored",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1",
+      "labyrinthPart": "vestibule"
+    },
+    {
+      "name": "Anterior semicircular canal.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.l.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, anterior, mirrored",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1",
+      "labyrinthPart": "anterior"
+    },
+    {
+      "name": "Posterior semicircular canal.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.l.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, posterior, mirrored",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1",
+      "labyrinthPart": "posterior"
+    },
+    {
+      "name": "Lateral semicircular canal.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.l.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, lateral, mirrored",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1",
+      "labyrinthPart": "lateral"
+    },
+    {
+      "name": "Common bony limb.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.l.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, crus, mirrored",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1",
+      "labyrinthPart": "crus"
+    },
+    {
+      "name": "Malleus.l",
+      "system": "1: Skeletal system",
+      "parent": "Auditory ossicles.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): Malleus.ply, mirrored",
+      "source": {
+        "file": "openear/Malleus.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1"
+    },
+    {
+      "name": "Incus.l",
+      "system": "1: Skeletal system",
+      "parent": "Auditory ossicles.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): Incus.ply, mirrored",
+      "source": {
+        "file": "openear/Incus.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1"
+    },
+    {
+      "name": "Stapes.l",
+      "system": "1: Skeletal system",
+      "parent": "Auditory ossicles.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): Stapes.ply, mirrored",
+      "source": {
+        "file": "openear/Stapes.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Bone-1"
+    },
+    {
+      "name": "Tympanic membrane.l",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "External ear.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): TympanicMembrane.ply, mirrored",
+      "source": {
+        "file": "openear/TympanicMembrane.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-l",
+      "material": "Ligament"
+    },
+    {
+      "name": "Scala vestibuli.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Cochlea.r.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, cochlea",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-2",
+      "labyrinthPart": "cochlea"
+    },
+    {
+      "name": "Scala tympani.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Cochlea.r.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaTympani.ply",
+      "source": {
+        "file": "openear/ScalaTympani.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-3"
+    },
+    {
+      "name": "Vestibule.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Internal ear.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, vestibule",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1",
+      "labyrinthPart": "vestibule"
+    },
+    {
+      "name": "Anterior semicircular canal.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.r.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, anterior",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1",
+      "labyrinthPart": "anterior"
+    },
+    {
+      "name": "Posterior semicircular canal.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.r.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, posterior",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1",
+      "labyrinthPart": "posterior"
+    },
+    {
+      "name": "Lateral semicircular canal.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.r.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, lateral",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1",
+      "labyrinthPart": "lateral"
+    },
+    {
+      "name": "Common bony limb.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "Semicircular canals.r.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): ScalaVestibuli.ply, crus",
+      "source": {
+        "file": "openear/ScalaVestibuli.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1",
+      "labyrinthPart": "crus"
+    },
+    {
+      "name": "Malleus.r",
+      "system": "1: Skeletal system",
+      "parent": "Auditory ossicles.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): Malleus.ply",
+      "source": {
+        "file": "openear/Malleus.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1"
+    },
+    {
+      "name": "Incus.r",
+      "system": "1: Skeletal system",
+      "parent": "Auditory ossicles.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): Incus.ply",
+      "source": {
+        "file": "openear/Incus.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1"
+    },
+    {
+      "name": "Stapes.r",
+      "system": "1: Skeletal system",
+      "parent": "Auditory ossicles.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): Stapes.ply",
+      "source": {
+        "file": "openear/Stapes.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Bone-1"
+    },
+    {
+      "name": "Tympanic membrane.r",
+      "system": "7: Nervous system & Sense organs",
+      "parent": "External ear.g",
+      "asset": "openear-ear",
+      "credit": "OpenEar Delta (Zenodo 4362584): TympanicMembrane.ply",
+      "source": {
+        "file": "openear/TympanicMembrane.ply",
+        "scale": 0.001
+      },
+      "transform": "ear-r",
+      "material": "Ligament"
+    }
+  ]
+}

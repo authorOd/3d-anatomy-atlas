@@ -17,7 +17,7 @@ servers; Svitylo is one of its consumers.
 **Demo:** [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas), the full atlas on
 Svitylo.
 
-> **Status: `1.0.2`.** The atlas and the note embeds are implemented and covered by tests. The
+> **Status: `1.1.0`.** The atlas and the note embeds are implemented and covered by tests. The
 > data is on the `preview` channel: the licence audit of the included models is pending, and no
 > anatomical review has been done (see [Open items](#open-items)).
 
@@ -155,7 +155,7 @@ privately, as [SECURITY.md](SECURITY.md) describes.
 | [docs/data-pipeline.md](docs/data-pipeline.md) | Reproducible pipeline: snapshot, Blender, two qualities, manifest, validation, releases |
 | [docs/known-limitations.md](docs/known-limitations.md) | Known limitations |
 | [packages/data/README.md](packages/data/README.md) | Data package, versions, licences, coverage |
-| [Coverage report](packages/data/releases/1.0.0/reports/COVERAGE.md) | Systems, gaps, names, review statuses |
+| [Coverage report](packages/data/releases/1.1.0/reports/COVERAGE.md) | Systems, gaps, names, review statuses |
 | [CHANGELOG.md](CHANGELOG.md) | History of changes |
 
 ## Repository layout
@@ -181,7 +181,7 @@ their own dependencies.
 
 ## Development
 
-Requires Node.js ≥ 20.19 (≥ 22.12 for the unit tests) and pnpm 10.
+Requires Node.js ≥ 22.12 and pnpm 10.
 
 ```sh
 pnpm install
@@ -204,9 +204,8 @@ pnpm test:laravel:e2e    # Playwright: Livewire 4 on the workbench application
 The demo with small synthetic data (no GLB of the real model): `http://localhost:5173/?data=fixture`.
 
 GitHub Actions runs the checks on every push and pull request to `main`: the typecheck, the unit
-tests, the build, `check:boundaries`, `data:validate` and `release:check` on Node 20, 22 and 24
-(without the unit tests on Node 20), the end-to-end tests in Chromium and PHPUnit on PHP 8.2 and
-8.4. The Livewire end-to-end tests and the clean-install check run weekly and on demand.
+tests, the build, `check:boundaries`, `data:validate` and `release:check` on Node 22 and 24, the
+end-to-end tests in Chromium and PHPUnit on PHP 8.2 and 8.4. The Livewire end-to-end tests and the clean-install check run weekly and on demand.
 
 Rebuilding the data from the pinned Z-Anatomy snapshot is described in
 [docs/data-pipeline.md](docs/data-pipeline.md) (`pnpm data:source`, `pnpm data:export`,
@@ -225,7 +224,8 @@ machine-readable sign (the audit and channel of the data).
 
 1. **Model audit.** All included Z-Anatomy assets have the audit status `pending`, so the data is on
    the `preview` channel and the atlas shows a notice about it. Assets with NC or unclear rights are
-   excluded and marked as gaps (inner ear, kidneys and renal pelves, cerebral cortex, white matter).
+   excluded and marked as gaps (cerebral cortex, white matter); the kidneys and the inner ear come
+   from other open models (Human Reference Atlas, OpenEar; CC BY 4.0), also pending audit.
    After an approved audit: a data build with the `release` channel.
 2. **Anatomical review.** The data is marked as unreviewed. The Ukrainian names are drafts (most of
    them machine-assisted, prepared by an AI language model) and are shown with a dotted underline

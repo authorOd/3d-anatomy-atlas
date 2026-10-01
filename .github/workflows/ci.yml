@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [20, 22, 24]
+        node: [22, 24]
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -31,9 +31,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
-      # Vitest 5 needs Node 22.12 or later; on Node 20 the build and the data checks still run.
-      - if: matrix.node != 20
-        run: pnpm test
+      - run: pnpm test
       - run: pnpm build
       - run: pnpm check:boundaries
       - run: pnpm data:validate
