@@ -1,22 +1,33 @@
 # Known limitations
 
-State as of `1.0.2` (data `1.0.0`, channel `preview`; Markdown package `1.0.1`, Laravel package
+State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, Laravel package
 `1.0.0`).
 
 ## Data
 
-- **One model**: the adult male body from Z-Anatomy (derived from BodyParts3D). General coverage:
-  an organ being present does not mean that all its internal parts are modelled.
+- **One model**: the adult male body from Z-Anatomy (derived from BodyParts3D), with the kidneys
+  and the ear from other open models (below). General coverage: an organ being present does not
+  mean that all its internal parts are modelled.
 - **The licence audit is not complete.** All included assets have the status `pending`; the data
   release is marked as a preview, and the component shows this notice.
-- **Excluded for licence reasons (declared gaps, 145 structures):** the inner ear (cochlea,
-  vestibule) — NC; the kidneys and renal pelves — NC; the surfaces of the cerebral cortex (128
-  structures) and the white matter (9) — the licence of the original source is not confirmed. So the
-  brain is shown **without the cerebral cortex and the white matter**, and the urinary system without
-  the kidneys. They are in the tree and search, marked "no geometry".
+- **Excluded for licence reasons (declared gaps, 137 structures):** the surfaces of the cerebral
+  cortex (128 structures) and the white matter (9) — the licence of the original source is not
+  confirmed. So the brain is shown **without the cerebral cortex and the white matter**. They are in
+  the tree and search, marked "no geometry".
+- **Kidneys and ear from other open models (CC BY 4.0).** The kidneys (fibrous capsule, hilum,
+  cortex, renal columns, pyramids, papillae; the renal pelvis with the major and minor calices) come
+  from the Human Reference Atlas (Visible Human Male); the cochlea (scala vestibuli and scala
+  tympani), the vestibule, the semicircular canals with the common bony limb, the ossicles and the
+  tympanic membrane from OpenEar (one temporal bone; the left ear is its mirror image). The
+  Z-Anatomy ossicles and tympanic membrane were replaced because their provenance could not be
+  confirmed. These models come from other bodies and are placed into the Z-Anatomy body by a
+  similarity transform: both kidneys with one shift and scale, keeping their natural orientation and
+  their positions relative to each other; the ear by its ossicles (0.35 mm apart on average). The
+  parts of the labyrinth are cut from one source mesh along declared planes. The suprarenal glands
+  overlap the upper poles of the kidneys by up to 5–6 mm, as in the source.
 - **No anatomical review has been done.** Every structure has the status "unreviewed" (which does
   not mean "wrong"); the component shows a notice about this.
-- **Ukrainian names are drafts only**; none has been reviewed yet: 4451 of 4454 structures, 3300 of
+- **Ukrainian names are drafts only**; none has been reviewed yet: 4481 of 4484 structures, 3330 of
   them machine-assisted (prepared by an AI language model; only the format is checked automatically,
   not the terminology). They are shown with a dotted underline and no tooltip (tree, search, card;
   the legend at the bottom of the structures panel explains the mark); `uk-names="reviewed"` shows
@@ -33,12 +44,15 @@ State as of `1.0.2` (data `1.0.0`, channel `preview`; Markdown package `1.0.1`, 
 - Known data issues (shown in the structure card): an unnamed heart vein called "????????" in the
   source, the damaged name of one cardiac vein, the capped subdivision level (some surfaces are less
   smooth than in the Blender file).
-- **The source geometry is changed in four declared places only** (`sources/geometry-fixes.json`;
-  the card of the structure lists the correction in its details): the teaching window in the anterior wall of the stomach and its
-  mucosa is closed, the lower end of the oesophagus is joined to the cardiac opening, the lower edge
-  of the laryngopharynx is laid onto the oesophagus, and the lower end of the small intestine is
-  joined to the ascending colon. Only the digestive tract was checked for such gaps; junctions
-  between other organs of the source can still show small gaps.
+- **The source geometry is changed in declared places only** (`sources/geometry-fixes.json`; the
+  card of the structure lists the correction in its details): the teaching window in the anterior
+  wall of the stomach and its mucosa is closed; the lower end of the oesophagus is joined to the
+  cardiac opening; the lower edge of the laryngopharynx is laid onto the oesophagus; the lower end of
+  the small intestine is joined to the ascending colon; the intrarenal arteries and veins, modelled in
+  Z-Anatomy for another kidney, are moved inside the new kidneys by a smooth field (up to about 2 cm
+  on the right); the upper ends of the ureters lose the funnel they had towards the excluded renal
+  pelvis and are joined to the new pelves. Only the digestive and urinary tracts were checked for
+  such gaps; junctions between other organs of the source can still show small gaps.
 - Muscle attachments (`insertions`) are hidden by default and are not part of "Load everything".
 
 ## Rendering
@@ -54,8 +68,8 @@ State as of `1.0.2` (data `1.0.0`, channel `preview`; Markdown package `1.0.1`, 
   profiling calls for it.
 - Materials are a colour palette without textures.
 - Economy mode: simplified geometry, `devicePixelRatio ≤ 1`, no specular highlights or rim light;
-  systems are not hidden. The whole body: ~55 MB (standard) or ~21 MB (economy) of network transfer;
-  ~3.0 million or ~0.84 million triangles.
+  systems are not hidden. The whole body: ~56 MB (standard) or ~21 MB (economy) of network transfer;
+  ~3.05 million or ~0.85 million triangles.
 - The loaded geometry of the visible scene stays in GPU memory; outside the current view, decoded
   geometry is kept within a 384 MB budget (LRU).
 - Several full atlases on a page are independent and do not share GPU resources. Embeds share the

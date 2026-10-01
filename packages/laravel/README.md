@@ -15,7 +15,7 @@ Integration of the [Svitylo 3D atlas](../../README.md) with Laravel and Livewire
 
 Requirements: PHP 8.2+, Laravel 11–13, Livewire 4 (optional), league/commonmark 2.6+.
 
-> Works with `@authorod/svitylo-3d-anatomy-atlas` 1.0.x. The package is developed in the atlas
+> Works with `@authorod/svitylo-3d-anatomy-atlas` 1.x. The package is developed in the atlas
 > monorepo (`packages/laravel`) and published from
 > [authorOd/svitylo-anatomy-laravel](https://github.com/authorOd/svitylo-anatomy-laravel). Terms:
 > [LICENSE.md](LICENSE.md).
@@ -82,7 +82,7 @@ With your own league/commonmark environment or `Str::markdown()`:
 use Authorod\SvityloAnatomy\CommonMark\AnatomyExtension;
 
 $html = Str::markdown($text, [], [app(SvityloAnatomy::class)->extension()]);
-// or new AnatomyExtension(['data_url' => '/anatomy-data/1.0.0/', 'share_urls' => [...]])
+// or new AnatomyExtension(['data_url' => '/anatomy-data/1.1.0/', 'share_urls' => [...]])
 ```
 
 The block syntax is in the [Markdown package README](../markdown/README.md#syntax). An invalid block

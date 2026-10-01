@@ -22,9 +22,10 @@
  * Contributor(s): see the source history and accompanying copyright notices.
  */
 /**
- * Fetches the pinned Z-Anatomy snapshot and verifies every input by SHA-256.
- * Never downloads a moving "latest" version: the commit and checksums come from
- * packages/data/sources/zanatomy.lock.json.
+ * Fetches the pinned Z-Anatomy snapshot and the models from other open sources, and verifies
+ * every input by SHA-256. Never downloads a moving "latest" version: the commit and checksums come
+ * from packages/data/sources/zanatomy.lock.json, the file addresses and checksums of the other
+ * models from packages/data/sources/external.json.
  *
  *   pnpm data:source [--work .work/zanatomy]
  */
@@ -43,6 +44,8 @@ interface Lock {
 }
 
 const { values } = parseArgs({ options: { work: { type: 'string', default: join(WORK_DIR, 'zanatomy') } } });
+const external = readJson<{ files: Record<string, { url: string; sha256: string }> }>(join(DATA_SOURCES, 'external.json'));
+const externalDir = join(WORK_DIR, 'external');
 const work = values.work!;
 const lock = readJson<Lock>(join(DATA_SOURCES, 'zanatomy.lock.json'));
 const repoDir = join(work, 'repo');
@@ -84,4 +87,29 @@ if (failed) {
     writeBytes(join(sourceDir, entry), bytes);
     log(`extracted and verified ${entry}`);
   }
+}
+
+// Models from other open sources: downloaded once, kept while their checksum matches.
+for (const [file, { url, sha256: expected }] of Object.entries(external.files)) {
+  const target = join(externalDir, file);
+  if (existsSync(target) && sha256(readFileSync(target)) === expected) {
+    log(`verified ${file}`);
+    continue;
+  }
+  log(`downloading ${file}…`);
+  const response = await fetch(url);
+  if (!response.ok) {
+    log(`download failed: ${file} (${response.status} ${response.statusText})`);
+    process.exitCode = 1;
+    continue;
+  }
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const actual = sha256(bytes);
+  if (actual !== expected) {
+    log(`checksum mismatch: ${file} ${actual} (expected ${expected})`);
+    process.exitCode = 1;
+    continue;
+  }
+  writeBytes(target, bytes);
+  log(`downloaded and verified ${file}`);
 }

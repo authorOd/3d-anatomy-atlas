@@ -7,6 +7,7 @@
   "scripts": {
     "fixture": "tsx --conditions=source src/fixture.ts",
     "source": "tsx --conditions=source src/source.ts",
+    "fit": "tsx --conditions=source src/fit.ts",
     "export": "tsx --conditions=source src/export.ts",
     "build": "tsx --conditions=source src/build.ts",
     "validate": "tsx --conditions=source src/validate-cli.ts",

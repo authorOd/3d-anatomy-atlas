@@ -1,5 +1,12 @@
 # Changelog — @authorod/svitylo-3d-anatomy-atlas
 
+## 1.1.0 — 2026-10-01
+
+Compatible data: `@authorod/svitylo-3d-anatomy-data@1.1.0`.
+
+- Data 1.1.0: the kidneys (Human Reference Atlas) and the inner ear (OpenEar).
+- Node.js 22.12 or later (`engines`).
+
 ## 1.0.2 — 2026-10-01
 
 Compatible data: `@authorod/svitylo-3d-anatomy-data@1.0.0`.

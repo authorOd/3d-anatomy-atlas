@@ -24,7 +24,7 @@
 import { canonicalJson, type LocalizedText } from '@authorod/svitylo-3d-anatomy-atlas/schema';
 import type { Vec3 } from './mesh-checks.js';
 
-export type GeometryFixKind = 'close-hole' | 'join-tube-end' | 'seal-opening';
+export type GeometryFixKind = 'close-hole' | 'join-tube-end' | 'seal-opening' | 'warp-curves';
 
 /** A declared correction of the source geometry (`sources/geometry-fixes.json`). */
 export interface GeometryFixSource {
@@ -35,6 +35,8 @@ export interface GeometryFixSource {
   /** Structures whose card shows the note, as [collection, object] references. */
   targets: [collection: string, name: string][];
   note: LocalizedText;
+  /** Largest gap allowed across the seam after the fix, in metres (default SEAM_TOLERANCE). */
+  maxGap?: number;
 }
 
 /** A correction as applied and reported by the Blender export (Blender coordinates). */
@@ -44,6 +46,8 @@ export interface AppliedFix {
   object: string;
   gapBefore?: { mean: number; max: number };
   gapAfter?: { mean: number; max: number };
+  /** warp-curves: the largest displacement of a control point, in metres. */
+  maxDisplacement?: number;
   seam: Vec3[];
 }
 
@@ -56,6 +60,8 @@ export interface CoverageCorrection {
   /** Largest gap across the seam before and after the correction, in metres. */
   gapBefore?: number;
   gapAfter?: number;
+  /** Largest displacement of a warped curve, in metres. */
+  maxDisplacement?: number;
   /** Points where the corrected surfaces meet (joins, seals) or the closed opening was. */
   seam: Vec3[];
 }
@@ -64,7 +70,7 @@ export interface CoverageCorrection {
 export const SEAM_TOLERANCE = 0.0002;
 
 /** Fields that document a fix; they do not change the geometry (see geometry_fixes.py). */
-const DOCUMENTATION = new Set(['reason', 'note', 'targets']);
+const DOCUMENTATION = new Set(['reason', 'note', 'targets', 'maxGap']);
 
 /** What the geometry depends on: every fix without its documentation fields. */
 export function fixDefinitions(fixes: object[]): object[] {
@@ -87,7 +93,7 @@ export function appliedFixes(
   for (const fix of declared) {
     const done = applied.get(fix.id);
     if (!done) throw new Error(`Geometry fix ${fix.id} is missing from the export`);
-    if (done.gapAfter && done.gapAfter.max > SEAM_TOLERANCE) {
+    if (done.gapAfter && done.gapAfter.max > (fix.maxGap ?? SEAM_TOLERANCE)) {
       throw new Error(`Geometry fix ${fix.id} leaves a gap of ${(done.gapAfter.max * 1000).toFixed(2)} mm`);
     }
   }

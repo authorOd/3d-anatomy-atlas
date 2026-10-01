@@ -33,17 +33,23 @@ applied here and reported in export.json, so every change is explicit and reprod
   join-tube-end  Moves the end of a curve tube so that its end ring lies exactly on an opening of
                  another object ("opening": the loops are matched by arc length) or on its
                  surface ("surface": along the tube). The displacement of the end ring is
-                 interpolated by the angle around the tube and fades out along it.
+                 interpolated by the angle around the tube and fades out along it. An optional
+                 endRadius first narrows a flared end (the curve point radius of the end points).
   seal-opening   Lays the border of an opening onto the surface of another object (closest
                  points, smoothed along the border); the displacement is harmonic within a given
                  distance from the border along the mesh. Suits openings whose edge is not flat,
                  e.g. with a step that a tube cannot follow.
+  warp-curves    Moves the control points of a curve (and their handles) by a smooth field of
+                 Gaussian radial basis functions computed by fit_external.py (external-fit.json,
+                 identified by its SHA-256). Adapts the Z-Anatomy intrarenal vessels, modelled
+                 for another kidney, to the kidneys placed from HRA.
 
 Tubes and sealed objects are moved before their trailing Solidify modifiers, which are then
 applied again, so walls keep their thickness. Coordinates in the fixes file are Blender world
 coordinates of the source (metres, Z up); they only select the opening to work on.
 """
 
+import hashlib
 import heapq
 import json
 import math
@@ -55,9 +61,9 @@ from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 from mathutils.geometry import interpolate_bezier
 
-KINDS = ("close-hole", "join-tube-end", "seal-opening")
-# Fields that document a fix and do not change the geometry.
-DOCUMENTATION = ("reason", "note", "targets")
+KINDS = ("close-hole", "join-tube-end", "seal-opening", "warp-curves")
+# Fields that document or check a fix and do not change the geometry.
+DOCUMENTATION = ("reason", "note", "targets", "maxGap")
 # An opening selected by a fix must be this close to the declared point.
 SELECT_TOLERANCE = 0.01
 # The open end of a tube must be this close to the end of its curve.
@@ -371,6 +377,8 @@ class TubeJoin:
             raise FixError(f"{self.id}: curve object {fix['object']!r} not found")
         self.object = obj.name
         self.length = float(fix["blendLength"])
+        if "endRadius" in fix:
+            self._limit_end_radius(obj, fix["end"], float(fix["endRadius"]))
         self._centreline(obj, fix["end"])
         self.axis = self.line[0] - self.line[1]
         self.axis /= np.linalg.norm(self.axis)
@@ -452,6 +460,21 @@ class TubeJoin:
         x = (points - points.mean(axis=0)) @ self.u
         y = (points - points.mean(axis=0)) @ self.w
         return 1.0 if float(np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y)) >= 0 else -1.0
+
+    def _limit_end_radius(self, obj, end, radius):
+        """Narrows a flared end: the points at that end whose radius exceeds `radius` take it."""
+        points = list(obj.data.splines[0].bezier_points)
+        if end == "last":
+            points.reverse()
+        changed = 0
+        for point in points:
+            if point.radius <= radius:
+                break
+            point.radius = radius
+            changed += 1
+        if changed == 0:
+            raise FixError(f"{self.id}: the {end} end of {obj.name} is not wider than endRadius")
+        bpy.context.view_layer.update()
 
     def _match_opening(self, ring, opening):
         """Points of the opening for the end ring vertices.
@@ -693,14 +716,60 @@ def correct(obj, corrections):
     return solidified(obj, mesh, solidify)
 
 
-def prepare(fixes):
+def field_digest(field):
+    """SHA-256 of a warp field in canonical JSON (the fix declares it, so a refit is noticed)."""
+    return hashlib.sha256(json.dumps(field, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def warp_curves(fix, fields):
+    """Moves the control points and handles of a curve by a declared smooth field: Gaussian radial
+    basis functions applied in rounds (each round to the result of the previous one)."""
+    field = (fields or {}).get(fix["field"])
+    if field is None:
+        raise FixError(f"{fix['id']}: field {fix['field']!r} not found (external-fit.json curveWarps)")
+    if field_digest(field) != fix["fieldSha256"]:
+        raise FixError(f"{fix['id']}: field {fix['field']!r} differs from the declared fieldSha256; update the fix")
+    obj = bpy.data.objects.get(fix["object"])
+    if obj is None or obj.type != "CURVE":
+        raise FixError(f"{fix['id']}: {fix['object']} is not a curve object")
+    mw = obj.matrix_world
+    inv = mw.inverted()
+    refs = []
+    for spline in obj.data.splines:
+        if spline.type == "BEZIER":
+            for bp in spline.bezier_points:
+                bp.handle_left_type = "FREE"
+                bp.handle_right_type = "FREE"
+                refs.extend([(bp, "co"), (bp, "handle_left"), (bp, "handle_right")])
+        else:
+            refs.extend((p, "point") for p in spline.points)
+    world = np.array([(mw @ (Vector(getattr(o, a)[:]) if a != "point" else o.co.xyz))[:] for o, a in refs])
+    moved = world.copy()
+    sigma = float(field["sigma"])
+    for rnd in field["rounds"]:
+        centres = np.array(rnd["centres"])
+        weights = np.array(rnd["weights"])
+        d2 = ((moved[:, None, :] - centres[None, :, :]) ** 2).sum(-1)
+        moved = moved + np.exp(-d2 / (2 * sigma * sigma)) @ weights
+    for (o, a), co in zip(refs, moved):
+        local = inv @ Vector(co.tolist())
+        if a == "point":
+            o.co = (local.x, local.y, local.z, o.co.w)
+        else:
+            setattr(o, a, local)
+    return {"id": fix["id"], "kind": "warp-curves", "object": fix["object"],
+            "maxDisplacement": float(np.linalg.norm(moved - world, axis=1).max()), "seam": []}
+
+
+def prepare(fixes, fields=None):
     """Applies the declared fixes.
 
-    Base meshes are changed in place; for tubes and sealed openings the corrected world-space
-    meshes are returned. Returns (reports, meshes): the export uses `meshes[name]` instead of
-    evaluating those objects.
+    Base meshes and curves are changed in place; for tubes and sealed openings the corrected
+    world-space meshes are returned. Returns (reports, meshes): the export uses `meshes[name]`
+    instead of evaluating those objects. `fields` holds the warp fields of warp-curves fixes.
     """
     reports = [close_hole(f) for f in fixes if f["kind"] == "close-hole"]
+    reports.extend(warp_curves(f, fields) for f in fixes if f["kind"] == "warp-curves")
     bpy.context.view_layer.update()
     surfaces = Surfaces()
     # Tubes first: seals are laid onto the corrected tubes.

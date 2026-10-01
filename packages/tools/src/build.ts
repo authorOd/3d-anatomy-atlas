@@ -29,7 +29,8 @@
  *   pnpm data:build     # this script: hierarchy, IDs, licences, two quality levels, chunks, manifest
  *
  * Options: --version <semver> (default: data package version), --channel preview|release,
- *          --work <dir> (default .work/zanatomy)
+ *          --work <dir> (default .work/zanatomy), --previous <release dir> (chunk files whose
+ *          decoded content is unchanged are copied from it byte for byte)
  */
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
@@ -87,6 +88,7 @@ async function main() {
       version: { type: 'string' },
       channel: { type: 'string', default: 'preview' },
       work: { type: 'string', default: join(WORK_DIR, 'zanatomy') },
+      previous: { type: 'string' },
     },
   });
   const pkg = readJson<{ version: string }>(join(DATA_PACKAGE, 'package.json'));
@@ -169,14 +171,16 @@ async function main() {
   for (const root of tree.roots) {
     walk(root, (node) => {
       byId.set(node.id, node);
-      const isSource = node.sourceName !== null;
+      const isSource = node.sourceName !== null && !node.external;
       names.en.set(node.id, {
         name: node.englishName,
         status: 'unreviewed',
         origin: isSource && node.englishName === node.parsed.base ? 'source' : 'editorial',
         source: isSource ? `Z-Anatomy ${node.object ? 'object' : 'group label'} “${node.sourceName}”` : 'Atlas editors',
       });
-      if (node.termKey) {
+      if (node.object?.external?.la) {
+        names.la.set(node.id, { name: node.object.external.la, status: 'unreviewed', origin: 'editorial', source: 'Atlas editors' });
+      } else if (node.termKey) {
         const latin = ta2.latin(node.termKey);
         if (latin) names.la.set(node.id, { name: latin, status: 'unreviewed', origin: 'source', source: 'Z-Anatomy TA2.csv' });
       }
@@ -266,6 +270,7 @@ async function main() {
       structures: fix.targets.map(resolveRef),
       reason: fix.reason,
       ...(done.gapBefore && done.gapAfter ? { gapBefore: done.gapBefore.max, gapAfter: done.gapAfter.max } : {}),
+      ...(done.maxDisplacement !== undefined ? { maxDisplacement: done.maxDisplacement } : {}),
       seam: done.seam.map(([x, y, z]) => blenderToAtlas(x, y, z, origin).map(round) as [number, number, number]),
     };
   });
@@ -334,6 +339,7 @@ async function main() {
       { reason: 'Label anchor objects (".j")', count: tree.skippedAnchors.length },
     ],
     corrections,
+    ...(values.previous ? { previous: values.previous } : {}),
   };
   const summary = await writeRelease(input);
   registry.save();

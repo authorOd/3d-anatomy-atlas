@@ -33,7 +33,11 @@ export interface ParsedName {
   attachment?: { kind: 'origin' | 'insertion'; index?: number };
 }
 
-/** Parses Z-Anatomy suffixes: `.l`/`.r` (side) and `.o[N]l`, `.e[N]r` (muscle origin/insertion patches). */
+/**
+ * Parses Z-Anatomy suffixes: `.l`/`.r` (side) and `.o[N]l`, `.e[N]r` (muscle origin/insertion
+ * patches); group labels end with `.g`, sided ones (added with models from other sources) with
+ * `.l.g`/`.r.g`.
+ */
 export function parseSourceName(name: string): ParsedName {
   const attachment = /^(.*)\.(o|e)(\d*)([lr])$/.exec(name);
   if (attachment) {
@@ -46,6 +50,8 @@ export function parseSourceName(name: string): ParsedName {
   }
   const sided = /^(.*)\.([lr])$/.exec(name);
   if (sided) return { base: sided[1]!.trim(), side: sided[2] === 'l' ? 'left' : 'right' };
+  const sidedGroup = /^(.*)\.([lr])\.g$/.exec(name);
+  if (sidedGroup) return { base: sidedGroup[1]!.trim(), side: sidedGroup[2] === 'l' ? 'left' : 'right' };
   const group = /^(.*)\.g$/.exec(name);
   if (group) return { base: group[1]!.trim() };
   return { base: name.trim() };

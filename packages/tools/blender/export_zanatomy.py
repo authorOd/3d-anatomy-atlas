@@ -24,6 +24,9 @@
 Usage:
   blender -t 1 -b Startup.blend --python export_zanatomy.py -- --out <dir> [--subsurf-max 1]
                                                                 [--fixes geometry-fixes.json]
+                                                                [--external external.json
+                                                                 --external-fit external-fit.json
+                                                                 --external-dir <dir>]
 
 One thread (-t 1) keeps the export byte-reproducible: with several, Blender varies the last bit
 of some normals from run to run.
@@ -43,7 +46,9 @@ Coordinates stay in Blender space (Z up, -Y front, metres); the Node pipeline co
 The script does not rename or reinterpret anatomy: stable IDs, licence rules and splitting
 are applied later, so this step stays a thin and reproducible conversion. The only changes of
 the source geometry are the corrections declared in --fixes (geometry_fixes.py); export.json
-records the geometric part of every declared fix and what each one did.
+records the geometric part of every declared fix and what each one did. Models from other open
+sources (--external, external_meshes.py) replace the declared snapshot objects first; their
+records carry an "external" entry (licence asset, credit, names).
 """
 
 import json
@@ -55,6 +60,7 @@ import numpy as np
 
 sys.dont_write_bytecode = True  # no __pycache__ next to the scripts
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import external_meshes  # noqa: E402
 import geometry_fixes  # noqa: E402
 
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
@@ -69,6 +75,9 @@ def arg(name, default=None):
 OUT = os.path.abspath(arg("--out", "export"))
 SUBSURF_MAX = int(arg("--subsurf-max", "1"))
 FIXES = arg("--fixes")
+EXTERNAL = arg("--external")
+EXTERNAL_FIT = arg("--external-fit")
+EXTERNAL_DIR = arg("--external-dir")
 SYSTEM_PREFIXES = tuple(f"{i}:" for i in range(1, 10))
 
 os.makedirs(OUT, exist_ok=True)
@@ -105,10 +114,25 @@ for obj in bpy.data.objects:
             if mod.type == "SUBSURF":
                 mod.levels = min(mod.levels, SUBSURF_MAX)
 
+# Models from other open sources replace the declared snapshot objects (before the corrections,
+# which may refer to them).
+external_report = None
+if EXTERNAL:
+    spec, fit = external_meshes.load(EXTERNAL, EXTERNAL_FIT)
+    external_report = external_meshes.apply(spec, fit, EXTERNAL_DIR)
+    print(f"external: {len(external_report['removed'])} replaced, {len(external_report['objects'])} objects, "
+          f"{len(external_report['groups'])} groups")
+
+
+def external_of(obj):
+    raw = obj.get("svitylo_external")
+    return json.loads(raw) if raw else None
+
+
 # Declared corrections: base meshes are changed in place; tubes and sealed openings come back
 # as corrected world-space meshes that replace their evaluation below.
 fixes = geometry_fixes.load(FIXES) if FIXES else []
-fix_reports, corrected = geometry_fixes.prepare(fixes) if fixes else ([], {})
+fix_reports, corrected = geometry_fixes.prepare(fixes, fit.get("curveWarps") if EXTERNAL else None) if fixes else ([], {})
 for report in fix_reports:
     print(f"fix {report['id']}: {json.dumps({k: v for k, v in report.items() if k != 'seam'})}")
 
@@ -183,7 +207,10 @@ groups = []
 for obj in bpy.data.objects:
     sys_name = system_collection(obj)
     if sys_name and obj.name.endswith(".g"):
-        groups.append({"name": obj.name, "type": obj.type, "system": sys_name, "parents": parent_chain(obj)})
+        group = {"name": obj.name, "type": obj.type, "system": sys_name, "parents": parent_chain(obj)}
+        if external_of(obj):
+            group["external"] = True
+        groups.append(group)
 
 for obj in list(bpy.data.objects):
     sys_name = system_collection(obj)
@@ -244,6 +271,7 @@ for obj in list(bpy.data.objects):
         "file": fname,
         "offset": int(offset),
         "bboxBlender": [float(v) for v in positions.min(axis=0)] + [float(v) for v in positions.max(axis=0)],
+        **({"external": external_of(obj)} if external_of(obj) else {}),
     })
 
 for fh in handles.values():
@@ -262,6 +290,7 @@ with open(os.path.join(OUT, "export.json"), "w", encoding="utf-8") as out:
         "skipped": skipped,
         "materials": materials,
         "fixes": {"definitions": geometry_fixes.definitions(fixes), "applied": fix_reports},
+        **({"external": external_report} if external_report else {}),
     }, out, ensure_ascii=False, indent=1)
 
 print(f"done: {len(records)} objects, {len(skipped)} skipped, "

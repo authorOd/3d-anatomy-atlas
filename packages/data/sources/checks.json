@@ -15,6 +15,8 @@
   "junctions": [
     { "fix": "oesophagus-cardia", "structures": ["visceral.oesophagus", "visceral.stomach"], "maxGap": 0.001 },
     { "fix": "pharynx-oesophagus", "structures": ["visceral.laryngopharynx", "visceral.oesophagus"], "maxGap": 0.001 },
-    { "fix": "small-intestine-colon", "structures": ["visceral.jejunum", "visceral.ascending_colon"], "maxGap": 0.001 }
+    { "fix": "small-intestine-colon", "structures": ["visceral.jejunum", "visceral.ascending_colon"], "maxGap": 0.001 },
+    { "fix": "ureter-pelvis-l", "structures": ["visceral.ureter_l", "visceral.renal_pelvis_l"], "maxGap": 0.001 },
+    { "fix": "ureter-pelvis-r", "structures": ["visceral.ureter_r", "visceral.renal_pelvis_r"], "maxGap": 0.001 }
   ]
 }

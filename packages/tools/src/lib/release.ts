@@ -21,7 +21,7 @@
  * All Rights Reserved.
  * Contributor(s): see the source history and accompanying copyright notices.
  */
-import { rmSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import {
   MANIFEST_SCHEMA_VERSION,
@@ -45,6 +45,7 @@ import type { CoverageCorrection } from './geometry-fixes.js';
 import { bounds, triangleCount, type MeshData } from './geometry.js';
 import { writeChunkGlb } from './glb-writer.js';
 import { ensureDir, log, sha256, writeBytes, writeJson } from './io.js';
+import { chunkContent } from './reuse.js';
 
 export interface ReleaseNode {
   id: string;
@@ -86,6 +87,11 @@ export interface ReleaseInput {
   excludedSummary: { reason: string; count: number }[];
   /** Declared corrections of the source geometry, listed in the coverage report. */
   corrections?: CoverageCorrection[];
+  /**
+   * A previous release: a chunk file whose decoded content is the same as the new one is copied
+   * byte for byte, so unchanged chunks keep their files (and checksums) across versions.
+   */
+  previous?: string;
 }
 
 export interface ReleaseSummary {
@@ -220,6 +226,7 @@ export async function writeRelease(input: ReleaseInput): Promise<ReleaseSummary>
     bytes: { standard: 0, economy: 0, metadata: 0 },
   };
   const systemPriority = new Map(input.systems.map((s) => [s.id, s.loadPriority]));
+  let reused = 0;
   let bboxMin: [number, number, number] = [Infinity, Infinity, Infinity];
   let bboxMax: [number, number, number] = [-Infinity, -Infinity, -Infinity];
   for (const [ci, chunk] of planned.entries()) {
@@ -232,7 +239,16 @@ export async function writeRelease(input: ReleaseInput): Promise<ReleaseSummary>
         { chunk: chunk.id, meshStart, meshCount: chunk.nodes.length, quality },
       );
       const path = `${quality}/${chunk.system}/${chunk.id.slice(chunk.system.length + 1)}.glb`;
-      const buffer = writeBytes(join(input.outDir, path), written.bytes);
+      let bytes: Uint8Array = written.bytes;
+      const previous = input.previous ? join(input.previous, path) : null;
+      if (previous && existsSync(previous)) {
+        const old = readFileSync(previous);
+        if ((await chunkContent(old)) === (await chunkContent(written.bytes))) {
+          bytes = old;
+          reused++;
+        }
+      }
+      const buffer = writeBytes(join(input.outDir, path), bytes);
       const ref = put(path, buffer);
       fileRefs[quality] = { ...ref, triangles: written.triangles, vertices: written.vertices };
       summary.triangles[quality] += written.triangles;
@@ -253,6 +269,8 @@ export async function writeRelease(input: ReleaseInput): Promise<ReleaseSummary>
     });
     if ((ci + 1) % 25 === 0) log(`  chunks written: ${ci + 1}/${planned.length}`);
   }
+
+  if (input.previous) log(`  chunk files kept from ${input.previous}: ${reused} of ${planned.length * 2}`);
 
   // 2. Dictionaries.
   const dictionaries: Manifest['dictionaries'] = {};
@@ -539,7 +557,8 @@ function coverageMarkdown(c: CoverageReport): string {
     const mm = (m: number) => `${(m * 1000).toFixed(1)} mm`;
     for (const k of c.corrections) {
       const gap = k.gapBefore !== undefined && k.gapAfter !== undefined ? ` Largest gap: ${mm(k.gapBefore)} before, ${mm(k.gapAfter)} after.` : '';
-      lines.push(`- **${k.id}** (${k.kind}; ${k.structures.join(', ')}): ${k.reason}${gap}`);
+      const moved = k.maxDisplacement !== undefined ? ` Largest displacement: ${mm(k.maxDisplacement)}.` : '';
+      lines.push(`- **${k.id}** (${k.kind}; ${k.structures.join(', ')}): ${k.reason}${gap}${moved}`);
     }
   }
   if (c.notes.length) {

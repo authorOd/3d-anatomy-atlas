@@ -2,6 +2,43 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data have separate versions.
 
+## 1.1.0 — 2026-10-01
+
+### Data — `@authorod/svitylo-3d-anatomy-data` 1.1.0 (`preview` channel)
+
+- Added: the kidneys, from the Human Reference Atlas (CC BY 4.0, Visible Human Male): the fibrous
+  capsule, hilum, renal cortex, renal columns, renal pyramids and renal papillae of each kidney,
+  and the renal pelvis with the major and minor calices. `visceral.kidney_l` and `_r` become groups
+  of these parts; `visceral.renal_pelvis_l` and `_r` now have geometry.
+- Added: the inner ear, from OpenEar (CC BY 4.0): the cochlea (scala vestibuli and scala tympani),
+  the vestibule, and the semicircular canals with the common bony limb. `nervous.cochlea_l` and `_r`
+  become groups.
+- Changed: the malleus, incus, stapes and tympanic membrane come from OpenEar as well, because the
+  provenance of the Z-Anatomy models could not be confirmed.
+- Changed: the intrarenal arteries and veins are adapted to the new kidneys, and the upper ends of
+  the ureters are joined to the new renal pelves (declared corrections, listed in the cards and the
+  coverage report).
+- 4484 structures, 3761 with geometry; 137 declared gaps (the cerebral cortex and the white matter).
+  Files whose content did not change keep the bytes of 1.0.0.
+- npm metadata: keywords, `homepage`, `bugs`.
+
+### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.1.0
+
+- Uses data `1.1.0` (pinned exactly).
+- Node.js 22.12 or later for the `svitylo-anatomy` command (`engines`); CI no longer tests Node 20.
+
+### Data pipeline
+
+- Models from other sources (`sources/external.json`), placed by `pnpm data:fit`
+  (`sources/external-fit.json`, reviewed and committed).
+- A correction kind `warp-curves`; `join-tube-end` can narrow a flared end (`endRadius`); a
+  correction can declare its seam tolerance (`maxGap`).
+- `pnpm data:build --previous <release>` keeps the chunk files of the previous release whose
+  decoded content is unchanged.
+- A Python error in Blender fails `pnpm data:export` (Blender used to exit with 0).
+
+The Markdown and Laravel packages are unchanged.
+
 ## 1.0.2 — 2026-10-01
 
 ### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.0.2

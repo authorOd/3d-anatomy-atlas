@@ -48,7 +48,7 @@ import MarkdownIt from 'markdown-it';
 import { anatomyPlugin } from '@authorod/svitylo-anatomy-markdown/markdown-it';
 
 const md = new MarkdownIt({ linkify: true }).use(anatomyPlugin, {
-  dataUrl: '/anatomy-data/1.0.0/', // data-url of the embeds (default: the atlas default)
+  dataUrl: '/anatomy-data/1.1.0/', // data-url of the embeds (default: the atlas default)
   lang: 'uk',                             // names language when a block does not set one
   shareUrls: ['https://svitylo.com/atlas'],
 });
@@ -58,7 +58,7 @@ md.render(note);
 Output:
 
 ```html
-<figure class="svitylo-anatomy-embed"><svitylo-anatomy layout="embed" data-url="/anatomy-data/1.0.0/"
+<figure class="svitylo-anatomy-embed"><svitylo-anatomy layout="embed" data-url="/anatomy-data/1.1.0/"
   structure="cardiovascular.heart" surroundings="2" view="anterior" label="Heart" lang="uk"></svitylo-anatomy>
   <figcaption>The heart in its surroundings</figcaption></figure>
 ```

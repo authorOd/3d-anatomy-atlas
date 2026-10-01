@@ -22,8 +22,9 @@
  * Contributor(s): see the source history and accompanying copyright notices.
  */
 /**
- * Runs the headless Blender export of the verified snapshot, with the declared geometry
- * corrections of packages/data/sources/geometry-fixes.json.
+ * Runs the headless Blender export of the verified snapshot, with the models from other open
+ * sources (packages/data/sources/external.json, placed by external-fit.json) and the declared
+ * geometry corrections of packages/data/sources/geometry-fixes.json.
  *
  *   pnpm data:export [--work .work/zanatomy]   (BLENDER=/path/to/blender to override)
  */
@@ -50,6 +51,9 @@ execFileSync(
     String(lock.tools.threads),
     '-b',
     blend,
+    // A Python error must fail the command (Blender exits with 0 otherwise).
+    '--python-exit-code',
+    '1',
     '--python',
     join(REPO_ROOT, 'packages/tools/blender/export_zanatomy.py'),
     '--',
@@ -59,6 +63,12 @@ execFileSync(
     String(lock.tools.subsurfMax),
     '--fixes',
     join(DATA_SOURCES, 'geometry-fixes.json'),
+    '--external',
+    join(DATA_SOURCES, 'external.json'),
+    '--external-fit',
+    join(DATA_SOURCES, 'external-fit.json'),
+    '--external-dir',
+    join(WORK_DIR, 'external'),
   ],
   { stdio: 'inherit' },
 );

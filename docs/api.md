@@ -1,6 +1,6 @@
 # API
 
-API version: `1.0.2`. The behaviour described here is covered by tests.
+API version: `1.1.0`. The behaviour described here is covered by tests.
 
 Entry points of the package `@authorod/svitylo-3d-anatomy-atlas`:
 
@@ -26,7 +26,7 @@ them):
 
 ```html
 <svitylo-anatomy
-  data-url="/anatomy-data/1.0.0/"
+  data-url="/anatomy-data/1.1.0/"
   lang="en"
   quality="standard"
   layout="full">
@@ -165,7 +165,7 @@ import { createAtlasViewer } from '@authorod/svitylo-3d-anatomy-atlas/core';
 
 const viewer = await createAtlasViewer({
   container: document.getElementById('view')!, // the core adds only a <canvas>
-  dataUrl: '/anatomy-data/1.0.0/',
+  dataUrl: '/anatomy-data/1.1.0/',
   quality: 'standard',
   lang: 'uk',
 });
@@ -283,7 +283,7 @@ on the scene. Deselecting, including "Clear selection" and Escape, never changes
 the selection; level k joins the k-th group of every selected structure (a structure with a shorter
 hierarchy stays at its top group); the last level is the whole body (every system except those
 hidden by default). Ancestors that add no new structure are skipped. Examples for data
-`1.0.0`: the heart → "Arterial system" (444 structures) → "Cardiovascular system" → the
+`1.1.0`: the heart → "Arterial system" (444 structures) → "Cardiovascular system" → the
 whole body; the heart and the femur together → "Arterial system" + "Bones of free part of lower
 limb" → … → the whole body. The levels are rebuilt when the selection changes.
 

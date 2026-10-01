@@ -38,6 +38,18 @@ export interface ExportObject {
   file: string;
   offset: number;
   bboxBlender: [number, number, number, number, number, number];
+  /** A model from another open source (external_meshes.py): its licence asset, credit and names. */
+  external?: ExternalInfo;
+}
+
+export interface ExternalInfo {
+  asset: string;
+  /** Where the geometry comes from, for the name records and the card. */
+  source: string;
+  /** English name when it differs from the object name (e.g. a plural of a TA2 term). */
+  en?: string;
+  /** Latin name when TA2.csv has no entry for it. */
+  la?: string;
 }
 
 export interface ExportGroup {
@@ -45,6 +57,8 @@ export interface ExportGroup {
   type: string;
   system: string;
   parents: string[];
+  /** A group label added with models from other sources. */
+  external?: boolean;
 }
 
 export interface ExportFile {
