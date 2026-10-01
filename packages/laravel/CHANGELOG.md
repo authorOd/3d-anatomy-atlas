@@ -1,5 +1,11 @@
 # Changelog — authorod/svitylo-anatomy-laravel
 
+## 1.0.1 — 2026-10-02
+
+- Fixed: the pattern of a block line no longer backtracks on long lines (it ran into the PCRE
+  backtrack limit, which only by chance gave the right result). The parsing results are unchanged,
+  as in `@authorod/svitylo-anatomy-markdown` 1.0.2.
+
 ## 1.0.0 — 2026-09-29
 
 First release. PHP 8.2+, Laravel 11–13, Livewire 4; compatible atlas

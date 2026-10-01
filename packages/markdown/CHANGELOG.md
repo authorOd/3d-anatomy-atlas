@@ -1,5 +1,12 @@
 # Changelog — @authorod/svitylo-anatomy-markdown
 
+## 1.0.2 — 2026-10-02
+
+- Fixed: two regular expressions could backtrack polynomially on long input (CodeQL
+  `js/polynomial-redos`). A block line of many spaces with a line separator inside, or an allowed
+  share-link prefix with a long run of slashes, took seconds (20,000 characters: 0.6 s, growing with
+  the square of the length); both are linear now. The parsing results are unchanged.
+
 ## 1.0.1 — 2026-10-01
 
 - npm metadata: `homepage` and `bugs`. The code is unchanged.

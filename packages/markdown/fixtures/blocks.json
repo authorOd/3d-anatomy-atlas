@@ -60,7 +60,9 @@
     { "name": "unknown language", "block": "structure: cardiovascular.heart\nlang: de", "errors": ["lang"] },
     { "name": "a line that is not key: value", "block": "structure: cardiovascular.heart\njust some text", "errors": ["syntax"] },
     { "name": "nothing to show", "block": "# only a comment\nlabel: Серце", "errors": ["empty"] },
-    { "name": "a line separator inside a value", "block": "structure: cardiovascular.heart\nlabel: Heart\u2028state: z1.AAAA", "errors": ["syntax"] }
+    { "name": "a line separator inside a value", "block": "structure: cardiovascular.heart\nlabel: Heart\u2028state: z1.AAAA", "errors": ["syntax"] },
+    { "name": "whitespace after the colon is skipped, a line separator too", "block": "structure: cardiovascular.heart\nlabel:  \u2028Серце", "spec": { "structure": "cardiovascular.heart", "label": "Серце" }, "html": "<figure class=\"svitylo-anatomy-embed\"><svitylo-anatomy layout=\"embed\" data-url=\"/anatomy-data/1.0.0/\" structure=\"cardiovascular.heart\" label=\"Серце\"></svitylo-anatomy></figure>" },
+    { "name": "a key with an empty value", "block": "structure: cardiovascular.heart\nlabel:   ", "errors": ["label"] }
   ],
   "markdown": [
     {

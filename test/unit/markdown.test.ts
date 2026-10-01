@@ -32,6 +32,7 @@ import {
   formatAnatomyBlock,
   parseAnatomyBlock,
   renderAnatomyEmbed,
+  stateFromShareLink,
   type AnatomyEmbedSpec,
 } from '@authorod/svitylo-anatomy-markdown';
 import { anatomyPlugin } from '@authorod/svitylo-anatomy-markdown/markdown-it';
@@ -70,6 +71,23 @@ describe('```anatomy blocks (shared fixtures)', () => {
       expect(parseAnatomyBlock(formatAnatomyBlock(result.spec!)).spec).toEqual(result.spec);
     });
   }
+});
+
+describe('long input', () => {
+  // Patterns that backtrack polynomially took seconds here (CodeQL js/polynomial-redos).
+  it('a long line with a line separator inside parses in linear time', () => {
+    const started = performance.now();
+    expect(parseAnatomyBlock(`label:${' '.repeat(200_000)}x\u2028y`).errors).toEqual(['syntax']);
+    expect(parseAnatomyBlock(`structure:${' '.repeat(200_000)}cardiovascular.heart`).spec).toEqual({ structure: 'cardiovascular.heart' });
+    expect(performance.now() - started).toBeLessThan(1000);
+  });
+
+  it('an allowed prefix with a long run of slashes is checked in linear time', () => {
+    const started = performance.now();
+    expect(stateFromShareLink('https://svitylo.com/atlas#s=z1.AAAA', [`https://svitylo.com${'/'.repeat(200_000)}x`])).toBeNull();
+    expect(stateFromShareLink('https://svitylo.com/atlas#s=z1.AAAA', [`https://svitylo.com/atlas${'/'.repeat(200_000)}`])).toBe('z1.AAAA');
+    expect(performance.now() - started).toBeLessThan(1000);
+  });
 });
 
 describe('markdown-it plugin', () => {

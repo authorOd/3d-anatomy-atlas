@@ -1,7 +1,7 @@
 # Known limitations
 
-State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, Laravel package
-`1.0.0`).
+State as of `1.1.1` (data `1.1.0`, channel `preview`; Markdown package `1.0.2`, Laravel package
+`1.0.1`).
 
 ## Data
 

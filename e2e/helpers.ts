@@ -111,11 +111,17 @@ export async function expectBrandVisible(page: Page) {
 
 /** A viewport point where `id` is picked (scans a grid; null when not visible). */
 export async function pointOf(page: Page, id: string): Promise<{ x: number; y: number } | null> {
-  return atlas(page, `
+  // The ID goes in as an argument, not into the code.
+  return page.evaluate((id) => {
+    type Viewer = { renderer: { canvas: HTMLCanvasElement }; pickAt(x: number, y: number): string | null };
+    const v = (document.querySelector('svitylo-anatomy') as unknown as { viewer: Viewer }).viewer;
     const r = v.renderer.canvas.getBoundingClientRect();
-    for (let y = 0.1; y < 0.95; y += 0.025) for (let x = 0.1; x < 0.95; x += 0.025) {
-      const px = r.left + r.width * x, py = r.top + r.height * y;
-      if (v.pickAt(px, py) === ${JSON.stringify(id)}) return { x: px, y: py };
-    }
-    return null;`);
+    for (let y = 0.1; y < 0.95; y += 0.025)
+      for (let x = 0.1; x < 0.95; x += 0.025) {
+        const px = r.left + r.width * x;
+        const py = r.top + r.height * y;
+        if (v.pickAt(px, py) === id) return { x: px, y: py };
+      }
+    return null;
+  }, id);
 }

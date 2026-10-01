@@ -59,6 +59,15 @@ final class BlockFixturesTest extends TestCase
         $this->assertEquals($result->spec, BlockParser::parse(BlockParser::format($result->spec))->spec);
     }
 
+    public function test_long_lines(): void
+    {
+        // The value pattern starts with a non-space, so these lines do not backtrack (before, the
+        // first one ran into the PCRE backtrack limit).
+        $this->assertSame(['syntax'], BlockParser::parse('label:'.str_repeat(' ', 200000)."x\u{2028}y")->errors);
+        $result = BlockParser::parse('structure:'.str_repeat(' ', 200000).'cardiovascular.heart');
+        $this->assertSame(['structure' => 'cardiovascular.heart'], $result->spec?->toArray());
+    }
+
     public function test_rules_match_the_javascript_package(): void
     {
         $source = (string) file_get_contents(__DIR__.'/../../markdown/src/block.ts');
