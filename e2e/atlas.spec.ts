@@ -754,7 +754,9 @@ test.describe('keyboard and accessibility', () => {
     const scene = (await atlas<{ scene: string[] }>(page, 'return v.getState();')).scene;
     expect(scene.length).toBe(1);
     await page.keyboard.press(' ');
-    expect(await atlas(page, `return v.displayOf(${JSON.stringify(scene[0])});`)).toBe('hidden');
+    const displayOf = (id: string) =>
+      page.evaluate((id) => (document.querySelector('svitylo-anatomy') as unknown as { viewer: { displayOf(id: string): string } }).viewer.displayOf(id), id);
+    expect(await displayOf(scene[0]!)).toBe('hidden');
 
     const search = page.getByRole('combobox', { name: /Пошук/ });
     await search.focus();

@@ -2,6 +2,27 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data have separate versions.
 
+## 1.1.1 — 2026-10-02
+
+### Markdown — `@authorod/svitylo-anatomy-markdown` 1.0.2
+
+- Fixed: two regular expressions could backtrack polynomially on long input (CodeQL
+  `js/polynomial-redos`): a block line of many spaces with a line separator inside, and an allowed
+  share-link prefix with a long run of slashes. Both are linear now; the results are unchanged.
+
+### Laravel — `authorod/svitylo-anatomy-laravel` 1.0.1
+
+- Fixed: the same block line pattern in PHP no longer backtracks (it ran into the PCRE backtrack
+  limit). The results are unchanged.
+
+### Repository
+
+- New shared fixtures for whitespace after the colon; tests of long input in JavaScript and PHP.
+- The end-to-end helpers pass values to the page as arguments instead of building code with them
+  (CodeQL `js/bad-code-sanitization`).
+
+The atlas and the data are unchanged.
+
 ## 1.1.0 — 2026-10-01
 
 ### Data — `@authorod/svitylo-3d-anatomy-data` 1.1.0 (`preview` channel)

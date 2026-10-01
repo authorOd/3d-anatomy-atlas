@@ -98,6 +98,14 @@ const unquote = (value: string) => {
   return v;
 };
 
+// A loop, not /\/+$/: on a long run of slashes that does not end the string the expression backtracks
+// polynomially.
+const withoutTrailingSlashes = (value: string) => {
+  let end = value.length;
+  while (end > 0 && value[end - 1] === '/') end--;
+  return value.slice(0, end);
+};
+
 const isId = (value: string) => value.length <= MAX_ID_LENGTH && STRUCTURE_ID_PATTERN.test(value);
 const isState = (value: string) => value.length <= MAX_STATE_LENGTH && STATE_PATTERN.test(value);
 
@@ -113,7 +121,7 @@ export function stateFromShareLink(url: string, allowedPrefixes?: readonly strin
   if (allowedPrefixes) {
     const page = `${parsed.origin}${parsed.pathname}`;
     const allowed = allowedPrefixes.some((prefix) => {
-      const p = prefix.replace(/\/+$/, '');
+      const p = withoutTrailingSlashes(prefix);
       return page === p || page.startsWith(`${p}/`) || page === `${p}/`;
     });
     if (!allowed) return null;
@@ -136,10 +144,12 @@ export function parseAnatomyBlock(text: string): ParseResult {
     if (!line || line.startsWith('#')) continue;
     let key: string;
     let value: string;
-    const match = /^([a-z][a-z0-9-]*)\s*:\s*(.*)$/i.exec(line);
+    // The value starts with a non-space, so the spaces after the colon match in one way only:
+    // with `\s*(.*)$` a long line with a line separator inside backtracks polynomially.
+    const match = /^([a-z][a-z0-9-]*)\s*:\s*(\S.*)?$/i.exec(line);
     if (match && !/^https?$/i.test(match[1]!)) {
       key = match[1]!.toLowerCase();
-      value = unquote(match[2]!);
+      value = unquote(match[2] ?? '');
     } else if (/^https?:\/\//i.test(line)) {
       // A share link alone on a line.
       key = 'link';

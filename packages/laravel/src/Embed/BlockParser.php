@@ -47,6 +47,8 @@ final class BlockParser
     private const CONTROL = '/[\x{0000}-\x{0008}\x{000B}-\x{001F}\x{007F}]/u';
     /** JavaScript's String.prototype.trim() whitespace. */
     private const SPACE = '[\s\x{00A0}\x{1680}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}\x{FEFF}]';
+    /** Anything but that whitespace (JavaScript's `\S`). */
+    private const NOT_SPACE = '[^\s\x{00A0}\x{1680}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}\x{FEFF}]';
 
     public static function parse(string $text): ParseResult
     {
@@ -66,10 +68,12 @@ final class BlockParser
                 continue;
             }
             // The pattern of the JavaScript parser: `\s` is its whitespace, and a value never holds a
-            // line terminator (CR, U+2028, U+2029), as `.` in JavaScript.
-            if (preg_match('/^([a-z][a-z0-9-]*)'.self::SPACE.'*:'.self::SPACE.'*([^\r\n\x{2028}\x{2029}]*)$/iu', $line, $m) === 1 && preg_match('/^https?$/i', $m[1]) !== 1) {
+            // line terminator (CR, U+2028, U+2029), as `.` in JavaScript. The value starts with a
+            // non-space, so the spaces after the colon match in one way only (no polynomial
+            // backtracking on long lines).
+            if (preg_match('/^([a-z][a-z0-9-]*)'.self::SPACE.'*:'.self::SPACE.'*('.self::NOT_SPACE.'[^\r\n\x{2028}\x{2029}]*)?$/iu', $line, $m) === 1 && preg_match('/^https?$/i', $m[1]) !== 1) {
                 $key = strtolower($m[1]);
-                $value = self::unquote($m[2]);
+                $value = self::unquote($m[2] ?? '');
             } elseif (preg_match('#^https?://#i', $line) === 1) {
                 $key = 'link';
                 $value = $line;
