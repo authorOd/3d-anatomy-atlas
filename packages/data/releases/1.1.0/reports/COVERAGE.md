@@ -12,7 +12,7 @@ Presence of an organ does not imply that all of its internal components are mode
 | skeletal | 309 | 277 | 0 | 247,772 | 75,895 |
 | joints | 476 | 413 | 0 | 159,752 | 64,663 |
 | cardiovascular | 704 | 676 | 0 | 444,134 | 108,144 |
-| visceral | 167 | 133 | 0 | 198,736 | 60,169 |
+| visceral | 167 | 133 | 0 | 198,844 | 60,271 |
 | nervous | 677 | 455 | 137 | 278,417 | 69,579 |
 | lymphoid | 208 | 163 | 0 | 62,088 | 14,982 |
 | insertions | 873 | 705 | 0 | 207,334 | 39,280 |
@@ -21,7 +21,7 @@ Presence of an organ does not imply that all of its internal components are mode
 
 - Structures: 4484 (with geometry: 3761, declared gaps: 137)
 - Chunks: 61
-- Triangles: standard 3,042,782, economy 852,414
+- Triangles: standard 3,042,890, economy 852,516
 - Size: standard 56.3 MB, economy 21.4 MB, metadata 2.26 MB
 
 ## Names

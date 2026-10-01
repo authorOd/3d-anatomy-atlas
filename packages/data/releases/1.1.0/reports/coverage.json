@@ -48,8 +48,8 @@
       "structures": 167,
       "withGeometry": 133,
       "gaps": 0,
-      "trianglesStandard": 198736,
-      "trianglesEconomy": 60169
+      "trianglesStandard": 198844,
+      "trianglesEconomy": 60271
     },
     {
       "id": "nervous",
@@ -83,12 +83,12 @@
     "groupsWithoutGeometry": 9,
     "chunks": 61,
     "triangles": {
-      "standard": 3042782,
-      "economy": 852414
+      "standard": 3042890,
+      "economy": 852516
     },
     "bytes": {
-      "standard": 56286416,
-      "economy": 21383676,
+      "standard": 56288328,
+      "economy": 21385564,
       "metadata": 2260607
     }
   },

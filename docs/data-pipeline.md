@@ -147,7 +147,9 @@ the excluded inner-ear model may have included).
 - `sources/external.json` declares the files (address and SHA-256; `pnpm data:source` downloads and
   verifies them), the snapshot objects they replace, the sided group labels (`Kidney.l.g`,
   `Cochlea.l.g`, `Semicircular canals.l.g`) and one object per structure: source nodes or file,
-  parent, material and licence record.
+  parent, material and licence record. `clearOf` keeps a thin layer at least a given distance
+  outside the surface it lies on: the HRA fibrous capsule lies 0.1–0.3 mm from the cortex, and
+  surfaces that close flicker when rendered, so it is kept 0.5 mm outside.
 - `sources/external-fit.json` holds the transforms (for the kidneys followed by their impressions),
   the labyrinth parts and the warp fields. It is computed by `pnpm data:fit`
   (`packages/tools/blender/fit_external.py`) from the snapshot and these files and committed after

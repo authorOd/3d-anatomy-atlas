@@ -30,8 +30,11 @@ declared structure:
     nodes are merged and exact duplicate vertices welded; glTF Y-up becomes Blender Z-up;
   - PLY files (ASCII, millimetres) are scaled to metres;
   - the declared 4x4 transform places the geometry in the scene (a mirroring transform also
-    reverses the triangle winding);
-  - a labyrinth part keeps the triangles of its label after the declared plane cuts.
+    reverses the triangle winding), followed by its warp field where there is one (the kidney
+    impressions);
+  - a labyrinth part keeps the triangles of its label after the declared plane cuts;
+  - "clearOf" keeps a thin layer at a distance outside the surface it lies on (the HRA fibrous
+    capsule lies 0.1-0.3 mm from the cortex, and coincident surfaces flicker when rendered).
 
 Every created object carries an "svitylo_external" property that the export writes to
 export.json (asset, source, names), so the build can credit it and name it.
@@ -44,6 +47,8 @@ import struct
 import bmesh
 import bpy
 import numpy as np
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
 
 
 class ExternalError(Exception):
@@ -241,6 +246,42 @@ def warp_points(points, field):
     return out
 
 
+def keep_clear(obj, other, distance):
+    """Moves the vertices of `obj` that face the same way as the nearest part of `other`'s surface
+    to at least `distance` outside it, along its normal; returns how many moved and how far."""
+    ref = other.data
+    orient = 1.0 if signed_volume(ref) >= 0 else -1.0
+    tree = BVHTree.FromPolygons([v.co[:] for v in ref.vertices], [p.vertices[:] for p in ref.polygons])
+    mesh = obj.data
+    flip = 1.0 if signed_volume(mesh) >= 0 else -1.0
+    moved, largest = 0, 0.0
+    for v in mesh.vertices:
+        loc, nor, _i, _d = tree.find_nearest(v.co)
+        if loc is None:
+            continue
+        nor = nor * orient
+        if (v.normal * flip).dot(nor) < 0.5:
+            continue
+        gap = (v.co - loc).dot(nor)
+        if gap < distance:
+            v.co = v.co + nor * (distance - gap)
+            moved += 1
+            largest = max(largest, distance - gap)
+    mesh.update()
+    return moved, largest
+
+
+def signed_volume(mesh):
+    """Six times the signed volume enclosed by a mesh (> 0 when its faces point outwards)."""
+    co = [v.co for v in mesh.vertices]
+    total = 0.0
+    for p in mesh.polygons:
+        a = co[p.vertices[0]]
+        for i in range(1, len(p.vertices) - 1):
+            total += a.dot(co[p.vertices[i]].cross(co[p.vertices[i + 1]]))
+    return total
+
+
 # ---------------------------------------------------------------- scene changes
 
 def apply(spec, fit, source_dir):
@@ -316,4 +357,12 @@ def apply(spec, fit, source_dir):
             **({"la": spec_obj["la"]} if "la" in spec_obj else {}),
         })
         created.append({"name": spec_obj["name"], "triangles": int(len(tri))})
+    # After all objects exist: thin layers kept clear of the surface they lie on.
+    for spec_obj, record in zip(spec["objects"], created):
+        if "clearOf" in spec_obj:
+            other = bpy.data.objects.get(spec_obj["clearOf"]["object"])
+            if other is None or other.type != "MESH":
+                raise ExternalError(f"{spec_obj['name']}: clearOf object not found: {spec_obj['clearOf']['object']}")
+            moved, largest = keep_clear(bpy.data.objects[spec_obj["name"]], other, float(spec_obj["clearOf"]["distance"]))
+            record["clearOf"] = {"object": other.name, "verticesMoved": moved, "largestMove": round(largest, 6)}
     return {"removed": removed, "groups": [g["name"] for g in spec["groups"]], "objects": created}

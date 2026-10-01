@@ -26,10 +26,11 @@ Usage (pnpm data:overlaps runs it after pnpm data:export):
 
 Intersections: for every pair of structures whose boxes overlap, up to 2000 points of the surface
 of each (vertices and area-weighted points of the triangles, so that large triangles cutting
-through are noticed too) are tested against the other (ray parity in three directions, two votes,
-so mirrored or slightly open meshes work; the fibrous capsule of the kidney, a thin closed shell
-around the kidney, by enclosure: of rays in 14 directions at most one escapes) and the depth of
-those inside is measured to the other's surface. Junctions: for every open boundary loop of a
+through are noticed too) are tested against the other: inside means ray parity in three
+directions (two votes, so mirrored meshes work) and enclosed (of rays in 14 directions at most one
+escapes, so that an open end, which can fool parity, does not); the fibrous capsule of the kidney,
+a thin closed shell around the kidney, by enclosure alone. The depth of the points inside is
+measured to the other's surface. Junctions: for every open boundary loop of a
 structure (six edges or more), the nearest other structure and the largest gap to it. Parts of
 one structure, ducts, mucosa, thin sheets (omenta, mesocolon, pleura, taeniae) and the head and
 pelvic organs are left out; anatomical passages and parts joined by design are reported apart.
@@ -152,7 +153,7 @@ def surface_points(pos, tri, lo, hi, spacing=0.001):
 
 def penetration(a, b):
     _p, _t, tree_b, mn, mx = meshes[b]
-    inside = enclosed if SHELLS.search(b) else parity
+    inside = enclosed if SHELLS.search(b) else (lambda t, p: parity(t, p) and enclosed(t, p))
     cand = surface_points(meshes[a][0], meshes[a][1], mn, mx)
     if len(cand) > 2000:
         cand = cand[rng.choice(len(cand), 2000, replace=False)]

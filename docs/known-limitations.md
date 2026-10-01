@@ -55,13 +55,13 @@ State as of `1.1.0` (data `1.1.0`, channel `preview`; Markdown package `1.0.1`, 
   upper ends lose the funnel they had towards the excluded renal pelvis and are joined to the new
   pelves, and their lower ends, which stopped 2–3 mm short of the urinary bladder, are joined to it.
 - **Overlaps and seams of the trunk organs** (`pnpm data:overlaps`, the depth of the deepest point).
-  The kidneys, renal pelves and ureters of `1.1.0` stay out of their neighbours (at most 1.1 mm of
+  The kidneys, renal pelves and ureters of `1.1.0` stay out of their neighbours (at most 1.3 mm of
   contact). The organs of the source itself overlap in places: the descending and ascending colon
-  enter the psoas major by up to 14 and 13 mm and the iliacus by about 9.5 mm; the liver enters the
+  enter the psoas major by up to 15 and 13 mm and the iliacus by 9–10 mm; the liver enters the
   diaphragm (11 mm) and the stomach (9 mm); the left suprarenal gland enters the spleen (11 mm); the
-  vermiform appendix the psoas major (10 mm); the pancreas the inferior vena cava (7.5 mm); the
+  vermiform appendix the psoas major (10.5 mm); the pancreas the inferior vena cava (7 mm); the
   descending colon the jejunum (7 mm); the lower lobes of the lungs the transversus abdominis
-  (5.5–7 mm); the duodenum and the jejunum the transverse colon (5.5 mm); the duodenum the inferior
+  (5–7 mm); the duodenum and the jejunum the transverse colon (5–5.5 mm); the duodenum the inferior
   vena cava (5 mm); the descending and sigmoid colon the urinary bladder (5 mm), and 17 more pairs by
   2–4 mm. Open ends: the upper end of the jejunum is partly sunk into the closed end of the duodenum
   (part of its rim stands up to 1.4 mm off it); two openings of the lower lobe of the right lung lie

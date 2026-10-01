@@ -1,5 +1,5 @@
 {
-  "$comment": "Models from other open sources placed into the Z-Anatomy body (docs/data-pipeline.md#models-from-other-sources). `pnpm data:source` downloads the files and verifies their SHA-256; `pnpm data:export` removes the listed snapshot objects, adds the groups and objects below and places them with the transforms of external-fit.json (packages/tools/blender/fit_external.py). Objects are created in this order, so a parent comes before its children.",
+  "$comment": "Models from other open sources placed into the Z-Anatomy body (docs/data-pipeline.md#models-from-other-sources). `pnpm data:source` downloads the files and verifies their SHA-256; `pnpm data:export` removes the listed snapshot objects, adds the groups and objects below and places them with the transforms of external-fit.json (packages/tools/blender/fit_external.py). Objects are created in this order, so a parent comes before its children. 'clearOf' keeps a thin layer at least 'distance' outside the surface it lies on (coincident surfaces flicker when rendered).",
   "files": {
     "hra/3d-vh-m-kidney-l.glb": {
       "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/kidney-male-left/v1.3/assets/3d-vh-m-kidney-l.glb",
@@ -106,7 +106,11 @@
         ]
       },
       "transform": "kidney-l",
-      "material": "Organ"
+      "material": "Organ",
+      "clearOf": {
+        "object": "Renal cortex.l",
+        "distance": 0.0005
+      }
     },
     {
       "name": "Hilum of kidney.l",
@@ -269,7 +273,11 @@
         ]
       },
       "transform": "kidney-r",
-      "material": "Organ"
+      "material": "Organ",
+      "clearOf": {
+        "object": "Renal cortex.r",
+        "distance": 0.0005
+      }
     },
     {
       "name": "Hilum of kidney.r",
