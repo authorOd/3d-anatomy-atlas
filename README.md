@@ -154,6 +154,7 @@ privately, as [SECURITY.md](SECURITY.md) describes.
 | [docs/api.md](docs/api.md) | Attributes, methods, events, headless core, state and codec, error codes |
 | [docs/data-pipeline.md](docs/data-pipeline.md) | Reproducible pipeline: snapshot, Blender, two qualities, manifest, validation, releases |
 | [docs/known-limitations.md](docs/known-limitations.md) | Known limitations |
+| [docs/data-roadmap.md](docs/data-roadmap.md) | What the data does not include yet; planned geometry fixes |
 | [packages/data/README.md](packages/data/README.md) | Data package, versions, licences, coverage |
 | [Coverage report](packages/data/releases/1.1.0/reports/COVERAGE.md) | Systems, gaps, names, review statuses |
 | [CHANGELOG.md](CHANGELOG.md) | History of changes |
