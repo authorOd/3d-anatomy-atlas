@@ -14,13 +14,13 @@ Demo: [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas).
 
 ```sh
 npm install @authorod/svitylo-3d-anatomy-atlas
-npx svitylo-anatomy export-assets public/anatomy-data
+npx svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 The data package `@authorod/svitylo-3d-anatomy-data` is installed automatically (the exact
 compatible version). The `export-assets` command explicitly copies its release into the site's
-public folder, keeping the versioned layout, the licences and the checksums; nothing runs
-automatically on install.
+public folder, keeping the versioned layout, the licences and the checksums, and `--prune` removes
+the versions it replaces; nothing runs automatically on install.
 
 ## Usage
 

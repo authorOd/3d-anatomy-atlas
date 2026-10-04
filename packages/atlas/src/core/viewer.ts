@@ -965,16 +965,18 @@ export class AtlasViewer {
     // so getState() → link → setState() → getState() is stable.
     return canonicalizeState(
       this.model.toState(
-        { model: manifest.model, version: manifest.version, hash: this.catalog.hashPrefix },
+        { model: manifest.model, version: manifest.version },
         { camera, lang: this.currentLang, latin: this.showLatin },
       ),
     );
   }
 
   /**
-   * Applies a state (object or encoded link payload). The required files load automatically.
-   * States made with another data version are rejected with `DATA_MISMATCH`; integrations load
-   * that version through `AtlasCatalog.loadVersion` instead of silently using newer data.
+   * Applies a state (object or encoded link payload) to the loaded data; the required files load
+   * automatically. The data version a state was made with does not matter: IDs do not change
+   * between versions (renamed ones resolve through aliases), and IDs this data does not have are
+   * skipped and reported with an `UNKNOWN_ID` error event. A state of another anatomical model is
+   * rejected with `DATA_MISMATCH`.
    */
   async setState(input: ViewState | string, options: { source?: ChangeSource; animate?: boolean } = {}): Promise<OperationResult> {
     this.assertAlive();
@@ -1007,7 +1009,7 @@ export class AtlasViewer {
     if (unknown.length > 0) {
       this.events.emit('error', {
         code: 'UNKNOWN_ID',
-        message: `The state references structures that do not exist in data ${state.data.version}`,
+        message: `The state references structures that do not exist in data ${this.catalog.manifest.version}`,
         ids: unknown,
         recoverable: false,
       });
@@ -1015,20 +1017,18 @@ export class AtlasViewer {
     return result;
   }
 
-  /** Throws when a state belongs to other data than the loaded catalog. */
+  /**
+   * Throws `DATA_MISMATCH` when a state belongs to another anatomical model than the loaded data.
+   * Other versions of the same model are compatible: a state opens in the loaded data.
+   */
   assertCompatible(state: ViewState): void {
     const manifest = this.catalog.manifest;
-    if (state.data.model !== manifest.model || state.data.version !== manifest.version) {
+    if (state.data.model !== manifest.model) {
       throw new AtlasError(
         'DATA_MISMATCH',
-        `The state was made with data ${state.data.model}@${state.data.version}, loaded data is ${manifest.model}@${manifest.version}`,
+        `The state was made for the model ${state.data.model}, the loaded data is ${manifest.model}@${manifest.version}`,
         { version: state.data.version },
       );
-    }
-    if (state.data.hash && !manifest.contentHash.startsWith(state.data.hash)) {
-      throw new AtlasError('DATA_MISMATCH', `Data ${manifest.version} on this site differs from the data the state was made with`, {
-        version: state.data.version,
-      });
     }
   }
 

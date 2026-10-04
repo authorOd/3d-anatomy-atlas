@@ -25,7 +25,7 @@ Requirements: PHP 8.2+, Laravel 11–13, Livewire 4 (optional), league/commonmar
 ```sh
 composer require authorod/svitylo-anatomy-laravel
 npm install @authorod/svitylo-3d-anatomy-atlas
-npx svitylo-anatomy export-assets public/anatomy-data
+npx svitylo-anatomy export-assets public/anatomy-data --prune
 php artisan vendor:publish --tag=svitylo-anatomy-config   # optional
 ```
 

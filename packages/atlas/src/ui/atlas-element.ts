@@ -189,8 +189,9 @@ export class SvityloAnatomyElement extends LitElement implements ActiveEmbed {
   declare strings: Partial<UiStrings> | undefined;
   declare shareUrlBuilder: ShareUrlBuilder | undefined;
   /**
-   * Where this site hosts other data versions (for links made with older data). Return `null`
-   * when a version is not hosted. Default: the sibling folder `<root>/<version>/` of `data-url`.
+   * Where this site hosts other data versions, for `catalog.loadVersion()`. Links do not use it:
+   * they always open in the loaded data. Return `null` when a version is not hosted. Default: the
+   * sibling folder `<root>/<version>/` of `data-url`.
    */
   declare dataUrlResolver: ((version: string) => string | null | undefined) | undefined;
   declare phase: 'idle' | 'loading' | 'ready' | 'failed';
@@ -755,7 +756,10 @@ export class SvityloAnatomyElement extends LitElement implements ActiveEmbed {
     return true;
   }
 
-  /** Opens the state of a link: loads its data version if needed, never substitutes other data. */
+  /**
+   * Opens the state of a link in the loaded data, whatever data version made the link: IDs do not
+   * change between versions, and the ones this data does not have are reported.
+   */
   private async applyLinkState(raw: string | null) {
     const viewer = this.viewerValue;
     if (!raw || !viewer || !this.catalogValue) return;
@@ -768,32 +772,9 @@ export class SvityloAnatomyElement extends LitElement implements ActiveEmbed {
       this.reportError(toAtlasError(error, 'STATE_INVALID', 'Invalid state'));
       return;
     }
-    if (session !== this.session) return;
-    const catalog = this.catalogValue;
-    if (state.data.model !== catalog.manifest.model || state.data.version !== catalog.manifest.version) {
-      try {
-        const other = await catalog.loadVersion(state.data.version, this.abort?.signal);
-        if (session !== this.session) return;
-        if (other.manifest.model !== state.data.model) {
-          throw new AtlasError('DATA_VERSION_UNAVAILABLE', `Data ${state.data.model}@${state.data.version} is not available`, {
-            version: state.data.version,
-          });
-        }
-        this.catalogValue = other;
-        if (!this.createViewer(other)) return;
-        this.notice = { kind: 'info', message: this.text.otherVersion(state.data.version) };
-      } catch (error) {
-        const e = toAtlasError(error, 'DATA_VERSION_UNAVAILABLE', 'Data version unavailable');
-        this.notice = {
-          kind: 'error',
-          code: e.code,
-          message: `${this.errorText(e.code, e.message)} (${state.data.model}@${state.data.version})`,
-        };
-        this.emitDom('error', { code: e.code, message: e.message, ...e.details, version: state.data.version });
-        return;
-      }
-    }
-    const target = this.viewerValue!;
+    // The viewer may have been recreated meanwhile (a restored context): use the current one.
+    const target = this.viewerValue;
+    if (session !== this.session || !target) return;
     this.initialView = state;
     target.setInitialState(state);
     try {

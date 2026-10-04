@@ -184,6 +184,7 @@ export interface UiStrings {
   errors: Partial<Record<AtlasErrorCode, string>>;
   errorGeneric: string;
   unknownIdsInLink: (ids: string) => string;
+  /** @deprecated Not shown since 1.2.0: links open in the loaded data, whatever version made them. */
   otherVersion: (version: string) => string;
 }
 

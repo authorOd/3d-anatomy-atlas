@@ -25,18 +25,20 @@
 /**
  * svitylo-anatomy — explicit asset export for sites that use the atlas.
  *
- *   svitylo-anatomy export-assets <target-dir> [--data-version <v>] [--force] [--dry-run]
+ *   svitylo-anatomy export-assets <target-dir> [--data-version <v>] [--force] [--dry-run] [--prune]
  *   svitylo-anatomy verify <release-dir>
  *   svitylo-anatomy info
  *
  * export-assets copies the data release installed with the package
  * (@authorod/svitylo-3d-anatomy-data) to <target-dir>/<version>/, keeping the versioned
- * folder structure, licences and checksums. It verifies SHA256SUMS before and after copying,
+ * folder structure, licences and checksums. It verifies SHA256SUMS before and after copying and
  * never modifies an existing version folder with different content (published versions are
- * immutable) and never deletes other versions. Nothing runs automatically on install.
+ * immutable). Other versions stay, unless --prune is given: then, once this version is in place,
+ * the other versions of the same model are removed (links open in the loaded data, so nothing
+ * needs them). Nothing runs automatically on install.
  */
 import { createHash } from 'node:crypto';
-import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, rmdirSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 
@@ -51,18 +53,27 @@ function sha256(path) {
   return createHash('sha256').update(readFileSync(path)).digest('hex');
 }
 
-function readSums(dir) {
+const VERSION = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/;
+
+/** The SHA256SUMS of a release folder (path -> hash), or the reason it cannot be used. */
+function parseSums(dir) {
   const file = join(dir, 'SHA256SUMS');
-  if (!existsSync(file)) fail(`${file} is missing`);
+  if (!existsSync(file)) return { error: `${file} is missing` };
   const sums = new Map();
   for (const line of readFileSync(file, 'utf8').split('\n')) {
     if (!line.trim()) continue;
     const match = /^([0-9a-f]{64}) {2}(.+)$/.exec(line);
-    if (!match) fail(`malformed line in ${file}: ${line.slice(0, 80)}`);
+    if (!match) return { error: `malformed line in ${file}: ${line.slice(0, 80)}` };
     const path = match[2];
-    if (path.startsWith('/') || path.split('/').some((s) => s === '..' || s === '.' || s === '')) fail(`unsafe path in SHA256SUMS: ${path}`);
+    if (path.startsWith('/') || path.split('/').some((s) => s === '..' || s === '.' || s === '')) return { error: `unsafe path in SHA256SUMS: ${path}` };
     sums.set(path, match[1]);
   }
+  return { sums };
+}
+
+function readSums(dir) {
+  const { sums, error } = parseSums(dir);
+  if (error) fail(error);
   return sums;
 }
 
@@ -97,6 +108,60 @@ function verifyDir(dir, { extra = true } = {}) {
   return problems;
 }
 
+/** Removes the empty folders under `dir`, deepest first, then `dir` itself when it is empty. */
+function removeEmptyDirs(dir) {
+  for (const name of readdirSync(dir)) {
+    const p = join(dir, name);
+    if (lstatSync(p).isDirectory()) removeEmptyDirs(p);
+  }
+  if (readdirSync(dir).length === 0) rmdirSync(dir);
+}
+
+/**
+ * --prune: removes the other data versions in `root`. Only folders named like a version that hold
+ * a release of the same model are touched, and in them only the files their SHA256SUMS lists:
+ * files the site added there stay, with their folders.
+ */
+function pruneVersions(root, keep, model, dryRun) {
+  for (const name of readdirSync(root).sort()) {
+    const dir = join(root, name);
+    if (name === keep || !VERSION.test(name) || !lstatSync(dir).isDirectory()) continue;
+    const shown = relative(process.cwd(), dir) || dir;
+    let other;
+    try {
+      other = JSON.parse(readFileSync(join(dir, 'manifest.json'), 'utf8')).model;
+    } catch {
+      process.stdout.write(`kept ${shown}: no readable manifest.json\n`);
+      continue;
+    }
+    if (other !== model) {
+      process.stdout.write(`kept ${shown}: data of another model (${other})\n`);
+      continue;
+    }
+    const { sums, error } = parseSums(dir);
+    if (error) {
+      process.stdout.write(`kept ${shown}: ${error}\n`);
+      continue;
+    }
+    const files = [...sums.keys(), 'SHA256SUMS'];
+    if (dryRun) {
+      process.stdout.write(`would remove data ${name} (${files.length} files) from ${shown}\n`);
+      continue;
+    }
+    for (const file of files) {
+      const p = join(dir, file);
+      if (existsSync(p) && lstatSync(p).isFile()) rmSync(p);
+    }
+    removeEmptyDirs(dir);
+    const left = existsSync(dir) ? listFiles(dir).length : 0;
+    process.stdout.write(
+      left
+        ? `removed data ${name} from ${shown}; kept ${left} file(s) the release does not list\n`
+        : `removed data ${name} (${files.length} files): ${shown}\n`,
+    );
+  }
+}
+
 function dataPackage() {
   let pkgJson;
   try {
@@ -114,7 +179,7 @@ function parseArgs(argv) {
   const flags = {};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--force' || a === '--dry-run' || a === '--help' || a === '-h') flags[a.replace(/^-+/, '')] = true;
+    if (a === '--force' || a === '--dry-run' || a === '--prune' || a === '--help' || a === '-h') flags[a.replace(/^-+/, '')] = true;
     else if (a === '--data-version') flags['data-version'] = argv[++i];
     else if (a.startsWith('--')) fail(`unknown option ${a}`);
     else positional.push(a);
@@ -123,7 +188,7 @@ function parseArgs(argv) {
 }
 
 const USAGE = `Usage:
-  svitylo-anatomy export-assets <target-dir> [--data-version <v>] [--force] [--dry-run]
+  svitylo-anatomy export-assets <target-dir> [--data-version <v>] [--force] [--dry-run] [--prune]
   svitylo-anatomy verify <release-dir>
   svitylo-anatomy info
 `;
@@ -160,41 +225,46 @@ if (command === 'export-assets') {
   if (!target) fail('export-assets needs a target directory, e.g. public/anatomy-data');
   const data = dataPackage();
   const version = flags['data-version'] ?? data.version;
-  if (!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/.test(version)) fail(`invalid version ${version}`);
+  if (!VERSION.test(version)) fail(`invalid version ${version}`);
   const source = join(data.releases, version);
   if (!existsSync(join(source, 'manifest.json'))) fail(`data release ${version} is not part of the installed data package`);
   const sourceProblems = verifyDir(source);
   if (sourceProblems.length) fail(`installed data release ${version} is damaged:\n  ${sourceProblems.join('\n  ')}`);
 
-  const dest = join(resolve(target), version);
+  const root = resolve(target);
+  const dest = join(root, version);
   const sums = readSums(source);
   const files = ['SHA256SUMS', ...sums.keys()];
+  let upToDate = false;
   if (existsSync(dest)) {
     const destProblems = existsSync(join(dest, 'SHA256SUMS')) ? verifyDir(dest, { extra: false }) : ['no SHA256SUMS'];
-    const same = destProblems.length === 0 && sha256(join(dest, 'SHA256SUMS')) === sha256(join(source, 'SHA256SUMS'));
-    if (same) {
-      process.stdout.write(`up to date: ${relative(process.cwd(), dest) || dest}\n`);
-      process.exit(0);
-    }
-    if (!flags.force) {
+    upToDate = destProblems.length === 0 && sha256(join(dest, 'SHA256SUMS')) === sha256(join(source, 'SHA256SUMS'));
+    if (!upToDate && !flags.force) {
       fail(
         `${dest} exists with different content. Published data versions are immutable; ` +
           'remove the folder yourself or pass --force to overwrite it.',
       );
     }
   }
-  if (flags['dry-run']) {
+  if (upToDate) {
+    process.stdout.write(`up to date: ${relative(process.cwd(), dest) || dest}\n`);
+  } else if (flags['dry-run']) {
     process.stdout.write(`would copy ${files.length} files to ${dest}\n`);
-    process.exit(0);
+  } else {
+    for (const file of files) {
+      const to = join(dest, file);
+      mkdirSync(dirname(to), { recursive: true });
+      copyFileSync(join(source, file), to);
+    }
+    const copiedProblems = verifyDir(dest, { extra: false });
+    if (copiedProblems.length) fail(`verification after copy failed:\n  ${copiedProblems.join('\n  ')}`);
+    process.stdout.write(`exported data ${version} (${files.length} files) to ${relative(process.cwd(), dest) || dest}\n`);
   }
-  for (const file of files) {
-    const to = join(dest, file);
-    mkdirSync(dirname(to), { recursive: true });
-    copyFileSync(join(source, file), to);
+  // Only once this version is in place (a failed export stops above and removes nothing).
+  if (flags.prune && existsSync(root)) {
+    const model = JSON.parse(readFileSync(join(source, 'manifest.json'), 'utf8')).model;
+    pruneVersions(root, version, model, flags['dry-run'] === true);
   }
-  const copiedProblems = verifyDir(dest, { extra: false });
-  if (copiedProblems.length) fail(`verification after copy failed:\n  ${copiedProblems.join('\n  ')}`);
-  process.stdout.write(`exported data ${version} (${files.length} files) to ${relative(process.cwd(), dest) || dest}\n`);
   process.exit(0);
 }
 

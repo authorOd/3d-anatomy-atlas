@@ -45,7 +45,7 @@ report lists the corrections, and the card of each corrected structure has them 
 The data is copied to the site by an explicit command of the main package:
 
 ```sh
-npx svitylo-anatomy export-assets public/anatomy-data
+npx svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 From Node.js: `import { DATA_VERSION, MODEL, releaseDir } from '@authorod/svitylo-3d-anatomy-data'`.
@@ -56,8 +56,9 @@ From Node.js: `import { DATA_VERSION, MODEL, releaseDir } from '@authorod/svityl
   exactly.
 - **Published versions are immutable.** Any change of geometry, IDs or names is a new version.
 - Stable IDs do not change between versions; renames go through `aliases` in the manifest.
-- The site is responsible for keeping old versions available for old links; the export never deletes
-  other versions.
+- Links do not need old versions: the atlas opens every link in the data it has loaded.
+  `export-assets --prune` removes the old versions from the site; without it the export never
+  deletes them.
 
 ## Licences
 

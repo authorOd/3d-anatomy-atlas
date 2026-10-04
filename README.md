@@ -59,8 +59,8 @@ Svitylo.
 - A manual economy mode (simplified geometry, lower resolution) that does not hide systems.
 - "Share": the state in the URL fragment (versioned codec, limits, no silent truncation, JSON export
   for a state too large for a link); "Reset" returns to the state of the link.
-- A link made with older data opens exactly that version (if the site keeps it) or reports that it
-  is missing — never a silent substitution.
+- Every link opens in the data the site has now, whatever version made it: structure IDs do not
+  change between versions, and the structures the data no longer has are listed.
 - Phone: the 3D scene takes ≈86% of the height (only the selection strip is under it); the atlas
   actions are in the header menu; the information about the selection is in a bottom sheet over
   the scene that the user opens; the surroundings level is on the camera bar and the short Svitylo
@@ -74,14 +74,14 @@ Svitylo.
 
 ```sh
 pnpm add @authorod/svitylo-3d-anatomy-atlas     # the data package is installed automatically
-pnpm exec svitylo-anatomy export-assets public/anatomy-data
+pnpm exec svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 With npm:
 
 ```sh
 npm install @authorod/svitylo-3d-anatomy-atlas
-npx svitylo-anatomy export-assets public/anatomy-data
+npx svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 ```html
