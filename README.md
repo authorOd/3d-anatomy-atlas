@@ -74,14 +74,14 @@ Svitylo.
 
 ```sh
 pnpm add @authorod/svitylo-3d-anatomy-atlas     # the data package is installed automatically
-pnpm exec svitylo-anatomy export-assets public/anatomy-data
+pnpm exec svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 With npm:
 
 ```sh
 npm install @authorod/svitylo-3d-anatomy-atlas
-npx svitylo-anatomy export-assets public/anatomy-data
+npx svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 ```html

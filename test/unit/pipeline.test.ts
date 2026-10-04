@@ -113,6 +113,40 @@ describe('export-assets command', () => {
     // The full check still lists it.
     expect(() => run('verify', join(root, version))).toThrow(/not listed in SHA256SUMS: \.htaccess/);
   });
+
+  it('with --prune removes the other versions of the same model and nothing the site added', () => {
+    const root = join(tmp, 'public/anatomy-data');
+    const version = readdirSync(root).find((v) => v !== '0.9.0')!;
+    // Older releases of this model (copies under other versions); one keeps the site's .htaccess
+    // and gets another site file, the other has none.
+    execFileSync('cp', ['-r', join(root, version), join(root, '0.8.0')]);
+    writeFileSync(join(root, '0.8.0', 'robots.txt'), 'site file\n');
+    execFileSync('cp', ['-r', join(root, version), join(root, '0.6.0')]);
+    rmSync(join(root, '0.6.0', '.htaccess'));
+    // A release of another model, a folder that is not a release ('0.9.0' is empty) and one that
+    // is not named like a version.
+    execFileSync('cp', ['-r', join(root, version), join(root, '0.7.0')]);
+    const manifest = JSON.parse(readFileSync(join(root, '0.7.0', 'manifest.json'), 'utf8'));
+    writeFileSync(join(root, '0.7.0', 'manifest.json'), JSON.stringify({ ...manifest, model: 'another-model' }));
+    execFileSync('mkdir', ['-p', join(root, 'uploads')]);
+
+    const dry = run('export-assets', 'public/anatomy-data', '--prune', '--dry-run');
+    expect(dry).toMatch(/would remove data 0\.6\.0/);
+    expect(dry).toMatch(/would remove data 0\.8\.0/);
+    expect(existsSync(join(root, '0.6.0', 'manifest.json'))).toBe(true);
+
+    const out = run('export-assets', 'public/anatomy-data', '--prune');
+    expect(out).toMatch(/up to date/);
+    expect(out).toMatch(/removed data 0\.6\.0 \(\d+ files\)/);
+    expect(existsSync(join(root, '0.6.0'))).toBe(false);
+    expect(out).toMatch(/removed data 0\.8\.0 from .*kept 2 file\(s\)/);
+    expect(readdirSync(join(root, '0.8.0')).sort()).toEqual(['.htaccess', 'robots.txt']);
+    expect(out).toMatch(/kept .*0\.7\.0: data of another model \(another-model\)/);
+    expect(out).toMatch(/kept .*0\.9\.0: no readable manifest\.json/);
+    expect(readdirSync(root).sort()).toEqual(['0.7.0', '0.8.0', '0.9.0', version, 'uploads'].sort());
+    // The exported version is untouched.
+    expect(run('export-assets', 'public/anatomy-data')).toMatch(/up to date/);
+  });
 });
 
 describe('Ukrainian drafts', () => {

@@ -15,10 +15,15 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data 
   refused.
 - New links no longer carry the content hash of the data (`data.hash`); older links with it still
   open.
+- Added: `svitylo-anatomy export-assets --prune` removes the other data versions from the site once
+  the exported one is in place, so old versions no longer pile up with each update. Only folders
+  that hold a release of the same model are touched, and in them only the files their `SHA256SUMS`
+  lists; files the site added stay. `--dry-run` lists what would be removed. The setup examples
+  now use it.
 - `dataUrlResolver` and `catalog.loadVersion()` stay for loading another hosted version on request;
   links do not use them. The `otherVersion` text is no longer shown and is deprecated.
 
-The data and the other packages are unchanged.
+The data and the other packages are unchanged (their READMEs show `--prune` in the setup).
 
 ## 1.1.1 — 2026-10-02
 

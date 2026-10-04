@@ -18,8 +18,8 @@ changes the files of your project: the data is copied only by an explicit comman
 ## 2. Exporting the data to the site's public folder
 
 ```sh
-pnpm exec svitylo-anatomy export-assets public/anatomy-data
-# with npm: npx svitylo-anatomy export-assets public/anatomy-data
+pnpm exec svitylo-anatomy export-assets public/anatomy-data --prune
+# with npm: npx svitylo-anatomy export-assets public/anatomy-data --prune
 ```
 
 The command copies the installed release to `public/anatomy-data/<version>/`. It keeps the versioned
@@ -29,9 +29,12 @@ checksums before and after copying.
 - Running it again with the same data changes nothing (`up to date`).
 - Published versions are immutable: if the version folder already exists with different contents,
   the command stops. `--force` overwrites only this version.
-- Other versions are never deleted, but links do not need them: every link opens in the version
-  the page loads, so old version folders can be removed.
-- `--dry-run` shows what would be copied; `svitylo-anatomy verify <release-dir>` checks a version
+- `--prune` removes the other versions once this one is in place: links open in the version the
+  page loads, so nothing needs them. It touches only folders that hold a release of the same model,
+  and in them only the files their `SHA256SUMS` lists; files the site added there stay. A page
+  opened before the update gets its remaining files after a reload. Without `--prune`, other
+  versions are never deleted.
+- `--dry-run` shows what would be copied and removed; `svitylo-anatomy verify <release-dir>` checks a version
   that is already deployed; `svitylo-anatomy info` lists the installed versions.
 
 You do not have to commit the exported files to the site's repository. It is simpler to run the
@@ -43,7 +46,7 @@ export before the build (see Vite below) and add `public/anatomy-data/` to `.git
 // package.json
 {
   "scripts": {
-    "atlas:assets": "svitylo-anatomy export-assets public/anatomy-data",
+    "atlas:assets": "svitylo-anatomy export-assets public/anatomy-data --prune",
     "dev": "npm run atlas:assets && vite",
     "build": "npm run atlas:assets && vite build"
   }

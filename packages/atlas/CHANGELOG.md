@@ -8,6 +8,8 @@ Compatible data: `@authorod/svitylo-3d-anatomy-data@1.1.0`.
   shown, and the ones this data does not have are listed. Sites no longer need old data folders
   for old links. `setState()` refuses only a state of another anatomical model (`DATA_MISMATCH`).
 - New links no longer carry the content hash of the data.
+- Added: `svitylo-anatomy export-assets --prune` removes the other data versions of the same model
+  from the site once the exported one is in place (only the files their `SHA256SUMS` lists).
 - Deprecated: the `otherVersion` interface text (no longer shown).
 
 ## 1.1.0 — 2026-10-01
