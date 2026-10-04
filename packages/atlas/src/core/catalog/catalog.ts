@@ -51,9 +51,9 @@ export interface CatalogOptions {
   signal?: AbortSignal;
   names?: Partial<NamePolicy>;
   /**
-   * Resolves the base URL of another data version (used by links created with older data).
-   * Return `null` when the site does not host that version. Without a resolver the sibling
-   * folder `<root>/<version>/` of the configured data URL is used.
+   * Resolves the base URL of another data version for `loadVersion` (links do not use it: they
+   * open in the loaded data). Return `null` when the site does not host that version. Without a
+   * resolver the sibling folder `<root>/<version>/` of the configured data URL is used.
    */
   resolveDataUrl?: (version: string) => string | null | undefined;
 }

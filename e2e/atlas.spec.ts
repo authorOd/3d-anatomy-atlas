@@ -649,7 +649,7 @@ test.describe('selection, context and isolation', () => {
 });
 
 test.describe('links and state', () => {
-  test('a shared link restores the view and data version without pressing "load"; reset returns to it', async ({ page, context }) => {
+  test('a shared link restores the view without pressing "load"; reset returns to it', async ({ page, context }) => {
     await openAtlas(page);
     await atlas(page, `await v.showStructure('${LV}'); await v.showSurroundings('${LV}', { level: 2 }); v.setView('left', { animate: false });`);
     await waitIdle(page);
@@ -689,37 +689,48 @@ test.describe('links and state', () => {
     expect((await atlas<{ scene: string[] }>(page, 'return v.getState();')).scene).toEqual([]);
   });
 
-  test('damaged link or unknown data version is reported; nothing is substituted', async ({ page }) => {
+  test('a damaged link or a link of another model is reported; nothing loads', async ({ page }) => {
     const t = track(page);
     await openAtlas(page, '?data=fixture', '#s=j1.bm90LWEtc3RhdGU');
     await expect(page.locator('svitylo-anatomy .banner[data-kind=error]')).toContainText(/пошкоджене|неправильний/);
     expect(t.glb).toEqual([]);
 
-    const state = { v: 1, data: { model: 'fixture', version: '9.9.9' }, scene: ['cardiovascular.heart'] };
-    // A valid uncompressed (j1) link made with a data version this site does not have.
-    const encoded = `j1.${Buffer.from(JSON.stringify(state)).toString('base64url')}`;
+    const state = { v: 2, data: { model: 'another-model', version: '1.0.0' }, scene: ['cardiovascular.heart'] };
     const page2 = await page.context().newPage();
     const t2 = track(page2);
-    await openAtlas(page2, '?data=fixture', `#s=${encoded}`);
-    await expect(page2.locator('svitylo-anatomy .banner[data-kind=error]')).toContainText('9.9.9');
+    await openAtlas(page2, '?data=fixture', `#s=j1.${Buffer.from(JSON.stringify(state)).toString('base64url')}`);
+    await expect(page2.locator('svitylo-anatomy .banner[data-kind=error]')).toContainText('інших даних');
     expect(t2.glb).toEqual([]);
   });
 
-  test('a link made with older data opens that version through the site data folder', async ({ page }) => {
+  test('a link made with older data opens in the loaded data: renamed IDs resolve, missing ones are listed', async ({ page }) => {
     const t = track(page);
+    // Made with 1.0.0 (and its content hash), opened where the site has 1.1.0.
     const state = {
       v: 1,
-      data: { model: 'fixture', version: '1.0.0' },
-      scene: ['cardiovascular.cor'],
+      data: { model: 'fixture', version: '1.0.0', hash: '0123456789abcdef' },
+      scene: ['cardiovascular.cor', 'cardiovascular.retired_structure'],
       selected: ['cardiovascular.cor'],
     };
-    const encoded = `j1.${Buffer.from(JSON.stringify(state)).toString('base64url')}`;
-    await openAtlas(page, '?data=fixture-next', `#s=${encoded}`);
-    await expect(page.getByText('Показано дані версії 1.0.0')).toBeVisible();
+    await openAtlas(page, '?data=fixture-next', `#s=j1.${Buffer.from(JSON.stringify(state)).toString('base64url')}`);
+    await expect(page.locator('svitylo-anatomy .banner[data-kind=error]')).toContainText('cardiovascular.retired_structure');
+    await waitIdle(page);
+    expect(t.glb.length).toBeGreaterThan(0);
+    expect(t.glb.every((p) => p.startsWith('/test-data/1.1.0/'))).toBe(true);
+    const restored = await atlas<{ selected: string[]; data: { version: string; hash?: string } }>(page, 'return v.getState();');
+    expect(restored.selected).toEqual(['cardiovascular.heart']);
+    expect(restored.data).toEqual({ model: 'fixture', version: '1.1.0' });
+  });
+
+  test('a link made with newer data opens in the loaded data', async ({ page }) => {
+    const t = track(page);
+    const state = { v: 2, data: { model: 'fixture', version: '9.9.9' }, scene: ['cardiovascular.heart'], selected: ['cardiovascular.heart'] };
+    await openAtlas(page, '?data=fixture', `#s=j1.${Buffer.from(JSON.stringify(state)).toString('base64url')}`);
+    await expect.poll(() => atlas<string[]>(page, 'return v.getState().selected ?? [];')).toEqual(['cardiovascular.heart']);
     await waitIdle(page);
     expect(t.glb.length).toBeGreaterThan(0);
     expect(t.glb.every((p) => p.startsWith('/test-data/1.0.0/'))).toBe(true);
-    expect((await atlas<{ selected: string[] }>(page, 'return v.getState();')).selected).toEqual(['cardiovascular.heart']);
+    await expect(page.locator('svitylo-anatomy .banner[data-kind=error]')).toHaveCount(0);
   });
 
   test('economy mode switches geometry, keeps camera and selection and frees the standard level', async ({ page }) => {

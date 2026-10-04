@@ -1,5 +1,15 @@
 # Changelog — @authorod/svitylo-3d-anatomy-atlas
 
+## 1.2.0 — 2026-10-04
+
+Compatible data: `@authorod/svitylo-3d-anatomy-data@1.1.0`.
+
+- Changed: links open in the loaded data, whatever data version made them: the same structures are
+  shown, and the ones this data does not have are listed. Sites no longer need old data folders
+  for old links. `setState()` refuses only a state of another anatomical model (`DATA_MISMATCH`).
+- New links no longer carry the content hash of the data.
+- Deprecated: the `otherVersion` interface text (no longer shown).
+
 ## 1.1.0 — 2026-10-01
 
 Compatible data: `@authorod/svitylo-3d-anatomy-data@1.1.0`.

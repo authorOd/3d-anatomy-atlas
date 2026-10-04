@@ -58,7 +58,7 @@ them):
 | `viewer` | `AtlasViewer \| null` | The headless core (null without WebGL2 or before it is ready). |
 | `strings` | `Partial<UiStrings>` | Overrides of the interface texts. |
 | `shareUrlBuilder` | `(encoded, state) => string` | Builds the link address instead of the default. |
-| `dataUrlResolver` | `(version) => string \| null` | Where the site keeps other data versions (for older links). |
+| `dataUrlResolver` | `(version) => string \| null` | Where the site keeps other data versions, for `catalog.loadVersion()`. Links do not use it. |
 | `SvityloAnatomyElement.maxActiveEmbeds` | `number` (static) | How many embeds on a page hold a 3D scene at the same time (default 4). |
 
 ### Methods
@@ -82,7 +82,7 @@ ready, and `WEBGL2_UNAVAILABLE` without WebGL2.
 | `setView(view)` | `anterior` \| `posterior` \| `left` \| `right` \| `superior` \| `inferior`: a standard view of the selection (without a selection, of everything visible). |
 | `setQuality(quality)` | Switches the geometry and keeps the camera, visibility and selection; frees the previous level. |
 | `getState(): ViewState \| null` | The canonical state (exactly what goes into a link). |
-| `setState(state \| encoded)` | Applies a state. Another data version: `DATA_MISMATCH`. |
+| `setState(state \| encoded)` | Applies a state to the loaded data, whatever data version made it; IDs this data does not have are reported (`UNKNOWN_ID`). Another anatomical model: `DATA_MISMATCH`. |
 | `reset()` | Back to the initial state of the link; without a link, to the empty scene (automatic level, opaque). |
 | `shareUrl(): Promise<string>` | A link to the current view. |
 | `activate()` | Embed: starts the 3D scene (as the "Show 3D" button does). |
@@ -259,14 +259,15 @@ dictionaries, without geometry. `names: { ukrainian: 'any' | 'reviewed' }` is th
 Ukrainian names (default `any`). `catalog.get(id)` (aliases included), `catalog.names.label(id, lang)`,
 `catalog.names.display(id, lang)` (the text, language, `fallback`, `status` and `origin`; the UI marks
 unreviewed names by them), `catalog.search.search(query, { lang, limit })`, `catalog.issuesFor(id)`,
-`catalog.loadVersion(version)`.
+`catalog.loadVersion(version)` (another data version the site hosts, on request; links do not need it).
 
 ## Identifiers
 
 Stable IDs of the form `system.structure[_side]`: `cardiovascular.heart`, `skeletal.femur_l`. They
 are not generated from translations and do not change between data versions; renamed IDs are kept
-as `aliases` in the manifest, so older links keep working. In a link state, `=id` means "only the
-structure's own geometry, without its descendants".
+as `aliases` in the manifest. That is why a link opens in the data the site has loaded, whatever
+version made it: the same structures are shown, and the ones this data does not have are listed in
+a notice. In a link state, `=id` means "only the structure's own geometry, without its descendants".
 
 ## Surroundings level and transparency
 
@@ -331,7 +332,7 @@ and clearing the isolation brings the surroundings back. `showSurroundings` ends
 ```ts
 interface ViewState {
   v: 2;
-  data: { model: string; version: string; hash?: string }; // exact data version
+  data: { model: string; version: string; hash?: string }; // the data it was made with (the model must match; the version is informational)
   scene: string[];      // structures placed on the scene (parents expand to their descendants)
   hidden?: string[];    // narrows the scene
   isolate?: string[];   // restricts the allowed set; absent = no isolation
@@ -388,8 +389,8 @@ schema v1 only, `GHOST_OPACITY_RANGE`.
 | `CONTEXT_LOST` | The WebGL context was lost; the view is kept and can be restored. |
 | `DATA_URL_INVALID` | An invalid data base (scheme, credentials in the URL, etc.). |
 | `MANIFEST_UNAVAILABLE` / `MANIFEST_INVALID` / `SCHEMA_UNSUPPORTED` | The manifest is unavailable, fails validation or has an unsupported schema version. |
-| `DATA_VERSION_UNAVAILABLE` | The required data version is not on the site (`details.version`). |
-| `DATA_MISMATCH` | The state was made with another version or other data. |
+| `DATA_VERSION_UNAVAILABLE` | `catalog.loadVersion()`: the version is not on the site (`details.version`). |
+| `DATA_MISMATCH` | The state was made for another anatomical model. |
 | `FILE_UNAVAILABLE` / `FILE_INTEGRITY` / `FORMAT_UNSUPPORTED` | A model file is unavailable, does not match the manifest or has an unsupported format. |
 | `UNKNOWN_ID` / `NO_GEOMETRY` | An unknown ID; a structure without geometry (a gap). `NO_GEOMETRY` is declared but not raised: operations report gaps in `OperationResult.missing`. |
 | `STATE_INVALID` / `STATE_MALFORMED` / `STATE_TOO_LARGE` / `STATE_UNSUPPORTED_VERSION` | Problems with the state of a link. |

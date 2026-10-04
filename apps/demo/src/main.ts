@@ -28,7 +28,7 @@
 const atlas = document.getElementById('atlas')!;
 const params = new URLSearchParams(location.search);
 
-// Data versions this site hosts. A link can only choose between these, never pass its own URL.
+// Development only: `?data=` picks one of the fixture datasets; a link never passes its own URL.
 const DATASETS: Record<string, string> = import.meta.env.DEV
   ? { fixture: '/test-data/1.0.0/', 'fixture-next': '/test-data/1.1.0/' }
   : {};

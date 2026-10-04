@@ -65,10 +65,10 @@ export function resolveDataPath(base: URL, relativePath: string): string {
 }
 
 /**
- * Default resolver for states that reference another data version: when the configured base
- * ends with `/<currentVersion>/`, the requested version is looked up in the sibling folder of
- * the same site (`/<root>/<requestedVersion>/`). Returns null when no such convention applies;
- * links can never point the atlas at another host or folder.
+ * Default resolver of `AtlasCatalog.loadVersion`: when the configured base ends with
+ * `/<currentVersion>/`, the requested version is looked up in the sibling folder of the same site
+ * (`/<root>/<requestedVersion>/`). Returns null when no such convention applies; a version can
+ * never point the atlas at another host or folder.
  */
 export function siblingVersionBase(base: URL, currentVersion: string, requestedVersion: string): URL | null {
   if (!isSemver(requestedVersion) || !isSemver(currentVersion)) return null;

@@ -2,6 +2,24 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data have separate versions.
 
+## 1.2.0 — 2026-10-04
+
+### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.2.0
+
+- Changed: a link always opens in the data the site has loaded, whatever data version made it.
+  Structure IDs do not change between versions (renamed ones resolve through `aliases`), so the
+  link shows the same structures; the ones the loaded data does not have are listed in a notice.
+  Links made with 1.0 and 1.1 keep working, and sites no longer need old data folders for them.
+- Changed: `setState()` applies a state made with another data version or other content to the
+  loaded data instead of throwing `DATA_MISMATCH`; only a state of another anatomical model is
+  refused.
+- New links no longer carry the content hash of the data (`data.hash`); older links with it still
+  open.
+- `dataUrlResolver` and `catalog.loadVersion()` stay for loading another hosted version on request;
+  links do not use them. The `otherVersion` text is no longer shown and is deprecated.
+
+The data and the other packages are unchanged.
+
 ## 1.1.1 — 2026-10-02
 
 ### Markdown — `@authorod/svitylo-anatomy-markdown` 1.0.2

@@ -29,14 +29,13 @@ checksums before and after copying.
 - Running it again with the same data changes nothing (`up to date`).
 - Published versions are immutable: if the version folder already exists with different contents,
   the command stops. `--force` overwrites only this version.
-- Other versions are **never deleted**: old links keep working as long as you keep their files.
+- Other versions are never deleted, but links do not need them: every link opens in the version
+  the page loads, so old version folders can be removed.
 - `--dry-run` shows what would be copied; `svitylo-anatomy verify <release-dir>` checks a version
   that is already deployed; `svitylo-anatomy info` lists the installed versions.
 
 You do not have to commit the exported files to the site's repository. It is simpler to run the
-export before the build (see Vite below) and add `public/anatomy-data/` to `.gitignore`. If the
-site must serve old versions for old links, keep those folders between deployments (build
-artefacts, separate storage).
+export before the build (see Vite below) and add `public/anatomy-data/` to `.gitignore`.
 
 ## 3. Vite
 
@@ -135,16 +134,10 @@ version (the one with `manifest.json`):
 
 - All paths from the manifest are resolved only inside this base (no `../`, absolute paths or URL
   schemes). The state of a link never sets a third-party `data-url`.
-- A link with an older data version looks for it in the sibling folder `<root>/<version>/`. Set
-  another location with the `dataUrlResolver` property:
-
-  ```ts
-  atlas.dataUrlResolver = (version) =>
-    HOSTED_VERSIONS.includes(version) ? `https://cdn.example.com/anatomy-data/${version}/` : null;
-  ```
-
-  If the version is missing, the user sees an error with the version number; newer data is never
-  substituted silently.
+- Every link opens in the data of `data-url`, whatever version made it: IDs do not change between
+  versions (renamed ones resolve through `aliases`), so the link shows the same structures, and the
+  ones this data does not have are listed in a notice. Only a link of another anatomical model is
+  refused.
 
 ### CORS
 
@@ -166,7 +159,7 @@ The files of a version are immutable, so they can be cached forever:
 ```
 
 The cache does not replace verification: every file is checked against its size and SHA-256 from
-the manifest, and the manifest against the version and hash stored in the link. SHA-256 is computed
+the manifest. SHA-256 is computed
 with Web Crypto, which is available only in a secure context (HTTPS or `localhost`); on an insecure
 origin only the size check remains. For `.glb`, `Content-Type: model/gltf-binary` is preferred.
 Compressing GLB files with gzip or brotli gains little (the data is already compressed with
