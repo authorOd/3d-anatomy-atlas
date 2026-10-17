@@ -82,7 +82,7 @@ With your own league/commonmark environment or `Str::markdown()`:
 use Authorod\SvityloAnatomy\CommonMark\AnatomyExtension;
 
 $html = Str::markdown($text, [], [app(SvityloAnatomy::class)->extension()]);
-// or new AnatomyExtension(['data_url' => '/anatomy-data/1.1.0/', 'share_urls' => [...]])
+// or new AnatomyExtension(['data_url' => '/anatomy-data/1.2.0/', 'share_urls' => [...]])
 ```
 
 The block syntax is in the [Markdown package README](../markdown/README.md#syntax). An invalid block

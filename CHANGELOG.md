@@ -2,6 +2,46 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); code and data have separate versions.
 
+## 1.3.0 — 2026-10-17
+
+### Data — `@authorod/svitylo-3d-anatomy-data` 1.2.0 (`preview` channel)
+
+- Added: the cerebral cortex and the white matter, declared gaps until now. The 126 gyri and sulci
+  of the telencephalon (the Destrieux parcellation), the hippocampus, the white matter of the
+  telencephalon, the corpus callosum, the anterior and hippocampal commissures, the fornix and the
+  stria terminalis have geometry: 137 structures, so every structure in the tree now has geometry.
+- Their sources were checked against the original files. The cortex and the white matter of the
+  telencephalon are Brain for Blender surfaces (Anderson M. Winkler, CC BY-SA 3.0, adapted under
+  CC BY-SA 4.0) as adapted in Z-Anatomy: the left hemisphere, mirrored for the right. The white
+  matter tracts, which the Z-Anatomy Readme credits to the University of Washington, and the
+  hippocampus are BodyParts3D meshes. The licence registry has a new record `brainder`; the records
+  `brainder-cortex` and `uw-white-matter` are gone.
+- Changed: the BodyParts3D attribution names CC BY 4.0, its licence since 2025-02-27 (CC BY-SA 2.1
+  Japan when Z-Anatomy adapted it).
+- The brain of Brain for Blender and the BodyParts3D structures around it overlap a little where they
+  meet: up to 7 mm (the cingulate gyrus and the corpus callosum; the cerebellum across the tentorium
+  cerebelli), 2–4.5 mm elsewhere (the amygdala, the hippocampus, the bones of the skull). They are
+  listed in the known limitations and the data roadmap.
+- 4484 structures, 3898 meshes; standard ~3.21 million triangles / 59.5 MB, economy ~0.92 million /
+  22.8 MB. 104 of the 132 files keep the bytes of 1.1.0; the others hold the brain or follow it in
+  the mesh numbering.
+
+### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.3.0
+
+- Uses data `1.2.0` (pinned exactly). The code is unchanged.
+
+### Data pipeline
+
+- Added: `pnpm data:overlaps --region head` reviews the brain against the bones of the cranial vault
+  and base and the dura (the falx cerebri and the tentorium cerebelli) and writes
+  `.work/zanatomy/overlaps-head.json`.
+- Fixed: `pnpm data:build --previous` resolved a relative path from `packages/tools`, found nothing
+  there and kept no file. It now resolves the path from the folder the command is started in and
+  stops when that folder holds no release.
+- The coverage report says "None." when no structure is a declared gap.
+
+The Markdown and Laravel packages are unchanged (their examples point to data `1.2.0`).
+
 ## 1.2.0 — 2026-10-04
 
 ### Library — `@authorod/svitylo-3d-anatomy-atlas` 1.2.0

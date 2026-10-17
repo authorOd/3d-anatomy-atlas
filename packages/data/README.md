@@ -4,7 +4,7 @@ Versioned anatomy data package for `@authorod/svitylo-3d-anatomy-atlas`: GLB geo
 levels), manifest, name dictionaries, coverage report, attribution, licences and checksums. It is
 installed automatically with the main package.
 
-> The `1.1.0` release is on the `preview` channel: the licence audit of the assets is not
+> The `1.2.0` release is on the `preview` channel: the licence audit of the assets is not
 > complete yet, no anatomical review has been done, and the Ukrainian names are unreviewed drafts
 > (most of them machine-assisted), marked in the atlas as unreviewed with a dotted underline.
 
@@ -26,11 +26,13 @@ GLB: one node and one primitive per file, `EXT_meshopt_compression`, `KHR_mesh_q
 `_ID` attribute (structure and material index). Coordinates: metres, Y up, face towards +Z, the
 patient's left at +X, origin on the floor between the heels.
 
-Current release: 4484 structures (3761 with geometry, 137 declared gaps), 9 systems, 61 files per
-quality level; standard ~3.04 million triangles / 56.3 MB, economy ~0.85 million / 21.4 MB, metadata
-3.4 MB (≈0.23 MB with gzip). Ukrainian names: 4481 of 4484 (all drafts; 3330 machine-assisted).
-The kidneys come from the Human Reference Atlas and the ear (labyrinth, ossicles, tympanic
-membrane) from OpenEar, both CC BY 4.0. Details: [coverage report](releases/1.1.0/reports/COVERAGE.md).
+Current release: 4484 structures, all with geometry (3898 meshes), 9 systems, 66 files per quality
+level; standard ~3.21 million triangles / 59.5 MB, economy ~0.92 million / 22.8 MB, metadata 3.4 MB
+(≈0.24 MB with gzip). Ukrainian names: 4481 of 4484 (all drafts; 3330 machine-assisted). The
+cerebral cortex and the white matter of the telencephalon come from Brain for Blender (Anderson M.
+Winkler, CC BY-SA 3.0), as adapted in Z-Anatomy; the kidneys from the Human Reference Atlas and the
+ear (labyrinth, ossicles, tympanic membrane) from OpenEar, both CC BY 4.0. Details:
+[coverage report](releases/1.2.0/reports/COVERAGE.md).
 
 The source geometry is changed only in declared places (`sources/geometry-fixes.json`): the
 teaching window in the stomach and its mucosa is closed; the oesophagus, the laryngopharynx and

@@ -29,7 +29,8 @@ pnpm data:source    # step 1: clone the pinned commit without history, verify SH
                     #         download and verify the files of the other sources (.work/external)
 pnpm data:fit       # maintainers only, when a source changes: place the other models → sources/external-fit.json
 pnpm data:export    # step 3: headless Blender: other models, transforms, modifiers, normals, hierarchy → .work/zanatomy/export
-pnpm data:overlaps  # maintainers only, after the export: overlaps and open ends of the trunk organs → .work/zanatomy/overlaps.json
+pnpm data:overlaps  # maintainers only, after the export: overlaps and open ends of the trunk organs → .work/zanatomy/overlaps.json;
+                    #         --region head: the brain, the cranial bones and the dura → .work/zanatomy/overlaps-head.json
 pnpm data:build     # steps 2, 4–7: hierarchy, IDs, licences, two quality levels, chunks, manifest, dictionaries, reports
 pnpm data:validate  # step 8: technical validation of every release
 ```
@@ -117,7 +118,7 @@ validation checks the results in the release itself (`checks.json`): `openings` 
 openings a structure must have (the stomach: the cardia and the pylorus), `junctions` — every point
 of a seam must lie within `maxGap` of both structures at both quality levels.
 
-Corrections in `1.1.0`: the teaching window in the anterior wall of the stomach and its
+Corrections in `1.2.0` (the same as in `1.1.0`): the teaching window in the anterior wall of the stomach and its
 mucosa (`stomach-window`), the lower end of the oesophagus and the cardiac opening
 (`oesophagus-cardia`), the lower edge of the laryngopharynx and the oesophagus
 (`pharynx-oesophagus`), the lower end of the small intestine and the ascending colon
@@ -128,8 +129,12 @@ their neighbours (`ureter-course-l`, `ureter-course-r`), their upper ends and th
 (`ureter-bladder-l`, `ureter-bladder-r`).
 
 `pnpm data:overlaps` (maintainers, after the export) reviews the trunk organs: the depth of every
-overlap between two structures and the gap at every open end of a structure. What it finds in the
-snapshot itself is listed in the [known limitations](known-limitations.md).
+overlap between two structures and the gap at every open end of a structure. `--region head`
+reviews the brain against the bones of the cranial vault and base and the dura: the surfaces are
+tested for crossing first (a BVH overlap test), the depth is measured only for the pairs that cross,
+and for the falx cerebri and the tentorium cerebelli, thin sheets, it measures how far a structure
+reaches into or across the sheet from its own side. What the reviews find in the snapshot itself
+is listed in the [known limitations](known-limitations.md) and the [data roadmap](data-roadmap.md).
 
 ## Models from other sources
 
@@ -173,6 +178,24 @@ the excluded inner-ear model may have included).
   diameter, the distance to the scala tympani and three planes (one per canal) split it, and every
   border between two parts is a declared cutting plane, so the parts get straight borders.
 
+## The brain of the snapshot
+
+The cerebral cortex and the white matter of the telencephalon are part of the snapshot, but its
+Readme names their sources without a licence (“Brainder” and “White matter” from the University of
+Washington), so `1.0` and `1.1` left them out. Compared with the original files for `1.2.0`, the 126
+cortex regions are closed pieces of grey matter between the pial and white surfaces of the left
+hemisphere of Brain for Blender (Anderson M. Winkler, CC BY-SA 3.0; the right hemisphere is its
+mirror image), and the white matter of the telencephalon is its white surface, remeshed. The corpus
+callosum, the anterior and hippocampal commissures, the fornix, the stria terminalis and the
+hippocampus are BodyParts3D meshes. A global fit cannot tell a deformed copy of a folded surface from
+another brain (any point near a cortex lies within 2–3 mm of some fold), so the comparison fitted
+15 mm patches of the snapshot surfaces rigidly onto each candidate, with the other hemisphere as a
+control and a simplified, deformed copy of the candidate as a positive control; the BodyParts3D
+parts match vertex for vertex, or as simplified copies within 0.4 mm, after one similarity transform
+(the one that places the BodyParts3D basal nuclei, thalamus and ventricles on the snapshot's).
+`sources/licenses.json` assigns the cortex and the white matter of the telencephalon to the record
+`brainder` and the other parts to `z-anatomy`.
+
 ## Review
 
 The pipeline never marks anything as reviewed by itself. Only a person changes a status, in
@@ -213,7 +236,8 @@ The pipeline never marks anything as reviewed by itself. Only a person changes a
    remove it from `packages/data/releases/`: the repository and the npm package carry only the
    current release; older ones stay in the git history, the tags and on npm.
 3. `pnpm data:build --previous .work/previous/<version>` (`--channel release` only after an approved
-   audit), `pnpm data:validate`.
+   audit), `pnpm data:validate`. A relative `--previous` path is resolved from the folder the command
+   is started in; the build stops when the folder holds no release.
 4. Update the main package's dependency (it is pinned exactly) and `CHANGELOG.md`.
 
 The build refuses to overwrite a release with the `release` channel. New IDs are added to `ids.json`;
