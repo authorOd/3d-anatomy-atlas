@@ -536,7 +536,9 @@ function coverageMarkdown(c: CoverageReport): string {
   lines.push('', '## Excluded assets', '');
   if (c.excludedAssets.length === 0) lines.push('None.');
   for (const a of c.excludedAssets) lines.push(`- **${a.title}** (${a.license}): ${a.reason}`);
-  lines.push('', '## Declared gaps', '', `${c.gaps.length} structures are listed without geometry:`, '');
+  lines.push('', '## Declared gaps', '');
+  if (c.gaps.length === 0) lines.push('None.');
+  else lines.push(`${c.gaps.length} structures are listed without geometry:`, '');
   const byAsset = new Map<string, string[]>();
   for (const g of c.gaps) {
     const k = g.asset ?? g.reason;

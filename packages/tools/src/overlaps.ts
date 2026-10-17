@@ -22,11 +22,12 @@
  * Contributor(s): see the source history and accompanying copyright notices.
  */
 /**
- * Reviews the trunk organs of the last export for overlaps and junction gaps (a maintainer tool):
- * runs packages/tools/blender/check_overlaps.py on .work/zanatomy/export and writes
- * .work/zanatomy/overlaps.json. Run it after pnpm data:export.
+ * Reviews the last export for overlaps (a maintainer tool): runs
+ * packages/tools/blender/check_overlaps.py on .work/zanatomy/export. The trunk organs (overlaps and
+ * junction gaps) go to .work/zanatomy/overlaps.json; `--region head` reviews the brain against the
+ * cranial bones and the dura and writes .work/zanatomy/overlaps-head.json. Run it after pnpm data:export.
  *
- *   pnpm data:overlaps [--work .work/zanatomy]   (BLENDER=/path/to/blender to override)
+ *   pnpm data:overlaps [--region trunk|head] [--work .work/zanatomy]   (BLENDER=/path/to/blender to override)
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -34,7 +35,10 @@ import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { REPO_ROOT, WORK_DIR } from './lib/io.js';
 
-const { values } = parseArgs({ options: { work: { type: 'string', default: join(WORK_DIR, 'zanatomy') } } });
+const { values } = parseArgs({
+  options: { work: { type: 'string', default: join(WORK_DIR, 'zanatomy') }, region: { type: 'string', default: 'trunk' } },
+});
+if (values.region !== 'trunk' && values.region !== 'head') throw new Error(`--region must be trunk or head, not ${values.region}`);
 const exportDir = join(values.work!, 'export');
 if (!existsSync(join(exportDir, 'export.json'))) throw new Error(`No export in ${exportDir}; run pnpm data:export first`);
 execFileSync(
@@ -50,7 +54,9 @@ execFileSync(
     '--export',
     exportDir,
     '--out',
-    join(values.work!, 'overlaps.json'),
+    join(values.work!, values.region === 'head' ? 'overlaps-head.json' : 'overlaps.json'),
+    '--region',
+    values.region,
   ],
   { stdio: 'inherit' },
 );

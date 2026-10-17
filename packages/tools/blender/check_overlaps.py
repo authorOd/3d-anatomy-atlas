@@ -19,10 +19,11 @@
 # All portions of the code written by authorOd are Copyright (c) 2026 authorOd.
 # All Rights Reserved.
 # Contributor(s): see the source history and accompanying copyright notices.
-"""Overlap and junction review of the trunk organs in an export (a maintainer tool).
+"""Overlap and junction review of the trunk organs or the head in an export (a maintainer tool).
 
 Usage (pnpm data:overlaps runs it after pnpm data:export):
   blender -b --factory-startup --python check_overlaps.py -- --export <export dir> --out <report.json>
+      [--region trunk|head]
 
 Intersections: for every pair of structures whose boxes overlap, up to 2000 points of the surface
 of each (vertices and area-weighted points of the triangles, so that large triangles cutting
@@ -34,6 +35,16 @@ measured to the other's surface. Junctions: for every open boundary loop of a
 structure (six edges or more), the nearest other structure and the largest gap to it. Parts of
 one structure, ducts, mucosa, thin sheets (omenta, mesocolon, pleura, taeniae) and the head and
 pelvic organs are left out; anatomical passages and parts joined by design are reported apart.
+
+Head (--region head): the brain against the bones of the cranial vault and base and the dura.
+The cortex regions are cut from one surface and lie on the white matter of the telencephalon, so
+they are not tested against each other or against it; the white matter encloses the basal nuclei,
+thalamus and ventricles by construction, so it is tested only against the cerebellum, brainstem,
+bones and dura. A pair is measured only when the surfaces cross or one encloses the other (a BVH
+overlap test first, which keeps the many neighbouring pairs fast). The falx cerebri and the
+tentorium cerebelli are thin sheets: for them the review measures how far a structure reaches
+into or across the sheet, along the axis across it, from the side it belongs to (the left
+hemisphere at +X of the falx, the cerebrum above the tentorium and the cerebellum below it).
 """
 
 import json
@@ -54,6 +65,7 @@ def arg(name, default=None):
 
 EXPORT = os.path.abspath(arg("--export", "export"))
 OUT = os.path.abspath(arg("--out", "overlaps.json"))
+REGION = arg("--region", "trunk")
 rng = np.random.default_rng(5)
 with open(os.path.join(EXPORT, "export.json"), encoding="utf-8") as fh:
     exp = json.load(fh)
@@ -96,8 +108,26 @@ def mesh(record):
 
 
 records = {o["name"]: o for o in exp["objects"]}
-names = [o["name"] for o in exp["objects"] if o["system"].startswith("8:") and not EXCLUDE.search(o["name"])]
-names += [n for n in NEIGHBOURS if n in records]
+# Head: the cranial bones, the dura sheets with the axis across each, and the groups of the brain.
+SKULL = ["Frontal bone", "Parietal bone.l", "Parietal bone.r", "Occipital bone", "Temporal bone.l", "Temporal bone.r",
+         "Sphenoid bone", "Ethmoid bone"]
+SHEETS = {"Falx cerebri": 0, "Tentorium cerebelli.l": 2, "Tentorium cerebelli.r": 2}
+CORTEX = {"Frontal lobe.g", "Parietal lobe.g", "Temporal lobe.g", "Occipital lobe.g", "Limbic lobe.g", "Insula.g",
+          "Interlobar sulci.g"}
+WHITE = ["White matter of telencephalon.l", "White matter of telencephalon.r"]
+if REGION == "head":
+    brain = [o for o in exp["objects"] if "Brain.g" in o["parents"]]
+    cortex = [o["name"] for o in brain if CORTEX & set(o["parents"]) and not o["name"].startswith("Hippocampus")]
+    cortex += [n for n in WHITE if n in records]
+    below = {o["name"] for o in brain if "Cerebellum.g" in o["parents"]}
+    hind = below | {o["name"] for o in brain if "Brainstem.g" in o["parents"]}
+    others = [o["name"] for o in brain if o["name"] not in cortex]
+    names = cortex + others + [n for n in SKULL + list(SHEETS) if n in records]
+elif REGION == "trunk":
+    names = [o["name"] for o in exp["objects"] if o["system"].startswith("8:") and not EXCLUDE.search(o["name"])]
+    names += [n for n in NEIGHBOURS if n in records]
+else:
+    raise SystemExit(f"--region must be trunk or head, not {REGION}")
 meshes = {}
 for n in names:
     pos, tri = mesh(records[n])
@@ -159,6 +189,81 @@ def penetration(a, b):
         cand = cand[rng.choice(len(cand), 2000, replace=False)]
     depths = [tree_b.find_nearest(Vector(p.tolist()))[3] for p in cand if inside(tree_b, p.tolist())]
     return round(float(max(depths)) * 1000, 1) if depths else 0.0
+
+
+def boxes_meet(a, b, margin=0.0):
+    return not (np.any(meshes[a][4] + margin < meshes[b][3]) or np.any(meshes[b][4] + margin < meshes[a][3]))
+
+
+def crossing(a, b):
+    """The surfaces cross, or one encloses the other (tested at one vertex of each)."""
+    if meshes[a][2].overlap(meshes[b][2]):
+        return True
+    for x, y in ((a, b), (b, a)):
+        p = meshes[x][0][0].tolist()
+        if parity(meshes[y][2], p) and enclosed(meshes[y][2], p):
+            return True
+    return False
+
+
+def sheet_reach(sheet, name, side):
+    """How far a structure reaches into or across a dura sheet along the axis across it (mm), from the
+    side it belongs to (side 1: the + side of the axis). The sheet is gridded in 2 mm cells over the
+    other two axes; steep cells (more than 3 mm across) are skipped."""
+    axis = SHEETS[sheet]
+    other = [i for i in range(3) if i != axis]
+    spos = meshes[sheet][0]
+    lo, hi = {}, {}
+    for k, v in zip(map(tuple, np.floor(spos[:, other] / 0.002).astype(np.int64)), spos[:, axis]):
+        lo[k] = min(lo.get(k, v), v)
+        hi[k] = max(hi.get(k, v), v)
+    pts = surface_points(meshes[name][0], meshes[name][1], meshes[sheet][3] - 0.002, meshes[sheet][4] + 0.002)
+    if len(pts) > 20000:
+        pts = pts[rng.choice(len(pts), 20000, replace=False)]
+    reach = 0.0
+    for p, k in zip(pts, map(tuple, np.floor(pts[:, other] / 0.002).astype(np.int64))):
+        if k in lo and hi[k] - lo[k] <= 0.003:
+            reach = max(reach, hi[k] - p[axis] if side > 0 else p[axis] - lo[k])
+    return round(float(reach) * 1000, 1)
+
+
+if REGION == "head":
+    pairs, sheets = [], []
+    tests = [(a, b) for a in cortex for b in others if a not in WHITE or b in hind]
+    tests += [(a, b) for a in cortex + others for b in SKULL if b in meshes]
+    # Midline structures under the falx (the corpus callosum, the commissures, the septum pellucidum).
+    tests += [("Falx cerebri", b) for b in others if "Falx cerebri" in meshes and not b.endswith((".l", ".r"))]
+    for a, b in tests:
+        if boxes_meet(a, b) and crossing(a, b):
+            depth = max(penetration(a, b), penetration(b, a))
+            if depth > 0:
+                pairs.append({"a": a, "b": b, "kind": "overlap", "maxMm": depth})
+    for sheet, axis in SHEETS.items():
+        if sheet not in meshes:
+            continue
+        for n in cortex + others:
+            if axis == 0:
+                side = 1 if n.endswith(".l") else -1 if n.endswith(".r") else 0
+            else:
+                side = 1 if n in cortex else -1 if n in below else 0
+            if side and boxes_meet(sheet, n, 0.002):
+                reach = sheet_reach(sheet, n, side)
+                if reach > 0:
+                    sheets.append({"sheet": sheet, "structure": n, "reachMm": reach})
+    pairs.sort(key=lambda r: -r["maxMm"])
+    sheets.sort(key=lambda r: -r["reachMm"])
+    with open(OUT, "w", encoding="utf-8") as fh:
+        json.dump({"region": "head", "pairs": pairs, "sheets": sheets}, fh, indent=1)
+    print(f"{len(names)} structures, {len(tests)} pairs tested; report: {OUT}")
+    print("Overlaps deeper than 2 mm:")
+    for r in pairs:
+        if r["maxMm"] > 2:
+            print(f"  {r['maxMm']:5.1f} mm  {r['a']} <-> {r['b']}")
+    print("Reaching into or across the dura by more than 2 mm:")
+    for r in sheets:
+        if r["reachMm"] > 2:
+            print(f"  {r['reachMm']:5.1f} mm  {r['structure']} -> {r['sheet']}")
+    sys.exit(0)
 
 
 pairs = []
