@@ -1,22 +1,19 @@
 # Data roadmap
 
 What the data does not include yet, and the places in the geometry that are planned to be fixed.
-State as of data `1.1.0`. What these mean for users is in the [known limitations](known-limitations.md);
+State as of data `1.2.0`. What these mean for users is in the [known limitations](known-limitations.md);
 the corrections already made are listed in the coverage report of the release
-(`packages/data/releases/1.1.0/reports/COVERAGE.md`).
+(`packages/data/releases/1.2.0/reports/COVERAGE.md`).
 
 ## Not included yet
 
 ### Structures without geometry
 
-They are in the tree and search, marked "no geometry".
-
-| Group | Structures | Why | What is needed |
-| --- | ---: | --- | --- |
-| Cerebral cortex: gyri and sulci of the telencephalon (for example `nervous.middle_frontal_gyrus_l`) | 128 | The Z-Anatomy meshes come from "Brainder" (FreeSurfer surfaces with the Destrieux parcellation); the licence of that material is not confirmed. | The licence confirmed, or an open replacement model. |
-| White matter: the white matter of the telencephalon (left and right), corpus callosum, fornix, anterior and hippocampal commissures, stria terminalis | 9 | Models of the University of Washington, used in the source without a stated licence. | The licence confirmed, or an open replacement model. |
-
-The kidneys and the inner ear, gaps in `1.0`, come from the Human Reference Atlas and OpenEar since `1.1.0`.
+None since `1.2.0`. The kidneys and the inner ear, gaps in `1.0`, come from the Human Reference Atlas
+and OpenEar since `1.1.0`. The cerebral cortex (128 structures) and the white matter (9), gaps in
+`1.0` and `1.1` because the licence of their source was not confirmed, are included since `1.2.0`:
+compared with the original files, they are Brain for Blender surfaces (CC BY-SA 3.0) and
+BodyParts3D meshes (the licence registry, `sources/licenses.json`, has the details).
 
 ### Names
 
@@ -37,7 +34,7 @@ The kidneys and the inner ear, gaps in `1.0`, come from the Human Reference Atla
 
 ## Planned geometry fixes
 
-Found by `pnpm data:overlaps` on the export of `1.1.0`: the trunk organs and their neighbouring
+Found by `pnpm data:overlaps` on the export of `1.2.0` (the trunk is the same as in `1.1.0`): the trunk organs and their neighbouring
 muscles, bones and great vessels. The depth is that of the deepest sampled point of one structure
 inside the other; it varies by about 0.5 mm from run to run, because the surface points are
 sampled. Not listed: contacts under 2 mm, anatomical passages (the aorta, the inferior vena cava, the
@@ -96,8 +93,50 @@ neighbours (at most 1.3 mm of contact).
 | 4 | Right kidney: renal pelvis and major calices (`visceral.renal_pelvis_r`) | 2.0 (0.2 on average) | The same at the pelvis. | The same. |
 | 5 | Duodenum near the pancreas (`visceral.duodenum`) | 1.3 | A small opening (radius 0.5 mm) in the wall of the duodenum. | Close the opening (`close-hole`). |
 
+### Head
+
+Found by `pnpm data:overlaps --region head` on the export of `1.2.0`: the brain against the bones of
+the cranial vault and base and the dura (the falx cerebri and the tentorium cerebelli). The cortex
+regions and the white matter of the telencephalon come from Brain for Blender, the other brain
+structures and the bones from BodyParts3D: two bodies, so they overlap a little where they meet.
+For the falx and the tentorium the depth is how far a structure reaches into or across the sheet
+from its own side; no part of the brain crosses the falx (at most 1.3 mm into it). Not listed:
+contacts under 2 mm. The cortex regions are cut from one surface and lie on the white matter, so they
+are not checked against each other or against it; the white matter encloses the basal nuclei, the
+thalamus and the ventricles by construction. Priority as above.
+
+| # | Structure | Overlaps with | Depth, mm | Kind | Priority |
+| ---: | --- | --- | ---: | --- | --- |
+| 1 | Cingulate gyrus, posteroventral part, left and right (`nervous.cingulate_gyrus_posteroventral_part_l`, `_r`) | Corpus callosum (`nervous.corpus_callosum`) | 7.1 | cortex / tract | medium |
+| 2 | Anterior quadrangular lobule, left and right (`nervous.anterior_quadrangular_lobule_l`, `_r`) | Tentorium cerebelli, reached across (`nervous.tentorium_cerebelli_l`, `_r`) | 6.8 | cerebellum / dura | medium |
+| 3 | Olfactory sulcus, left and right (`nervous.olfactory_sulcus_l`, `_r`) | Amygdaloid body, left and right (`nervous.amygdaloid_body_l`, `_r`) | 4.5 | cortex / nucleus | medium |
+| 4 | Inferior temporal gyrus, left and right (`nervous.inferior_temporal_gyrus_l`, `_r`) | Temporal bone, left and right (`skeletal.temporal_bone_l`, `_r`) | 4.0 | cortex / bone | medium |
+| 5 | Medial occipitotemporal (parahippocampal) gyrus, left and right (`nervous.medial_occipitotemporal_gyrus_parahippocampal_l`, `_r`) | Amygdaloid body, left and right (`nervous.amygdaloid_body_l`, `_r`) | 3.9 | cortex / nucleus | low |
+| 6 | Inferior occipital gyrus and sulcus, left and right (`nervous.inferior_occipital_gyrus_and_sulcus_l`, `_r`) | Occipital bone (`skeletal.occipital_bone`) | 3.7 | cortex / bone | low |
+| 7 | Triangular part of the inferior frontal gyrus, left and right (`nervous.triangular_part_of_inferior_frontal_gyrus_l`, `_r`) | Frontal bone (`skeletal.frontal_bone`) | 3.1 | cortex / bone | low |
+| 8 | Inferior semilunar lobule, left and right (`nervous.inferior_semilunar_lobule_l`, `_r`) | Occipital bone (`skeletal.occipital_bone`) | 3.1 | cerebellum / bone | low |
+| 9 | Medial occipitotemporal (parahippocampal) gyrus, left and right | Hippocampus, left and right (`nervous.hippocampus_l`, `_r`) | 2.9 | cortex / hippocampus | low |
+| 10 | Medial occipitotemporal (parahippocampal) gyrus, left and right | Temporal bone, left and right | 2.8 | cortex / bone | low |
+| 11 | Occipital pole, left and right (`nervous.occipital_pole_l`, `_r`) | Occipital bone | 2.8 | cortex / bone | low |
+| 12 | Orbital part of the inferior frontal gyrus, left and right (`nervous.orbital_part_of_inferior_frontal_gyrus_l`, `_r`) | Frontal bone | 2.8 | cortex / bone | low |
+| 13 | Temporal pole, left and right (`nervous.temporal_pole_l`, `_r`) | Temporal bone, left and right | 2.8 | cortex / bone | low |
+| 14 | Medial occipitotemporal (parahippocampal) gyrus, left and right | Lateral ventricle, left and right (`nervous.lateral_ventricle_l`, `_r`) | 2.6 | cortex / ventricle | low |
+| 15 | Orbital gyri, left and right (`nervous.orbital_gyri_l`, `_r`) | Sphenoid bone (`skeletal.sphenoid_bone`) | 2.6 | cortex / bone | low |
+| 16 | Frontomarginal gyrus and sulcus, left and right (`nervous.orbital_gyri_frontomarginal_gyrus_and_sulcus_l`, `_r`) | Frontal bone | 2.4 | cortex / bone | low |
+| 17 | Temporal pole, left and right | Sphenoid bone | 2.4 | cortex / bone | low |
+| 18 | Calcarine sulcus, right (`nervous.calcarine_sulcus_r`) | Lateral ventricle, right | 2.2 | cortex / ventricle | low |
+| 19 | Temporal pole, left and right | Amygdaloid body, left and right | 2.2 | cortex / nucleus | low |
+| 20 | Cuneus, left (`nervous.cuneus_l`) | Occipital bone | 2.2 | cortex / bone | low |
+| 21 | Middle temporal gyrus, left (`nervous.middle_temporal_gyrus_l`) | Parietal bone, left (`skeletal.parietal_bone_l`) | 2.2 | cortex / bone | low |
+| 22 | Orbital gyri, left and right | Frontal bone | 2.2 | cortex / bone | low |
+| 23 | Superior occipital gyri, left and right (`nervous.superior_occipital_gyri_l`, `_r`) | Occipital bone | 2.2 | cortex / bone | low |
+| 24 | Middle frontal gyrus, right (`nervous.middle_frontal_gyrus_r`) | Frontal bone | 2.1 | cortex / bone | low |
+| 25 | White matter of the telencephalon, right (`nervous.white_matter_of_telencephalon_r`) | Sphenoid bone | 2.1 | white matter / bone | low |
+
 ## Updating this list
 
-After `pnpm data:export`, run `pnpm data:overlaps` (maintainers; see the [data pipeline](data-pipeline.md)).
-It prints the overlaps deeper than 2 mm and the open ends 0.5–5 mm from the nearest structure, and
-writes the full report to `.work/zanatomy/overlaps.json`.
+After `pnpm data:export`, run `pnpm data:overlaps` and `pnpm data:overlaps --region head`
+(maintainers; see the [data pipeline](data-pipeline.md)). They print the overlaps deeper than 2 mm
+(for the trunk also the open ends 0.5–5 mm from the nearest structure, for the head the reach into or
+across the dura) and write the full reports to `.work/zanatomy/overlaps.json` and
+`.work/zanatomy/overlaps-head.json`.

@@ -32,7 +32,7 @@
  *          --work <dir> (default .work/zanatomy), --previous <release dir> (chunk files whose
  *          decoded content is unchanged are copied from it byte for byte)
  */
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import type {
   AssetEntry,
@@ -95,6 +95,9 @@ async function main() {
   const version = values.version ?? pkg.version;
   const channel = values.channel as Manifest['channel'];
   const work = values.work!;
+  // pnpm runs this script in packages/tools: a relative path means the folder the command was started in.
+  const previous = values.previous ? resolve(process.env.INIT_CWD ?? process.cwd(), values.previous) : undefined;
+  if (previous && !fileExists(join(previous, 'manifest.json'))) throw new Error(`No data release in ${previous} (--previous)`);
   const exportDir = join(work, 'export');
   const ta2Path = join(work, 'source', 'TA2.csv');
   const existing = join(DATA_RELEASES, version, 'manifest.json');
@@ -339,7 +342,7 @@ async function main() {
       { reason: 'Label anchor objects (".j")', count: tree.skippedAnchors.length },
     ],
     corrections,
-    ...(values.previous ? { previous: values.previous } : {}),
+    ...(previous ? { previous } : {}),
   };
   const summary = await writeRelease(input);
   registry.save();

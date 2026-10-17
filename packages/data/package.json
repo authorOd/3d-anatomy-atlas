@@ -1,6 +1,6 @@
 {
   "name": "@authorod/svitylo-3d-anatomy-data",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Versioned anatomy data release for Svitylo 3D Anatomy Atlas: GLB geometry (two quality levels), manifest, dictionaries, coverage report, attribution and licences.",
   "keywords": [
     "anatomy",

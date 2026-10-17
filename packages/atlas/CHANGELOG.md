@@ -1,5 +1,12 @@
 # Changelog — @authorod/svitylo-3d-anatomy-atlas
 
+## 1.3.0 — 2026-10-17
+
+Compatible data: `@authorod/svitylo-3d-anatomy-data@1.2.0`.
+
+- Data 1.2.0: the cerebral cortex and the white matter (Brain for Blender, BodyParts3D); every
+  structure has geometry. The code is unchanged.
+
 ## 1.2.0 — 2026-10-04
 
 Compatible data: `@authorod/svitylo-3d-anatomy-data@1.1.0`.

@@ -17,7 +17,7 @@ servers; Svitylo is one of its consumers.
 **Demo:** [svitylo.com/3d-anatomy-atlas](https://svitylo.com/3d-anatomy-atlas), the full atlas on
 Svitylo.
 
-> **Status: `1.1.0`.** The atlas and the note embeds are implemented and covered by tests. The
+> **Status: `1.3.0`.** The atlas and the note embeds are implemented and covered by tests. The
 > data is on the `preview` channel: the licence audit of the included models is pending, and no
 > anatomical review has been done (see [Open items](#open-items)).
 
@@ -156,7 +156,7 @@ privately, as [SECURITY.md](SECURITY.md) describes.
 | [docs/known-limitations.md](docs/known-limitations.md) | Known limitations |
 | [docs/data-roadmap.md](docs/data-roadmap.md) | What the data does not include yet; planned geometry fixes |
 | [packages/data/README.md](packages/data/README.md) | Data package, versions, licences, coverage |
-| [Coverage report](packages/data/releases/1.1.0/reports/COVERAGE.md) | Systems, gaps, names, review statuses |
+| [Coverage report](packages/data/releases/1.2.0/reports/COVERAGE.md) | Systems, gaps, names, review statuses |
 | [CHANGELOG.md](CHANGELOG.md) | History of changes |
 
 ## Repository layout
@@ -224,9 +224,11 @@ These items cannot be replaced by assumptions; `pnpm release:check` reports the 
 machine-readable sign (the audit and channel of the data).
 
 1. **Model audit.** All included Z-Anatomy assets have the audit status `pending`, so the data is on
-   the `preview` channel and the atlas shows a notice about it. Assets with NC or unclear rights are
-   excluded and marked as gaps (cerebral cortex, white matter); the kidneys and the inner ear come
-   from other open models (Human Reference Atlas, OpenEar; CC BY 4.0), also pending audit.
+   the `preview` channel and the atlas shows a notice about it. Assets with NC rights are excluded;
+   the kidneys and the inner ear come from other open models (Human Reference Atlas, OpenEar; CC BY
+   4.0). The cerebral cortex and the white matter, whose sources Z-Anatomy names without a licence,
+   proved to be Brain for Blender surfaces (CC BY-SA 3.0) and BodyParts3D meshes. All are pending
+   audit.
    After an approved audit: a data build with the `release` channel.
 2. **Anatomical review.** The data is marked as unreviewed. The Ukrainian names are drafts (most of
    them machine-assisted, prepared by an AI language model) and are shown with a dotted underline

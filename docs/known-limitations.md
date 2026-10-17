@@ -1,19 +1,26 @@
 # Known limitations
 
-State as of `1.1.1` (data `1.1.0`, channel `preview`; Markdown package `1.0.2`, Laravel package
+State as of `1.3.0` (data `1.2.0`, channel `preview`; Markdown package `1.0.2`, Laravel package
 `1.0.1`).
 
 ## Data
 
-- **One model**: the adult male body from Z-Anatomy (derived from BodyParts3D), with the kidneys
-  and the ear from other open models (below). General coverage: an organ being present does not
+- **One model**: the adult male body from Z-Anatomy (derived from BodyParts3D; its cerebral cortex
+  and white matter from Brain for Blender), with the kidneys and the ear from other open models
+  (below). General coverage: an organ being present does not
   mean that all its internal parts are modelled.
 - **The licence audit is not complete.** All included assets have the status `pending`; the data
   release is marked as a preview, and the component shows this notice.
-- **Excluded for licence reasons (declared gaps, 137 structures):** the surfaces of the cerebral
-  cortex (128 structures) and the white matter (9) — the licence of the original source is not
-  confirmed. So the brain is shown **without the cerebral cortex and the white matter**. They are in
-  the tree and search, marked "no geometry".
+- **The cerebral cortex and the white matter of the telencephalon come from another brain.**
+  Z-Anatomy took them from Brain for Blender (Anderson M. Winkler, CC BY-SA 3.0: the brain of one
+  person, processed with FreeSurfer) and fitted them into the BodyParts3D skull. The 126 gyri and
+  sulci (the Destrieux parcellation) and the white matter are the left hemisphere, deformed in
+  places; the right hemisphere is its mirror image, so the two hemispheres are exactly symmetric.
+  Each gyrus or sulcus is a closed piece of grey matter between the outer surface of the cortex and
+  the white matter. The corpus callosum, the commissures, the fornix, the stria terminalis, the
+  hippocampus and the deep nuclei come from BodyParts3D, another body (the source credits the
+  white matter tracts to the University of Washington, but they are BodyParts3D meshes). Since
+  `1.2.0` every structure in the tree has geometry.
 - **Kidneys and ear from other open models (CC BY 4.0).** The kidneys (fibrous capsule, hilum,
   cortex, renal columns, pyramids, papillae; the renal pelvis with the major and minor calices) come
   from the Human Reference Atlas (Visible Human Male); the cochlea (scala vestibuli and scala
@@ -69,7 +76,18 @@ State as of `1.1.1` (data `1.1.0`, channel `preview`; Markdown package `1.0.2`, 
   by up to 2–3 mm at a few points (under 1 mm on average). These show only with transparency or when
   parts of the body are hidden; they are planned for a later data release (the full list with
   priorities is in the [data roadmap](data-roadmap.md)). Only the trunk organs and their neighbours
-  were checked; elsewhere the source can still have small gaps or overlaps.
+  and the head (below) were checked; elsewhere the source can still have small gaps or overlaps.
+- **Overlaps in the head** (`pnpm data:overlaps --region head`). The Brain for Blender cortex and
+  the BodyParts3D structures around it overlap a little where they meet: the posteroventral part of
+  the cingulate gyrus enters the corpus callosum by 7 mm; the olfactory sulcus and the
+  parahippocampal gyrus enter the amygdala by 4–4.5 mm, and the parahippocampal gyrus the
+  hippocampus and the lateral ventricle by 2.5–3 mm; the cortex enters the bones of the skull by
+  2–4 mm at the base and at the back (the inferior temporal gyrus the temporal bone by 4 mm, the
+  inferior occipital gyrus the occipital bone by 3.7 mm). Of the BodyParts3D structures, the
+  anterior quadrangular lobules of the cerebellum reach 7 mm across the tentorium cerebelli and the
+  cerebellum enters the occipital bone by 3 mm. No part of the brain crosses the falx cerebri.
+  These show only with transparency or when the bones are hidden; the list is in the
+  [data roadmap](data-roadmap.md).
 - Muscle attachments (`insertions`) are hidden by default and are not part of "Load everything".
 
 ## Rendering
@@ -85,8 +103,8 @@ State as of `1.1.1` (data `1.1.0`, channel `preview`; Markdown package `1.0.2`, 
   profiling calls for it.
 - Materials are a colour palette without textures.
 - Economy mode: simplified geometry, `devicePixelRatio ≤ 1`, no specular highlights or rim light;
-  systems are not hidden. The whole body: ~56 MB (standard) or ~21 MB (economy) of network transfer;
-  ~3.04 million or ~0.85 million triangles.
+  systems are not hidden. The whole body: ~59 MB (standard) or ~23 MB (economy) of network transfer;
+  ~3.21 million or ~0.92 million triangles.
 - The loaded geometry of the visible scene stays in GPU memory; outside the current view, decoded
   geometry is kept within a 384 MB budget (LRU).
 - Several full atlases on a page are independent and do not share GPU resources. Embeds share the

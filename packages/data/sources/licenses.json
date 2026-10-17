@@ -23,8 +23,8 @@
         "url": "https://creativecommons.org/licenses/by-sa/4.0/"
       },
       "changes": "Modifiers evaluated in Blender (subdivision capped at level 1) and curves converted to their bevelled surfaces; declared geometry corrections (sources/geometry-fixes.json, listed in the coverage report and noted in the structure cards): the teaching window in the anterior wall of the stomach and its mucosa closed with a patch that continues the wall, the lower end of the oesophagus blended into the cardiac opening, the lower edge of the laryngopharynx laid onto the oesophagus, and the lower end of the small intestine blended onto the ascending colon; converted to +Y up, metres, origin on the floor between the heels; each structure simplified into two quality levels with meshoptimizer; merged into region chunks with quantisation and EXT_meshopt_compression; hierarchy and names moved into the manifest and dictionaries; display colours assigned by material name.",
-      "attribution": "“Z-Anatomy — The libre 3D atlas of anatomy”, CC BY-SA 4.0, based on “BodyParts3D, © The Database Center for Life Science”, CC BY-SA 2.1 Japan. Adapted for Svitylo 3D Anatomy Atlas.",
-      "permissionBasis": "License.txt of the pinned snapshot (sha256 196b66b5…) states that all Z-Anatomy code and content is licensed under CC BY-SA 4.0 and requires the BodyParts3D attribution (CC BY-SA 2.1 JP, which allows adaptations under later versions such as 4.0). Both licences allow commercial use with attribution and share-alike. Third-party models named in the snapshot are handled by separate records below.",
+      "attribution": "“Z-Anatomy — The libre 3D atlas of anatomy”, CC BY-SA 4.0, based on “BodyParts3D, © The Database Center for Life Science”, licensed under CC Attribution 4.0 International (CC BY-SA 2.1 Japan when Z-Anatomy adapted it). Adapted for Svitylo 3D Anatomy Atlas.",
+      "permissionBasis": "License.txt of the pinned snapshot (sha256 196b66b5…) states that all Z-Anatomy code and content is licensed under CC BY-SA 4.0 and requires the BodyParts3D attribution (CC BY-SA 2.1 JP, which allows adaptations under later versions such as 4.0). The Database Center for Life Science has licensed BodyParts3D under CC BY 4.0 since 2025-02-27 (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html). These licences allow commercial use with attribution (and share-alike for Z-Anatomy). The brain structures that the snapshot Readme credits as “White matter” from the University of Washington (the corpus callosum, the anterior and hippocampal commissures, the fornix and the stria terminalis) and the hippocampus are BodyParts3D 4.0 meshes (FJ1742, FJ1734, FJ1741, FJ1756/FJ1804, FJ1825, FJ1807): placed with one similarity transform (the one that puts the BodyParts3D basal nuclei, thalamus and ventricles onto the snapshot's), the right-side and midline meshes are vertex-identical or simplified copies within 0.4 mm, and the left stria terminalis and hippocampus are mirror images of the right ones (checked 2026-10-17), so they belong to this record. Third-party models named in the snapshot are handled by separate records below.",
       "commercialUse": "allowed",
       "audit": {
         "status": "pending",
@@ -108,53 +108,30 @@
       }
     },
     {
-      "id": "brainder-cortex",
-      "title": "Cerebral cortex surfaces — “Brainder” (FreeSurfer surfaces with Destrieux parcellation)",
+      "id": "brainder",
+      "title": "Brain for Blender — cerebral cortex and white matter surfaces (Anderson M. Winkler, brainder.org), as adapted in Z-Anatomy",
       "authors": [
-        "Brainder.org",
-        "FreeSurfer / Destrieux atlas authors"
+        "Anderson M. Winkler (Brain for Blender, brainder.org)",
+        "Gauthier Kervyn (Z-Anatomy: adaptation)"
       ],
       "source": {
-        "name": "Named in the Z-Anatomy snapshot Readme",
-        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
-        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e"
+        "name": "Brain for Blender: the pial surfaces with the Destrieux parcellation and the white surface of one subject (FreeSurfer 5.2.0), as adapted in Z-Anatomy/Models-of-human-anatomy (Startup.blend)",
+        "url": "https://brainder.org/research/brain-for-blender/",
+        "version": "Z-Anatomy commit e38ea5e6c7e22d229a975f3fde563a5aca52099e; compared with the Brain for Blender files pial_Destrieux_obj and white_Full_obj (2017-09-06)",
+        "date": "2026-10-17"
       },
       "license": {
-        "id": "LicenseRef-unverified",
-        "name": "Not verified",
-        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy/blob/master/License.txt"
+        "id": "CC-BY-SA-3.0",
+        "name": "Creative Commons Attribution-ShareAlike 3.0 Unported (adaptations under CC BY-SA 4.0, Section 4(b))",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0/"
       },
-      "changes": "Not included.",
-      "attribution": "Not included in this release.",
-      "permissionBasis": "The snapshot Readme names “Brainder” as used or adapted without stating its licence. Cortex meshes of the telencephalon lobes carry Destrieux atlas labels (e.g. “Lat_Fis-ant-Horizont”), which indicates this origin. Blocked until the licence of the original material is confirmed.",
-      "commercialUse": "unknown",
+      "changes": "In Z-Anatomy: the pial and white surfaces of the left hemisphere joined into one closed region per Destrieux label (gyri and sulci), simplified, deformed in places to fit the skull and mirrored for the right hemisphere; the white surface remeshed into quadrilaterals and mirrored the same way. In this atlas: converted to +Y up, metres, origin on the floor between the heels; each structure simplified into two quality levels with meshoptimizer; merged into region chunks with quantisation and EXT_meshopt_compression; names moved into the dictionaries; display colours assigned by material name.",
+      "attribution": "“Brain for Blender” by Anderson M. Winkler (https://brainder.org/research/brain-for-blender/), CC BY-SA 3.0, as adapted in “Z-Anatomy — The libre 3D atlas of anatomy”, CC BY-SA 4.0; cortical parcellation of Destrieux et al. (2010), computed with FreeSurfer. Adapted for Svitylo 3D Anatomy Atlas.",
+      "permissionBasis": "The Brain for Blender page states that its models are by Anderson Winkler and licensed under CC BY-SA 3.0 Unported (checked 2026-10-17; the Internet Archive copy of 2016-04-03 has the same statement). Section 4(b) of that licence allows adaptations under a later version with the same licence elements, so the adapted meshes are distributed under CC BY-SA 4.0 like the rest of the data; both allow commercial use with attribution and share-alike. The snapshot Readme names “Brainder” and credits “White matter” to the University of Washington. Compared with the Brain for Blender files, the cortex regions and the white matter of the telencephalon are surfaces of its left hemisphere: 15 mm patches of the snapshot surfaces fit them to 0.15–0.3 mm in about a quarter of the places (elsewhere Z-Anatomy deformed them), while the right hemisphere, used as a control, fits nowhere closer than 0.5 mm (2026-10-17).",
+      "commercialUse": "allowed",
       "audit": {
         "status": "pending",
-        "notes": "Confirm the licence of the Brainder material and of the underlying FreeSurfer surfaces."
-      }
-    },
-    {
-      "id": "uw-white-matter",
-      "title": "White matter models — University of Washington",
-      "authors": [
-        "University of Washington"
-      ],
-      "source": {
-        "name": "Named in the Z-Anatomy snapshot Readme",
-        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
-        "version": "commit e38ea5e6c7e22d229a975f3fde563a5aca52099e"
-      },
-      "license": {
-        "id": "LicenseRef-unverified",
-        "name": "Not verified",
-        "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy/blob/master/License.txt"
-      },
-      "changes": "Not included.",
-      "attribution": "Not included in this release.",
-      "permissionBasis": "The snapshot Readme names “White matter” from the University of Washington as used or adapted without a licence. The white matter group and the white matter of the telencephalon are blocked until the licence is confirmed.",
-      "commercialUse": "unknown",
-      "audit": {
-        "status": "pending"
+        "notes": "The Destrieux labels come from the atlas shipped with FreeSurfer (FreeSurfer Software License); confirm that labels computed by the software do not carry its terms."
       }
     },
     {
@@ -287,7 +264,7 @@
       ]
     },
     {
-      "asset": "brainder-cortex",
+      "asset": "brainder",
       "system": "7: Nervous system & Sense organs",
       "underGroup": [
         "Frontal lobe.g",
@@ -300,16 +277,19 @@
       ]
     },
     {
-      "asset": "uw-white-matter",
+      "asset": "brainder",
       "system": "7: Nervous system & Sense organs",
-      "underGroup": "White matter.g"
-    },
-    {
-      "asset": "uw-white-matter",
-      "system": "7: Nervous system & Sense organs",
-      "subtreeOf": [
+      "names": [
         "White matter of telencephalon.l",
         "White matter of telencephalon.r"
+      ]
+    },
+    {
+      "asset": "z-anatomy",
+      "system": "7: Nervous system & Sense organs",
+      "names": [
+        "Hippocampus.l",
+        "Hippocampus.r"
       ]
     }
   ]
