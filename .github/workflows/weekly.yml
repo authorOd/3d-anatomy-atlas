@@ -13,7 +13,8 @@ jobs:
   livewire:
     name: Livewire end-to-end
     if: github.repository == 'authorOd/3d-anatomy-atlas'
-    runs-on: ubuntu-latest
+    # Playwright 1.56.1 cannot install Chromium on Ubuntu 26.04 (ubuntu-latest since October 2026); 1.61 can.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
@@ -42,7 +43,8 @@ jobs:
   clean-install:
     name: Clean install
     if: github.repository == 'authorOd/3d-anatomy-atlas'
-    runs-on: ubuntu-latest
+    # Ubuntu 24.04 for the same Playwright reason as the Livewire job.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
