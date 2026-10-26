@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/authorOd/3d-anatomy-atlas/actions/workflows/ci.yml/badge.svg)](https://github.com/authorOd/3d-anatomy-atlas/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@authorod/svitylo-3d-anatomy-atlas?logo=npm)](https://www.npmjs.com/package/@authorod/svitylo-3d-anatomy-atlas)
+[![npm downloads](https://img.shields.io/npm/d18m/@authorod/svitylo-3d-anatomy-atlas?logo=npm)](https://www.npmjs.com/package/@authorod/svitylo-3d-anatomy-atlas)
 [![Packagist](https://img.shields.io/packagist/v/authorod/svitylo-anatomy-laravel?logo=packagist&logoColor=white)](https://packagist.org/packages/authorod/svitylo-anatomy-laravel)
 [![License: CPAL-1.0](https://img.shields.io/badge/license-CPAL--1.0-blue)](LICENSE.md)
 [![Demo](https://img.shields.io/badge/demo-svitylo.com-0051fe)](https://svitylo.com/3d-anatomy-atlas)
