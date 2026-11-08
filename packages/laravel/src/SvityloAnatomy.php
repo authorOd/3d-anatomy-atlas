@@ -81,7 +81,7 @@ final class SvityloAnatomy
         return (string) (new MarkdownConverter($environment))->convert($markdown);
     }
 
-    /** Embeds for the ```anatomy blocks of stored HTML (after sanitizing). */
+    /** Embeds for the ```anatomy blocks and the lone share-link paragraphs of stored HTML (after sanitizing). */
     public function html(string $html): string
     {
         return AnatomyHtml::transform($html, $this->options());

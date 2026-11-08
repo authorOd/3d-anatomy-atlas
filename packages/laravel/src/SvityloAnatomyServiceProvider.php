@@ -47,7 +47,7 @@ final class SvityloAnatomyServiceProvider extends ServiceProvider
         Blade::component('svitylo-anatomy-embed', Embed::class);
         // @anatomyMarkdown($note) — Markdown with embeds (escaped raw HTML, safe links).
         Blade::directive('anatomyMarkdown', fn (string $expression) => "<?php echo app(\\Authorod\\SvityloAnatomy\\SvityloAnatomy::class)->markdown({$expression}); ?>");
-        // @anatomyHtml($sanitizedHtml) — embeds for ```anatomy blocks of stored, sanitized HTML.
+        // @anatomyHtml($sanitizedHtml) — embeds for ```anatomy blocks and lone share links of stored, sanitized HTML.
         Blade::directive('anatomyHtml', fn (string $expression) => "<?php echo app(\\Authorod\\SvityloAnatomy\\SvityloAnatomy::class)->html({$expression}); ?>");
 
         if ($this->app->runningInConsole()) {
