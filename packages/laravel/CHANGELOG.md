@@ -1,5 +1,16 @@
 # Changelog — authorod/svitylo-anatomy-laravel
 
+## 1.1.0 — 2026-11-08
+
+- Added: with `share_urls`, a paragraph of stored HTML (`AnatomyHtml::transform`, `@anatomyHtml`,
+  `->html()`) that holds nothing but one atlas share link becomes an embed, as in Markdown: an
+  autolink that shows its own address (CKEditor's AutoLink stores it so) or the address as text;
+  spaces, `&nbsp;` and `<br>` around it do not count, entities (`&amp;`) are decoded. Every other
+  paragraph is left unchanged.
+- Fixed: a `<br>` inside a ```anatomy block of stored HTML counts as a line break, as CKEditor
+  stores the lines of a code block (before, the block was left unchanged as markup). Other markup
+  in the code still leaves the block unchanged.
+
 ## 1.0.1 — 2026-10-02
 
 - Fixed: the pattern of a block line no longer backtracks on long lines (it ran into the PCRE

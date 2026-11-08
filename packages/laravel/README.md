@@ -7,7 +7,7 @@ Integration of the [Svitylo 3D atlas](../../README.md) with Laravel and Livewire
 - a **league/commonmark** extension: ```anatomy blocks and "Share" links become embeds (the same
   HTML as the markdown-it plugin produces, checked on shared fixtures);
 - transformation of **stored HTML** (rich text editors, other Markdown renderers):
-  `<pre><code class="language-anatomy">` → embed;
+  `<pre><code class="language-anatomy">` and paragraphs with only a "Share" link → embed;
 - rules for **Symfony HtmlSanitizer**;
 - **Livewire 4**: atlas commands from PHP and atlas events in components. Embeds and the atlas
   carry `wire:ignore`, so component updates do not touch the 3D scene; `wire:navigate` and
@@ -75,6 +75,11 @@ default `true`).
 
 The same in PHP: `app(SvityloAnatomy::class)->markdown($text)`, `->html($html)`,
 `->embed("structure: cardiovascular.heart\nlabel: Heart")`.
+
+In stored HTML a `<br>` inside a ```anatomy block is a line break (CKEditor stores the lines of a
+code block so). With `share_urls`, a paragraph that holds nothing but one share link of the atlas
+(an autolink that shows its own address, or the address as text; spaces, `&nbsp;` and `<br>` around
+it do not count) becomes an embed, as in Markdown.
 
 With your own league/commonmark environment or `Str::markdown()`:
 
